@@ -1,5 +1,4 @@
 import React from "react";
-import Warper from "./Warper";
 import Popup from "reactjs-popup";
 //
 
@@ -19,4 +18,4 @@ const NestedLogin = () => (
   </Popup>
 );
 
-export default Warper(NestedLogin);
+export default NestedLogin;

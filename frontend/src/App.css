@@ -21,15 +21,6 @@ div {
   font-size: 2rem;
 }
 
-.example-warper {
-  width: 504%;
-  padding: 20px 5%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  border: 1px #cfcece dashed;
-}
-
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;
