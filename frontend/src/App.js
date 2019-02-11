@@ -5,6 +5,7 @@ import logo from './logo.png';
 import IngredientsList from "./components/IngredientsList";
 import NestedLogin from './components/nested.js'
 import NewUser from './components/NewUser.js'
+import SearchBar from './components/SearchBar.js'
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <NestedLogin />
         <NewUser />
         <IngredientsList />
+        <SearchBar />
       </div>
     );
   }
