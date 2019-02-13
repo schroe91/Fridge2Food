@@ -14,8 +14,10 @@ class App extends Component {
         <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
-          <NestedLogin />
-          <NewUser />
+          <div id="login">
+            <NestedLogin />
+            <NewUser />
+          </div>
         </div>
         <IngredientsList />
         <SearchBar />
