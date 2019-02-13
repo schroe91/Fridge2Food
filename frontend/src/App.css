@@ -5,8 +5,8 @@
 }
 
 #login {
-  position: relative;
-  left: 850px;
+  position: absolute;
+  left: 92%;
 }
 
 #logo {
