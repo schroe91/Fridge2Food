@@ -5,7 +5,7 @@ class NumOfIngredients extends React.Component {
 	render() {
 		return (
 			<ListGroup>
-        		<ListGroupItem className="justify-content-between"># of Recipes <Badge pill>0</Badge></ListGroupItem>
+        		<ListGroupItem className="justify-content-between"># of Ingredients<Badge pill>0</Badge></ListGroupItem>
 			</ListGroup>
 		);
 	}
