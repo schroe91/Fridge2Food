@@ -20,6 +20,10 @@
   font-size: 2rem;
 }
 
+#info-panel {
+  display: flex;
+}
+
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;

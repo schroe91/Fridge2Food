@@ -17,8 +17,10 @@ class App extends Component {
             <NestedLogin />
           </div>
         </div>
-        <IngredientsList />
-        <RecipeSearch />
+        <div id="info-panel">
+          <IngredientsList />
+          <RecipeSearch />
+        </div>
       </div>
     );
   }
