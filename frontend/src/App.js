@@ -5,6 +5,9 @@ import logo from './logo.png';
 import IngredientsList from "./components/IngredientsList"
 import NestedLogin from './components/nested.js'
 import RecipeSearch from './components/RecipeSearch'
+
+import NumOfIngredients from './components/NumOfIngredients'
+import NumOfRecipes from './components/NumOfRecipes'
 import IngredientCheckList from './components/IngredientChecklist'
 
 class App extends Component {
@@ -19,8 +22,14 @@ class App extends Component {
           </div>
         </div>
         <div id="info-panel">
-          <IngredientsList />
-          <RecipeSearch />
+          <div id="ingredients-panel">
+            <IngredientsList />
+            <NumOfIngredients />
+          </div>
+          <div id="recipe-panel">
+            <RecipeSearch />
+            <NumOfRecipes />
+          </div>
         </div>
         <IngredientCheckList />
       </div>
