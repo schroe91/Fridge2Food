@@ -10,6 +10,7 @@ import RecipeSearch from './components/RecipeSearch'
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
 import IngredientCheckList from './components/IngredientChecklist'
+import IngredientList from './components/IngredientList';
 
 class App extends Component {
   render() {
@@ -28,6 +29,12 @@ class App extends Component {
             <NumOfIngredients />
             <div id="ingredient-checklist">
             <IngredientCheckList />
+            </div>
+            <div id="ingredient-list">
+            <h3>Current Ingredients</h3>
+            <div id="ingredients">
+              <IngredientList />
+            </div>
             </div>
           </div>
           <div id="recipe-panel">
