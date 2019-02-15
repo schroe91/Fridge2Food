@@ -35,6 +35,12 @@
   padding-right: 100px;
 }
 
+#ingredient-checklist{
+  position: relative;
+  top: 50px;
+  left: -380px;
+  border: 1px solid skyblue
+}
 #recipe-panel * {
   padding-right: 150px;
 }
