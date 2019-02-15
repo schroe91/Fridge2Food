@@ -5,8 +5,8 @@
 }
 
 #login {
-  position: relative;
-  left: 850px;
+  position: absolute;
+  left: 92%;
 }
 
 #logo {
@@ -16,8 +16,31 @@
 
 #title {
   position: relative;
-  top: -19px;
+  top: 10px;
   font-size: 2rem;
+}
+
+#info-panel {
+  position: absolute;
+  display: flex;
+  padding-top: 20px;
+}
+
+#ingredients-panel * {
+  padding-right: 20px;
+}
+
+#ingredients-panel {
+  display: flex;
+  padding-right: 100px;
+}
+
+#recipe-panel * {
+  padding-right: 150px;
+}
+
+#recipe-panel {
+  display: flex;
 }
 
 .button {

@@ -8,7 +8,7 @@ class SearchBar extends React.Component {
 					<input
 						type="text"
 						name="search-input"
-						placeholder="Search..."
+						placeholder="Search for recipe"
 					/>
 				</p>
 			</form>

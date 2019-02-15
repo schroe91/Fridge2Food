@@ -1,6 +1,6 @@
 import React from "react";
 import Popup from "reactjs-popup";
-//
+import { Button } from 'reactstrap';
 
 const NestedLogin = () => (
   <Popup
@@ -14,6 +14,11 @@ const NestedLogin = () => (
     </div>
     <div>
       <input type="text" placeholder="Password" size="35" />
+    </div>
+    <div>
+      <Button>Submit</Button>
+      <Button>Forgot Password</Button>
+      <Button>Create New User</Button>
     </div>
   </Popup>
 );
