@@ -26,6 +26,10 @@
   padding-top: 20px;
 }
 
+h3{
+  color: darkslategray
+}
+
 #ingredients-panel * {
   padding-right: 20px;
 }
@@ -35,19 +39,17 @@
   padding-right: 100px;
 }
 #ingredient-checklist{
+  height: auto;
+  width: auto;
   position: relative;
-  top: 50px;
-  left: -380px;
-  border: 1px solid skyblue
+  float: left;
 }
 #ingredient-list{
-  position: relative;
   display: flex;
   top: 5px;
   left: -200px;
 }
 #ingredients{
-  position: relative;
   top: 70px;
   left: -180px;
   border-top-width: 3px;
@@ -55,11 +57,13 @@
   border-top:skyblue;
 }
 #recipe-panel * {
-  padding-right: -100px;
+  left: -500px;
 }
-
 #recipe-panel {
   display: flex;
+}
+#num-of-recipe{
+  left: -500px;
 }
 .button {
   font-family: "Roboto", Arial, sans-serif;
