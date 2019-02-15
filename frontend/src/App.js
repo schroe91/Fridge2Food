@@ -31,7 +31,9 @@ class App extends Component {
           </div>
           <div id="recipe-panel">
             <RecipeSearch />
+            <div id="num-of-recipes">
             <NumOfRecipes />
+            </div>
           </div>
         </div>
       </div>

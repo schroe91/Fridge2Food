@@ -34,7 +34,6 @@
   display: flex;
   padding-right: 100px;
 }
-
 #ingredient-checklist{
   position: relative;
   top: 50px;
@@ -42,13 +41,15 @@
   border: 1px solid skyblue
 }
 #recipe-panel * {
-  padding-right: 150px;
+  padding-right: 100px;
 }
 
 #recipe-panel {
   display: flex;
 }
-
+#num-of-recipes{
+  position: relative;
+}
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;

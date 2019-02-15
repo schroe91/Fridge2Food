@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
-class NumOfIngredients extends React.Component {
+class NumOfRecipes extends React.Component {
 	render() {
 		return (
 			<ListGroup>
@@ -11,4 +11,4 @@ class NumOfIngredients extends React.Component {
 	}
 }
 
-export default NumOfIngredients;
+export default NumOfRecipes;
