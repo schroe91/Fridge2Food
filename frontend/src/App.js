@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.png';
 
-import IngredientsList from "./components/IngredientsList"
+import IngredientsSearch from "./components/IngredientsSearch"
+import RecipeList from "./components/RecipeList"
 import NestedLogin from './components/nested.js'
 import RecipeSearch from './components/RecipeSearch'
 
@@ -23,7 +24,7 @@ class App extends Component {
         </div>
         <div id="info-panel">
           <div id="ingredients-panel">
-            <IngredientsList />
+            <IngredientsSearch />
             <NumOfIngredients />
             <div id="ingredient-checklist">
             <IngredientCheckList />
@@ -33,6 +34,7 @@ class App extends Component {
             <RecipeSearch />
             <div id="num-of-recipes">
             <NumOfRecipes />
+            <RecipeList />
             </div>
           </div>
         </div>

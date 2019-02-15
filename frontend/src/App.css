@@ -41,14 +41,11 @@
   border: 1px solid skyblue
 }
 #recipe-panel * {
-  padding-right: 100px;
+  padding-right: -100px;
 }
 
 #recipe-panel {
   display: flex;
-}
-#num-of-recipes{
-  position: relative;
 }
 .button {
   font-family: "Roboto", Arial, sans-serif;

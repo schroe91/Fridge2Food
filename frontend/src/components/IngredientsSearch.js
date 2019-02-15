@@ -1,6 +1,6 @@
 import React from "react";
 
-class IngredientsList extends React.Component {
+class IngredientsSearch extends React.Component {
 	render() {
 		return (
 			<form>
@@ -16,4 +16,4 @@ class IngredientsList extends React.Component {
 	}
 }
 
-export default IngredientsList;
+export default IngredientsSearch;
