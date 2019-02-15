@@ -5,6 +5,7 @@ import logo from './logo.png';
 import IngredientsList from "./components/IngredientsList"
 import NestedLogin from './components/nested.js'
 import RecipeSearch from './components/RecipeSearch'
+import IngredientCheckList from './components/IngredientChecklist'
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <IngredientsList />
           <RecipeSearch />
         </div>
+        <IngredientCheckList />
       </div>
     );
   }
