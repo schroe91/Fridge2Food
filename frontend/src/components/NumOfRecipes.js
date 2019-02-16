@@ -1,13 +1,14 @@
 import React from 'react'
+import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
-class NumOfIngredients extends React.Component {
+class NumOfRecipes extends React.Component {
 	render() {
 		return (
-			<p>
-                # of Recipes: 
-            </p>
+			<ListGroup>
+        		<ListGroupItem className="justify-content-between"># of Recipes <Badge pill>0</Badge></ListGroupItem>
+			</ListGroup>
 		);
 	}
 }
 
-export default NumOfIngredients;
+export default NumOfRecipes;
