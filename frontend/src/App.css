@@ -31,7 +31,7 @@ h3{
 }
 
 #ingredients-panel * {
-  padding-right: 20px;
+  padding-right: 18px;
 }
 
 #ingredients-panel {
@@ -57,7 +57,7 @@ h3{
   border-top:skyblue;
 }
 #recipe-panel * {
-  left: -500px;
+  left: -320px;
 }
 #recipe-panel {
   display: flex;
