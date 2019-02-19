@@ -1,14 +1,14 @@
 from app.main import bp
 from flask_login import current_user, login_user, logout_user
 from app.models import User
-from app.forms import RegistrationForm
+#from app.forms import RegistrationForm
 
 @bp.route('/')
 @bp.route('/index')
 def index():
     return "Hello world!"
 
-@app.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -22,12 +22,12 @@ def login():
         return redirect(url_for('index'))
     #else show the login page
 
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))

@@ -14,7 +14,6 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     login = LoginManager(app)
-
     db.init_app(app)
     migrate.init_app(app, db)
     from app.main import bp as main_bp

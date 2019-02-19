@@ -2,3 +2,7 @@ __pycache__
 *.pyc
 *~
 venv
+app.db
+migrations
+.flaskenv
+test_commands.py
