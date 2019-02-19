@@ -1,29 +1,7 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import { Button } from 'reactstrap';
-
-/*const NestedLogin = () => (
-  <Popup
-    trigger={<button className="button"> Login </button>}
-    position="bottom center"
-    closeOnDocumentClick
-  >
-    <div>
-      enter login information
-      <input type="text" placeholder="Username" size="35" />
-    </div>
-    <div>
-      <input type="text" placeholder="Password" size="35" />
-    </div>
-    <div>
-      <Button>Submit</Button>
-      <Button>Forgot Password</Button>
-      <Button>Create New User</Button>
-    </div>
-  </Popup>
-);
-
-export default NestedLogin;*/
+import {browserHistory} from 'react-router';
 
 class NestedLogin extends React.Component {
 
@@ -44,7 +22,7 @@ class NestedLogin extends React.Component {
 
 	handleSubmit(ev) {
 		ev.preventDefault();
-
+    browserHistory.push('/login');
 		this.setState({
       username: '',
       Password: '',
@@ -60,15 +38,15 @@ class NestedLogin extends React.Component {
     <div>
       enter login information
       <input type="text" name="username" placeholder="Username" size="35"
-              value={this.state.value} onChange={this.handleChange}    
+              value={this.state.value} onChange={(event,newValue) => this.setState({username:newValue})}    
       />
     </div>
     <div>
       <input type="text" name="Password" placeholder="Password" size="35" value={this.state.value}
-							onChange={this.handleChange}/>
+						onChange={(event,newValue) => this.setState({Password:newValue})}/>
     </div>
     <div onSubmit={this.handleSubmit}>
-      <Button type="submit">Submit</Button>
+      <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
       <Button>Forgot Password</Button>
       <Button>Create New User</Button>
     </div>
