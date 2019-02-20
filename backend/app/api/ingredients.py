@@ -19,9 +19,15 @@ def get_all_ingredients():
 @bp.route('/ingredients', methods=['POST'])
 def add_ingredient():
     ingredient_name = request.json['name']
-    ing = Ingredient(name=ingredient_name)
-    db.session.add(ing)
-    db.session.commit()
-    
-    return jsonify(ing.to_dict(include_recipes=True)), 201
+    ing = Ingredient.query.filter(Ingredient.name == ingredient_name)
+    if ing == None:
+        ing = Ingredient(name=ingredient_name)
+        db.session.add(ing)
+        db.session.commit()
+        return jsonify(ing.to_dict(include_recipes=True)), 201
+    else:
+        response = jsonify(ing[0].to_dict(include_recipes=True))
+        response.status_code = 409
+        response.headers['location'] = '/ingredients/{}'.format(ing[0].id)
+        return response
     
