@@ -10,6 +10,12 @@ recipe_ingredient = db.Table(
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id'))
 )
 
+user_ingredient = db.Table(
+    'user_ingredient',
+    db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -17,9 +23,20 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     #token = db.Column(db.String(32), index=True, unique=True)
     created_recipes = db.relationship('Recipe', backref='creator', lazy='dynamic')
-    #user_ingredients = db.Column(db.String(140))
+    ingredients = db.relationship('Ingredient', secondary=user_ingredient,
+                                  primaryjoin=(user_ingredient.c.user_id == id),
+                                  backref = db.backref('user_ingredient', lazy='dynamic'),
+                                  lazy='dynamic')
     #allergies = db.Column(db.String(140))
     #favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'ingredients': [i.to_dict() for i in self.ingredients],
+        }
+        return data
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
