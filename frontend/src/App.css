@@ -39,14 +39,13 @@ h3{
   padding-right: 300px;
 }
 
-#ingredient-top{
-  width: 500px;
-  flex-direction: row;
+#ingredients {
+  padding-top: 15px;
 }
+
 #ingredient-checklist{
-  position: relative;
+  position: absolute;
   flex-direction: column;
-  left: -375px;
 }
 #ingredient-list{
   display: flex;
@@ -54,14 +53,20 @@ h3{
 }
 
 #recipe-panel * {
-  left: -320px;
+  position: absolute;
+  left: 70%;
 }
 #recipe-panel {
   display: flex;
 }
-#num-of-recipe{
-  left: -500px;
+#num-of-recipes {
+  left: 100%;
 }
+
+#recipe-list {
+  top: 50px;
+}
+
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;
