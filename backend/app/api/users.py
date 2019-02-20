@@ -15,3 +15,13 @@ def add_user_ingredients(id):
     user.ingredients.append(ing)
     db.session.commit()
     return jsonify(user.to_dict()), 201
+
+@bp.route('/users/<int:user_id>/ingredients/<int:ing_id>', methods=['DELETE'])
+def delete_user_ingredient(user_id, ing_id):
+    user = User.query.get_or_404(user_id)
+    ing = Ingredient.query.get_or_404(ing_id)
+    if ing not in user.ingredients:
+        return '', 404
+    user.ingredients.remove(ing)
+    db.session.commit()
+    return '', 204
