@@ -20,8 +20,11 @@ class IngredientList extends React.Component {
 	handleSubmit(ev) {
 		ev.preventDefault();
 
-		this.numOfIngredients++;
-		this.state.list.unshift(this.state.value);
+		//Only update list if ingredient is not already in there
+		if(this.state.list.indexOf(this.state.value) === -1) {
+			this.state.list.unshift(this.state.value);
+			this.numOfIngredients++;
+		}
 
 		//Reset form
 		this.setState({
@@ -47,7 +50,10 @@ class IngredientList extends React.Component {
 				</form>
 				<ul id="template">
 					{this.state.list.map((item, index) => (
-						<li>{item}</li>
+						<li>
+							{item}
+							<button>Del</button>
+						</li>
 					))}
 				</ul>
 			</div>
