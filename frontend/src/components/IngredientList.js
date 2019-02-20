@@ -1,11 +1,12 @@
-import React from "react"
-import ListGroup from "react-bootstrap/ListGroup"
+import React from "react";
+import ListGroup from "react-bootstrap/ListGroup";
 
 class IngredientList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			list: [],
+			numOfIngredients: 0,
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -18,6 +19,9 @@ class IngredientList extends React.Component {
 
 	handleSubmit(ev) {
 		ev.preventDefault();
+
+		this.numOfIngredients++;
+		this.state.list.unshift(this.state.value);
 
 		//Reset form
 		this.setState({
@@ -38,10 +42,13 @@ class IngredientList extends React.Component {
 							placeholder="Type an ingredient"
 							value={this.state.value}
 							onChange={this.handleChange}
+							autoFocus
 						/>
 				</form>
-				<ul>
-					
+				<ul id="template">
+					{this.state.list.map((item, index) => (
+						<li>{item}</li>
+					))}
 				</ul>
 			</div>
 		)
