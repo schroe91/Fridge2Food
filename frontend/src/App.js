@@ -26,22 +26,23 @@ class App extends Component {
         <div id="info-panel">
           <div id="ingredients-panel">
               <IngredientsSearch />
-              <NumOfIngredients />
-            <div id="ingredient-checklist">
-              <IngredientCheckList />
-            </div>
-            <div id="ingredient-list">
-              <h3>Current Ingredients</h3>
-              <div id="ingredients">
-                <IngredientList />
+              <div id="ingredient-checklist">
+                <IngredientCheckList />
               </div>
-            </div>
+              <div id="ingredient-list">
+                <NumOfIngredients />
+                <div id="ingredients">
+                  <IngredientList />
+                </div>
+              </div>
           </div>
           <div id="recipe-panel">
             <RecipeSearch />
+            <div id="recipe-list">
+              <RecipeList />
+            </div>
             <div id="num-of-recipes">
-            <NumOfRecipes />
-            <RecipeList />
+              <NumOfRecipes />
             </div>
           </div>
         </div>

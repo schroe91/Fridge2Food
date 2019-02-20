@@ -1,7 +1,5 @@
 import React from "react";
-import ListGroup from "react-bootstrap/ListGroup";
 import 'font-awesome/css/font-awesome.min.css';
-import { StyleSheet, css } from 'aphrodite'
 
 class IngredientList extends React.Component {
 	constructor(props) {
@@ -56,9 +54,6 @@ class IngredientList extends React.Component {
 	render() {
 		return (
 			<div>
-				<ListGroup variant="flush">
-					<ListGroup.Item>Chicken</ListGroup.Item>
-				</ListGroup>
 				<form id="ingredient-form" onSubmit={this.handleSubmit}>
 						<input
 							type="text"
@@ -74,14 +69,19 @@ class IngredientList extends React.Component {
 						<li>
 							{item}
 							 <button 
-								className={css(styles.deleteButton)}
+								style={delButton}
 								onClick={() => {this.handleDelete(item)}}>
 								<i class="fa fa-times"></i>
 							</button>
 						</li>
 					))}
 				</ul>
-				<button onClick={() => {this.handleDeleteAll()}}>Delete All</button>
+				<div style={delAll}>
+				<button
+					onClick={() => {this.handleDeleteAll()}}>
+					Delete All
+				</button>
+				</div>
 			</div>
 		)
 	}
@@ -89,12 +89,13 @@ class IngredientList extends React.Component {
 
 export default IngredientList
 
-const styles = StyleSheet.create({
-	deleteButton: {
-    backgroundColor: 'transparent',
+const delButton = {
+	backgroundColor: 'transparent',
     border: '0',
     color: "#c20",
-    cursor: 'pointer',
-    outline: 'none',
-  }
-})
+		outline: 'none',
+}
+
+const delAll = {
+	textAlign: "center"
+}
