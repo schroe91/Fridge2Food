@@ -20,7 +20,7 @@ def get_all_ingredients():
 def add_ingredient():
     ingredient_name = request.json['name']
     ing = Ingredient.query.filter(Ingredient.name == ingredient_name)
-    if ing == None:
+    if ing.count() == 0:
         ing = Ingredient(name=ingredient_name)
         db.session.add(ing)
         db.session.commit()
