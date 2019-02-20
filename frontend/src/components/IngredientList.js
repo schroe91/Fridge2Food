@@ -13,6 +13,7 @@ class IngredientList extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 
 	handleChange(ev) {
@@ -34,6 +35,20 @@ class IngredientList extends React.Component {
 		});
 	}
 
+	handleDelete(item) {
+		let i = this.state.list.indexOf(item);
+
+		if(i > -1)
+			this.state.list.splice(i, 1);
+	}
+
+	handleDeleteAll() {
+		this.setState = {
+			list: [],
+			numOfIngredients: 0
+		};
+	}
+
 	render() {
 		return (
 			<div>
@@ -51,15 +66,18 @@ class IngredientList extends React.Component {
 						/>
 				</form>
 				<ul id="template">
-					{this.state.list.map((item, index) => (
+					{this.state.list.map((item) => (
 						<li>
 							{item}
-							<button className={css(styles.deleteButton)}>
+							<button 
+								className={css(styles.deleteButton)}
+								onClick={() => {this.handleDelete(item)}}>
 								<i class="fa fa-times"></i>
 							</button>
 						</li>
 					))}
 				</ul>
+				<button onClick={() => {this.handleDeleteAll()}}>Delete All</button>
 			</div>
 		)
 	}
