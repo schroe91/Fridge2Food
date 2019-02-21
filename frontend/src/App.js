@@ -32,7 +32,7 @@ class App extends Component {
               <div id="ingredient-list">
                 <NumOfIngredients />
                 <div id="ingredients">
-                  <IngredientList />
+                  
                 </div>
               </div>
           </div>
