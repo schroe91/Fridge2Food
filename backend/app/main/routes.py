@@ -1,7 +1,9 @@
 from app.main import bp
+from app import db
 from flask_login import current_user, login_user, logout_user
+from flask import render_template
 from app.models import User
-#from app.forms import RegistrationForm
+from app.forms import RegistrationForm, LoginForm
 
 @bp.route('/')
 @bp.route('/index')
@@ -21,6 +23,7 @@ def login():
         login_user(user)
         return redirect(url_for('index'))
     #else show the login page
+    return render_template('login.html', title='Sign In', form=form)
 
 @bp.route('/logout')
 def logout():
@@ -40,4 +43,5 @@ def register():
         #user is registered
         return redirect(url_for('login'))
     #else show them the create user stuff again
+    return render_template('register.html', title='Sign Up', form=form)
 

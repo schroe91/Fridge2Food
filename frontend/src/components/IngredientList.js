@@ -24,12 +24,13 @@ class IngredientList extends React.Component {
 		//Only update list if ingredient is not already in there
 		if(this.state.list.indexOf(this.state.value) === -1) {
 			this.state.list.unshift(this.state.value);
-			this.numOfIngredients++;
+			this.props.funct(this.state.numOfIngredients + 1); //Passes value to NumOfIngredients.js
 		}
 
 		//Reset form
 		this.setState({
-			value: ""
+			value: "",
+			numOfIngredients: this.state.numOfIngredients + 1
 		});
 	}
 
@@ -40,6 +41,7 @@ class IngredientList extends React.Component {
 		if(i > -1) {
 			newState.list.splice(i, 1);
 			newState.numOfIngredients -= 1;
+			this.props.funct(newState.numOfIngredients); //Passes value to NumOfIngredients.js
 			this.setState(newState);
 		}
 	}
@@ -48,13 +50,14 @@ class IngredientList extends React.Component {
 		const newState = this.state;
 		newState.list = [];
 		newState.numOfIngredients = 0;
+		this.props.funct(0); //Passes value to NumOfIngredients.js
 		this.setState(newState);
 	}
 
 	render() {
 		return (
 			<div>
-				<form id="ingredient-form" onSubmit={this.handleSubmit}>
+				<form id="ingredient-form" onSubmit={this.handleSubmit} style={form}>
 						<input
 							type="text"
 							name="ingredientInput"
@@ -97,5 +100,12 @@ const delButton = {
 }
 
 const delAll = {
-	textAlign: "center"
+	textAlign: "center",
+	marginTop: "10px",
+	paddingLeft: "40px",
+}
+
+const form = {
+	marginTop: "20px",
+	paddingLeft: "40px",
 }

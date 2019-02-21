@@ -51,7 +51,7 @@ class IngredientChecklist extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
+            <form onSubmit={this.handleFormSubmit} style={list}>
               {this.createCheckboxes()}
 
               <div className="form-group mt-2">
@@ -69,3 +69,6 @@ class IngredientChecklist extends Component {
 
 export default IngredientChecklist;
 
+const list = {
+  marginTop: "-30px",
+}
