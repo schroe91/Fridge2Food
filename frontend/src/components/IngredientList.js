@@ -57,7 +57,7 @@ class IngredientList extends React.Component {
 	render() {
 		return (
 			<div>
-				<form id="ingredient-form" onSubmit={this.handleSubmit}>
+				<form id="ingredient-form" onSubmit={this.handleSubmit} style={form}>
 						<input
 							type="text"
 							name="ingredientInput"
@@ -100,5 +100,12 @@ const delButton = {
 }
 
 const delAll = {
-	textAlign: "center"
+	textAlign: "center",
+	marginTop: "10px",
+	paddingLeft: "40px",
+}
+
+const form = {
+	marginTop: "20px",
+	paddingLeft: "40px",
 }

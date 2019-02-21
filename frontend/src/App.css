@@ -35,32 +35,16 @@ h3{
 }
 
 #ingredients-panel {
-  display: flex;
   padding-right: 300px;
-}
-
-#ingredients {
-  padding-top: 15px;
-}
-
-#ingredient-checklist{
-  position: absolute;
-  flex-direction: column;
-}
-#ingredient-list{
-  display: flex;
-  flex-direction: column;
 }
 
 #recipe-panel * {
   position: absolute;
   left: 70%;
 }
+
 #recipe-panel {
   display: flex;
-}
-#num-of-recipes {
-  left: 100%;
 }
 
 #recipe-list {

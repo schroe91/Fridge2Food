@@ -1,6 +1,7 @@
 import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
+import IngredientChecklist from "./IngredientChecklist";
 
 class NumOfIngredients extends React.Component {
 	constructor(props) {
@@ -24,7 +25,10 @@ class NumOfIngredients extends React.Component {
         <ListGroupItem className="justify-content-between"># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
-				<IngredientList funct={this.updateNum}/>
+				<div id="input" style={input}>
+					<IngredientChecklist />
+					<IngredientList funct={this.updateNum} />
+				</div>
 			</ListGroup>
 		);
 	}
@@ -34,4 +38,8 @@ export default NumOfIngredients;
 
 const badge = {
 	marginLeft: "25px",
+}
+
+const input = {
+	display: "flex",
 }
