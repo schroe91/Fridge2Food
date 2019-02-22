@@ -13,11 +13,11 @@ class NumOfIngredients extends React.Component {
 		this.updateNum = this.updateNum.bind(this);
 	}
 
-	updateNum(value) {
+	updateNum(value, numToDel) {
 		const newState = this.state;
 
 		if(value === "delAll") {
-			newState.num = 0;
+			newState.num -= numToDel;
 		} else {
 			newState.num = newState.num + value;
 		}

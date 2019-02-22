@@ -3,7 +3,7 @@ import Checkbox from "./Checkbox";
 
 const OPTIONS = ["Bread", "Chicken", "Lettuce", "Beef", "Turkey", "Ham", "Rice", "Tomato", "Bacon", "Mayonnaise"];
 
-class IngredientChecklist extends Component {  
+class IngredientChecklist extends Component { 
   componentWillMount = () => {
     this.selectedCheckboxes = new Set();
   }
@@ -20,6 +20,10 @@ class IngredientChecklist extends Component {
 
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
+    if(this.state.checkboxes[name])
+      this.props.funct(-1);
+    else
+      this.props.funct(1);
 
     this.setState(prevState => ({
       checkboxes: {
@@ -34,10 +38,8 @@ class IngredientChecklist extends Component {
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        if(!this.selectedCheckboxes.has(checkbox.name) > -1){
-          //alert(checkbox.label);
+        if(!this.selectedCheckboxes.has(checkbox.name) > -1) {
           this.addItem(checkbox.name);
-          this.props.funct(1);
         }
       });
   };
