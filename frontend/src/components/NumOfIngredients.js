@@ -15,10 +15,7 @@ class NumOfIngredients extends React.Component {
 
 	updateNum(value) {
 		const newState = this.state;
-		if(value === 0)
-			newState.num = 0;
-		else
-			newState.num += value;
+		newState.num = value;
 		this.setState(newState);
 	}
 
@@ -29,7 +26,7 @@ class NumOfIngredients extends React.Component {
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="input" style={input}>
-					<IngredientChecklist funct={this.updateNum} />
+					<IngredientChecklist funct={this.updateNum}/>
 					<IngredientList funct={this.updateNum} />
 				</div>
 			</ListGroup>

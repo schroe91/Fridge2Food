@@ -40,7 +40,12 @@ h3{
 
 #recipe-panel * {
   position: absolute;
-  left: 70%;
+  padding-top: 10px;
+  left: 50%;
+}
+
+#recipe-search *{
+  position: absolute;
 }
 
 #recipe-panel {
@@ -48,9 +53,18 @@ h3{
 }
 
 #recipe-list {
-  top: 50px;
+  padding-top: 100px;
 }
 
+#num-of-recipes{
+  left: 80%;
+  height: auto;
+  width: auto;
+
+}
+#newIng{
+  padding-top: 40%; 
+}
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;
