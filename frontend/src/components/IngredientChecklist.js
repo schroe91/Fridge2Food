@@ -27,17 +27,13 @@ class IngredientChecklist extends Component {
       }
     }));
   };
-
-  handleFormSubmit(list,number){
+  handleFormSubmit = formSubmitEvent => {
+    formSubmitEvent.preventDefault();
 
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        if(list.indexOf(checkbox) === -1) {
-          list.unshift(checkbox);
-          this.props.number++; //Passes value to NumOfIngredients.js
-          this.props.view()
-        }
+        this.props.funct();
       });
   };
 
@@ -57,10 +53,10 @@ class IngredientChecklist extends Component {
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit} style={list}>
+            <form onSubmit={this.handleFormSubmit}>
               {this.createCheckboxes()}
               <div className="form-group mt-2">
-                <button type="submit" className="btn btn-primary" onClick={()=>{this.handleFormSubmit(this.props.listofIngredients, this.props.num)}}>
+                <button type="submit" className="btn btn-primary">
                   Save
                 </button>
               </div>
