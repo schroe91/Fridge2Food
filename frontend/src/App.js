@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.png';
 
-import IngredientsSearch from "./components/IngredientsSearch"
 import RecipeList from "./components/RecipeList"
 import NestedLogin from './components/nested.js'
 import RecipeSearch from './components/RecipeSearch'
 
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
-import IngredientCheckList from './components/IngredientChecklist'
 
 class App extends Component {
   render() {
