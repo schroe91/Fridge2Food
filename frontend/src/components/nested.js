@@ -2,6 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import { Button } from 'reactstrap';
 import {browserHistory} from 'react-router';
+import "./login.css"
 
 class NestedLogin extends React.Component {
 
@@ -60,7 +61,25 @@ class NestedLogin extends React.Component {
     <div onSubmit={this.handleSubmit}>
       <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
       <Button>Forgot Password</Button>
-      <Button>Create New User</Button>
+      <Popup
+    trigger={<button> Create new user </button>}
+    modal
+  >
+    {close => (
+      <div >
+        <a className="close" onClick={close}>
+          &times;
+        </a>
+        <div className="header"> Enter new user information </div>
+        <div className="actions">
+          <input type="text" name="newUsername" placeholder="Username" size="22"/>
+          <input type="text" name="newPassword" placeholder="Password" size="22"/>
+           <Button> Submit </Button>
+        </div>
+      </div>
+    )}
+  </Popup>
+
     </div>
     </Popup>
     )
