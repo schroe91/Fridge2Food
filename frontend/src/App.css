@@ -62,7 +62,9 @@ h3{
   width: auto;
 
 }
-
+#newIng{
+  padding-top: 40%; 
+}
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;
