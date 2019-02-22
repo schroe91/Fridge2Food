@@ -15,7 +15,7 @@ class NumOfIngredients extends React.Component {
 
 	updateNum(value) {
 		const newState = this.state;
-		newState.num += value;
+		newState.num = newState.num + value;
 		this.setState(newState);
 	}
 

@@ -8,7 +8,6 @@ import RecipeSearch from './components/RecipeSearch'
 
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
-import NewIngredient from './components/NewIngredient'
 
 class App extends Component {
   render() {
@@ -25,7 +24,7 @@ class App extends Component {
           <div id="ingredients-panel">
             <NumOfIngredients />
           </div>
-          </div>
+        </div>
           <div id="recipe-panel">
             <div id="num-of-recipes">
               <NumOfRecipes />
@@ -36,9 +35,6 @@ class App extends Component {
             <div id="recipe-list">
               <RecipeList />
             </div>
-            </div>
-            <div id="newIng">
-              <NewIngredient />
             </div>
       </div>
     );
