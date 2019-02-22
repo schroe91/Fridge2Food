@@ -48,9 +48,10 @@ class IngredientList extends React.Component {
 
 	handleDeleteAll() {
 		const newState = this.state;
+		var numCurr = this.state.numOfIngredients;
 		newState.list = [];
 		newState.numOfIngredients = 0;
-		this.props.funct(0); //Passes value to NumOfIngredients.js
+		this.props.funct(-Math.abs(numCurr)); //Passes value to NumOfIngredients.js
 		this.setState(newState);
 	}
 

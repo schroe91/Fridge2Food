@@ -20,6 +20,8 @@ class IngredientChecklist extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }*/
 
+
+  
   componentWillMount = () => {
     this.selectedCheckboxes = new Set();
   }
