@@ -26,7 +26,7 @@ class NumOfIngredients extends React.Component {
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="input" style={input}>
-					<IngredientChecklist />
+					<IngredientChecklist funct={this.updateNum}/>
 					<IngredientList funct={this.updateNum} />
 				</div>
 			</ListGroup>
