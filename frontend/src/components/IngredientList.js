@@ -24,7 +24,7 @@ class IngredientList extends React.Component {
 		//Only update list if ingredient is not already in there
 		if(this.state.list.indexOf(this.state.value) === -1) {
 			this.state.list.unshift(this.state.value);
-			this.props.funct(this.state.numOfIngredients + 1); //Passes value to NumOfIngredients.js
+			this.props.funct(1); //Passes value to NumOfIngredients.js
 		}
 
 		//Reset form
@@ -41,7 +41,7 @@ class IngredientList extends React.Component {
 		if(i > -1) {
 			newState.list.splice(i, 1);
 			newState.numOfIngredients -= 1;
-			this.props.funct(newState.numOfIngredients); //Passes value to NumOfIngredients.js
+			this.props.funct(-1); //Passes value to NumOfIngredients.js
 			this.setState(newState);
 		}
 	}

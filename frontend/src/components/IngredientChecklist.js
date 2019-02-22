@@ -4,15 +4,18 @@ import Checkbox from "./Checkbox";
 const OPTIONS = ["Bread", "Chicken", "Lettuce", "Beef", "Turkey", "Ham", "Rice", "Tomato", "Bacon", "Mayonnaise"];
 
 class IngredientChecklist extends Component {
-  state = {
-    checkboxes: OPTIONS.reduce(
-      (options, option) => ({
-        ...options,
-        [option]: false
-      }),
-      {}
-    )
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkboxes: OPTIONS.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: false
+        }),
+      ),
+      numOfIngredients: 0
+    }
+  }
 
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
@@ -30,7 +33,7 @@ class IngredientChecklist extends Component {
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        this.props.funct(this.)
+        this.props.funct();
       });
   };
 
