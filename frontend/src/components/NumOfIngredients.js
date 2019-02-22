@@ -15,7 +15,12 @@ class NumOfIngredients extends React.Component {
 
 	updateNum(value) {
 		const newState = this.state;
-		newState.num = newState.num + value;
+
+		if(value === "delAll") {
+			newState.num = 0;
+		} else {
+			newState.num = newState.num + value;
+		}
 		this.setState(newState);
 	}
 

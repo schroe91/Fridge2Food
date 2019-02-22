@@ -3,47 +3,31 @@ import Checkbox from "./Checkbox";
 
 const OPTIONS = ["Bread", "Chicken", "Lettuce", "Beef", "Turkey", "Ham", "Rice", "Tomato", "Bacon", "Mayonnaise"];
 
-class IngredientChecklist extends Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      checkboxes: OPTIONS.reduce(
-        (options, option) => ({
-          ...options,
-          [option]: false
-        }),
-      ),
-      numOfIngredients: 0,
-      list: []
-    }
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }*/
-
-
-  
+class IngredientChecklist extends Component {  
   componentWillMount = () => {
     this.selectedCheckboxes = new Set();
   }
 
   toggleCheckbox = option => {
+    //alert(option.label);
     if (this.selectedCheckboxes.has(option)) {
-      alert("delete");
+      //alert("delete");
       this.selectedCheckboxes.delete(option);
     } else {
       this.selectedCheckboxes.add(option);
-      alert("add");
+      //alert("add");
     }
   }
 
   handleFormSubmit = ev => {
+    alert(ev.target.value.name);
     ev.preventDefault();
     var curr = 0;
     for (const checkbox of this.selectedCheckboxes) {
-      alert(checkbox, 'is selected.');
+      //alert(checkbox, 'is selected.');
       curr++;
     }
-    alert(curr);
+    //alert(curr);
   }
 
   createCheckbox = option => (
@@ -57,44 +41,6 @@ class IngredientChecklist extends Component {
   createCheckboxes = () => (
     OPTIONS.map(this.createCheckbox)
   )
-
-  /*handleCheckboxChange = changeEvent => {
-    const { name } = changeEvent.target;
-
-    this.setState(prevState => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
-    }));
-  };
-
-  handleFormSubmit(ev) {
-    ev.preventDefault();
-    var curr = 0;
-
-    Object.keys(this.state.checkboxes)
-      .filter(checkbox => this.state.checkboxes[checkbox])
-      .forEach(checkbox => {
-        if(this.state.list.indexOf(checkbox) === -1) {
-          this.state.list.unshift(checkbox);
-          curr++;
-        }
-      });
-      this.props.funct(curr - this.state.numOfIngredients);
-      alert(this.state.checkboxes);
-  };
-
-  createCheckbox = option => (
-    <Checkbox
-      label={option}
-      isSelected={this.state.checkboxes[option]}
-      onCheckboxChange={this.handleCheckboxChange}
-      key={option}
-    />
-  );*/
-
-  //createCheckboxes = () => OPTIONS.map(this.createCheckbox);
 
   render() {
     return (
