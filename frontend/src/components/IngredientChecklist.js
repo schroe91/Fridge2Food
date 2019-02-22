@@ -37,7 +37,6 @@ class IngredientChecklist extends Component {
   handleFormSubmit = ev => {
     ev.preventDefault();
     var curr = 0;
-
     for (const checkbox of this.selectedCheckboxes) {
       alert(checkbox, 'is selected.');
       curr++;
@@ -48,7 +47,7 @@ class IngredientChecklist extends Component {
   createCheckbox = option => (
     <Checkbox
       label={option}
-      handleCheckboxChange={this.toggleCheckbox}
+      onCheckboxChange={this.toggleCheckbox}
       key={option}
     />
   );
