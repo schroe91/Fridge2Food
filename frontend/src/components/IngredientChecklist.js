@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
 
-const OPTIONS = ["Bread", "Chicken", "Lettuce"];
+const OPTIONS = ["Bread", "Chicken", "Lettuce", "Beef", "Turkey", "Ham", "Rice", "Tomato", "Bacon", "Mayonnaise"];
 
 class IngredientChecklist extends Component {
   state = {
@@ -25,13 +25,16 @@ class IngredientChecklist extends Component {
     }));
   };
 
-  handleFormSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault();
+  handleFormSubmit(list,number){
 
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        console.log(checkbox, "is selected.");
+        if(list.indexOf(checkbox) === -1) {
+          list.unshift(checkbox);
+          this.props.number++; //Passes value to NumOfIngredients.js
+          this.props.view()
+        }
       });
   };
 
@@ -53,9 +56,8 @@ class IngredientChecklist extends Component {
           <div className="col-sm-12">
             <form onSubmit={this.handleFormSubmit} style={list}>
               {this.createCheckboxes()}
-
               <div className="form-group mt-2">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" onClick={()=>{this.handleFormSubmit(this.props.listofIngredients, this.props.num)}}>
                   Save
                 </button>
               </div>
