@@ -45,7 +45,7 @@ class NestedLogin extends React.Component {
     return (
     <Popup
     trigger={<button className="button"> Login </button>}
-    position="bottom center"
+    position="bottom right"
     closeOnDocumentClick
     >
     <div>
