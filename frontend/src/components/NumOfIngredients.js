@@ -15,14 +15,14 @@ class NumOfIngredients extends React.Component {
 
 	updateNum(value) {
 		const newState = this.state;
-		newState.num = value;
+		newState.num += value;
 		this.setState(newState);
 	}
 
 	render() {
 		return (
 			<ListGroup>
-        <ListGroupItem className="justify-content-between"># of Ingredients
+        		<ListGroupItem className="justify-content-between"># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="input" style={input}>

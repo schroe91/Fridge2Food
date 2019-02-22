@@ -20,6 +20,8 @@ class IngredientChecklist extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }*/
 
+
+  
   componentWillMount = () => {
     this.selectedCheckboxes = new Set();
   }
@@ -48,7 +50,7 @@ class IngredientChecklist extends Component {
   createCheckbox = option => (
     <Checkbox
       label={option}
-      handleCheckboxChange={this.toggleCheckbox}
+      onChange={this.toggleCheckbox}
       key={option}
     />
   );
