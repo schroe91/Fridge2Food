@@ -3,7 +3,7 @@ from app import db
 from flask_login import current_user, login_user, logout_user
 from flask import render_template
 from app.models import User
-from app.forms import RegistrationForm, LoginForm
+#from app.forms import RegistrationForm, LoginForm
 
 @bp.route('/')
 @bp.route('/index')
