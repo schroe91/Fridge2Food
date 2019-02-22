@@ -4,15 +4,18 @@ import Checkbox from "./Checkbox";
 const OPTIONS = ["Bread", "Chicken", "Lettuce"];
 
 class IngredientChecklist extends Component {
-  state = {
-    checkboxes: OPTIONS.reduce(
-      (options, option) => ({
-        ...options,
-        [option]: false
-      }),
-      {}
-    )
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkboxes: OPTIONS.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: false
+        }),
+      ),
+      numOfIngredients: 0
+    }
+  }
 
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
