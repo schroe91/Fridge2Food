@@ -9,6 +9,7 @@ import RecipeSearch from './components/RecipeSearch'
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
 import NewIngredient from './components/NewIngredient'
+import recipefilter from './components/recipefilter'
 class App extends Component {
   render() {
     return (
@@ -32,6 +33,7 @@ class App extends Component {
             <div id="recipe-search">
               <RecipeSearch />
             </div>
+            <recipefilter />
             <div id="recipe-list">
               <RecipeList />
             </div>
