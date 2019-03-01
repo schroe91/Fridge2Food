@@ -19,12 +19,12 @@ class NestedLogin extends React.Component {
   login(email, password) {
     console.log(email);
     console.log(password);
-    fetch('http://127.0.0.1:5000/api/ingredients', {
+    fetch('http://127.0.0.1:5000/login', {
         method: "post",
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name: "testIngredient"})//{email: email, password: password})
+        body: JSON.stringify({email: email, password: password})
     }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Incorrect email/password"}})))
   }
     handleChange(ev) {
