@@ -24,7 +24,7 @@ class recipefilter extends Component{
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
             </DropdownButton>;
             </div>
-        )
+        );
     }
 }
 export default recipefilter;
