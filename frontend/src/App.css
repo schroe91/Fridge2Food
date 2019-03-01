@@ -47,11 +47,6 @@ h3{
   display: flex;
   margin-left: 20px;
   align-content: stretch;
-  flex-direction: column;
-}
-
-#recipe-search{
-  flex-basis: 200px;
 }
 
 #recipe-list {

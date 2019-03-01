@@ -7,25 +7,29 @@ class recipefilter extends Component{
     render(){
         return(
             <div id="filters">
-            <DropdownButton id="diet" title="Dietary Restrictions" drop="down">
+            <DropdownButton id="diet" title="Dietary Restrictions" style={button}>
                 <Dropdown.Item href="#/action-1">Vegetarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Vegan</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Pescatarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-4">Gluten-free</Dropdown.Item>
                 <Dropdown.Item href="#/action-5">Lactose-free</Dropdown.Item>
-            </DropdownButton>;
+            </DropdownButton>
             <DropdownButton id="sort" title="Sort">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
-            </DropdownButton>;
+            </DropdownButton>
             <DropdownButton id="meal type" title="Meal Type">
                 <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
                 <Dropdown.Item href="#/action-4">Dessert</Dropdown.Item>
-            </DropdownButton>;
+            </DropdownButton>
             </div>
         );
     }
 }
 export default recipefilter;
+
+const button = {
+	display: "list",
+}
