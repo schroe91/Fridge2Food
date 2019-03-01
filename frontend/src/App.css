@@ -22,8 +22,13 @@
 
 #info-panel {
   position: absolute;
+  height: 590px;
+  width: 1405px;
   display: flex;
-  padding-top: 20px;
+  flex-direction: row;
+  padding-top: 10px;
+  align-items: stretch;
+  align-items: flex-start;
 }
 
 h3{
@@ -31,29 +36,26 @@ h3{
 }
 
 #ingredients-panel * {
-  padding-right: 18px;
+  order: 1;
+  flex-basis: 0px;
+  align-self: flex-start;
 }
 
-#ingredients-panel {
-  padding-right: 300px;
-}
-
-#recipe-panel * {
-  position: absolute;
-  padding-top: 10px;
-  left: 50%;
-}
-
-#recipe-search *{
-  position: absolute;
-}
-
-#recipe-panel {
+#recipe-panel * {  
+  order: 2;
+  align-self: flex-start;
   display: flex;
+  margin-left: 20px;
+  align-content: stretch;
+  flex-direction: column;
+}
+
+#recipe-search{
+  flex-basis: 200px;
 }
 
 #recipe-list {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 #num-of-recipes{

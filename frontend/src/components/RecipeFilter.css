@@ -1,0 +1,8 @@
+#filters{
+    display:flex;
+    flex-direction: row;
+}
+#dietary-restriction{
+    display: flex;
+    flex-direction: column;
+}
