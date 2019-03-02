@@ -7,26 +7,30 @@ class NewIngredient extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = {
-      Ingredient: '',
+      ingredient: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  addnew(Ingredient){
+  addnew(ingredient){
     fetch('http://127.0.0.1:5000/api/ingredients', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name: Ingredient})
-    }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Incorrect email/password"}})))
+        body: JSON.stringify({name: ingredient})
+    }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Ingredient in database"}})))
   }
   handleSubmit(ev) {
       ev.preventDefault();
-      const {Ingredient } = this.state;
-      this.addnew(Ingredient);
+      const {ingredient } = this.state;
+      this.addnew(ingredient);
       this.setState({
-        Ingredient: '',
+        ingredient: '',
       });
+  }
+  handleChange(e){
+    this.setState({[e.target.name]: e.target.value});
   }
 
 
@@ -39,8 +43,8 @@ class NewIngredient extends React.Component {
       >
       <div>
         Add New Ingredient
-        <input type="text" placeholder="Ingredient to be added" size="22" 
-        value={this.state.value} onChange={(event,newValue) => this.setState({Ingredient:newValue})}/>
+        <input type="text" name="ingredient" placeholder="Ingredient to be added" size="22" 
+        onChange={this.handleChange} value={this.state.ingredient}/>
       </div>
       <div>
         <Button onClick={this.handleSubmit}>Submit</Button>
