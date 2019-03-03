@@ -10,16 +10,20 @@ class NestedLogin extends React.Component {
 		this.state = {
       username: '',
       password: '',
+      newUsername: '',
+      newPassword: '',
+      newEmail: '',
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
 	}
   login(username, password) {
     console.log(username);
     console.log(password);
     fetch('http://127.0.0.1:5000/login', {
-        method: "post",
+        method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
@@ -28,7 +32,20 @@ class NestedLogin extends React.Component {
   }
     handleChange(e) {
       this.setState({[e.target.name]: e.target.value});
-	}
+  }
+  
+  newUser(email, username, password){
+    console.log(email);
+    console.log(username);
+    console.log(password);
+    fetch('http://127.0.0.1:5000/register',{
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: email, username: username, password: password})
+    }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Failed to regiester"}})))
+  }
 
 	handleSubmit(ev) {
     ev.preventDefault();
@@ -38,7 +55,17 @@ class NestedLogin extends React.Component {
       username: '',
       password: '',
 		});
-	}
+  }
+  handleSubmit2(ev){
+    ev.preventDefault();
+    const {newUsername, newPassword, newEmail} = this.state;
+    this.newUser(newUsername, newPassword, newEmail);
+    this.setState({
+      newUsername: '',
+      newPassword: '',
+      newEmail: '',
+    });
+  }
   render(){
     return (
     <Popup
@@ -70,9 +97,13 @@ class NestedLogin extends React.Component {
         </a>
         <div className="header"> Enter new user information </div>
         <div className="actions">
-          <input type="text" name="newUsername" placeholder="Username" size="22"/>
-          <input type="text" name="newPassword" placeholder="Password" size="22"/>
-           <Button> Submit </Button>
+          <input type="text" name="newEmail" placeholder="Email" size="22"
+          onChange={this.handleChange} value={this.state.newEmail}/>
+          <input type="text" name="newUsername" placeholder="Username" size="22"
+          onChange={this.handleChange} value={this.state.newUsername}/>
+          <input type="text" name="newPassword" placeholder="Password" size="22"
+          onChange={this.handleChange} value={this.state.newPassword}/>
+           <Button type="submit" onClick={this.handleSubmit2}> Submit </Button>
         </div>
       </div>
     )}
