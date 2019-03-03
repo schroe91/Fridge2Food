@@ -4,10 +4,23 @@ import Dropdown from "react-bootstrap/Dropdown";
 import './RecipeFilter.css';
 
 class recipefilter extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+    
+        this.handleClick = this.handleClick.bind(this);
+      }
+    
+      handleClick() {
+        this.setState(state => ({
+          isToggleOn: !state.isToggleOn
+        }));
+      }
+
     render(){
         return(
             <div id="filters">
-            <DropdownButton id="diet" title="Dietary Restrictions" style={button}>
+            <DropdownButton id="diet" title="Dietary Restrictions" aria-expanded={this.state.isToggleOn} button onClick={this.handleClick}>
                 <Dropdown.Item href="#/action-1">Vegetarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Vegan</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Pescatarian</Dropdown.Item>

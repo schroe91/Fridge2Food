@@ -38,9 +38,6 @@ class App extends Component {
           <div id="num-of-recipes">
               <NumOfRecipes />
             </div>
-          <div id="newIng">
-              <NewIngredient/>
-          </div>
         </div>
       </div>
     );

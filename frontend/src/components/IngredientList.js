@@ -1,5 +1,6 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
+import NewIngredients from "./NewIngredient";
 
 class IngredientList extends React.Component {
 	constructor(props) {
@@ -58,6 +59,7 @@ class IngredientList extends React.Component {
 	render() {
 		return (
 			<div>
+				<div id="ingredientInput">
 				<form id="ingredient-form" onSubmit={this.handleSubmit} style={form}>
 						<input
 							type="text"
@@ -68,6 +70,7 @@ class IngredientList extends React.Component {
 							autoFocus
 						/>
 				</form>
+				</div>
 				<ul id="template">
 					{this.state.list.map((item) => (
 						<li>
@@ -86,6 +89,7 @@ class IngredientList extends React.Component {
 					Delete All
 				</button>
 				</div>
+				<NewIngredients />
 			</div>
 		)
 	}
