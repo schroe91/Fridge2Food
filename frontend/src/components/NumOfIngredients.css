@@ -4,8 +4,5 @@
 }
 #input{
     margin-top: -40px;
-}
-
-ListGroup{
-    align-content: left,
+    align-items: flex-start,
 }
