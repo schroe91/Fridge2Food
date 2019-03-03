@@ -5,3 +5,7 @@
 #input{
     margin-top: -40px;
 }
+
+ListGroup{
+    align-content: left,
+}
