@@ -21,17 +21,18 @@ class recipefilter extends Component{
         return(
             <div id="filters">
             <DropdownButton id="diet" title="Dietary Restrictions" aria-expanded={this.state.isToggleOn} button onClick={this.handleClick}>
+
                 <Dropdown.Item href="#/action-1">Vegetarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Vegan</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Pescatarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-4">Gluten-free</Dropdown.Item>
                 <Dropdown.Item href="#/action-5">Lactose-free</Dropdown.Item>
             </DropdownButton>
-            <DropdownButton id="sort" title="Sort">
+            <DropdownButton id="sort" title="Sort" size="sm">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
             </DropdownButton>
-            <DropdownButton id="meal type" title="Meal Type">
+            <DropdownButton id="meal type" title="Meal Type" size="sm">
                 <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
@@ -43,6 +44,4 @@ class recipefilter extends Component{
 }
 export default recipefilter;
 
-const button = {
-	display: "list",
-}
+                //<DropdownButton><DropdownButton id="diet" title="Dietary Restrictions" size="sm">
