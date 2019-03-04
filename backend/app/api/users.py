@@ -1,7 +1,22 @@
-from flask import jsonify, request, Response
+from flask import jsonify, request, Response, url_for, abort
 from app import db
 from app.models import User, Ingredient
 from app.api import bp
+
+@bp.route('/users', methods=['POST'])
+def new_user():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    email = request.json.get('email')
+    if username is None or password is None or email is None:
+        abort(400)
+    if User.query.filter_by(username = username).first() is not None or User.query.filter_by(email = email).first() is not None:
+        abort(400)
+    user = User(username = username, email = email)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'username': user.username}), 201, {'Location': url_for('api.get_user', id = user.id, _external=True)}
 
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
