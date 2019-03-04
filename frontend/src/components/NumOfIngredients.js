@@ -2,6 +2,8 @@ import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
 import IngredientChecklist from "./IngredientChecklist";
+import './NumOfIngredients.css';
+
 
 class NumOfIngredients extends React.Component {
 	constructor(props) {
@@ -27,12 +29,14 @@ class NumOfIngredients extends React.Component {
 	render() {
 		return (
 			<ListGroup>
-        <ListGroupItem className="justify-content-between"># of Ingredients
+				<ListGroupItem className="justify-content-between"># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
+				<div id="list">
+				<IngredientList funct={this.updateNum} />
 				<div id="input" style={input}>
 					<IngredientChecklist funct={this.updateNum}/>
-					<IngredientList funct={this.updateNum} />
+				</div>
 				</div>
 			</ListGroup>
 		);

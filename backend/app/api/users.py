@@ -1,7 +1,42 @@
-from flask import jsonify, request, Response
+from flask import jsonify, request, Response, url_for, abort
 from app import db
+from flask_login import current_user, login_user, logout_user
 from app.models import User, Ingredient
 from app.api import bp
+
+@bp.route('/users', methods=['POST'])
+def new_user():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    email = request.json.get('email')
+    if username is None or password is None or email is None:
+        abort(400)
+    if User.query.filter_by(username = username).first() is not None or User.query.filter_by(email = email).first() is not None:
+        abort(400)
+    user = User(username = username, email = email)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'username': user.username}), 201, {'Location': url_for('api.get_user', id = user.id, _external=True)}
+
+@bp.route('/users/login', methods=['POST'])
+def user_login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    if username is None or password is None:
+        abort(400)
+    user = User.query.filter_by(username=username).first()
+    if user.check_password(password) is False:
+        abort(400)
+    login_user(user)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify(user.to_dict())
+
+@bp.route('/users/logout', methods=['GET'])
+def user_logout():
+    logout_user()
+    return url_for('main.index')
 
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):

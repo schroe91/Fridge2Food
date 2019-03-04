@@ -7,7 +7,9 @@ class RecipeList extends React.Component{
         return(          
             <ListGroup variant="flush">   
                 <a href="#" class= "list-group-item">Turkey and Cheese Sandwich</a>
-                   
+                <a href="#" class= "list-group-item">Tomato Basil Soup</a>
+                <a href="#" class= "list-group-item">Ceasar Salad</a>
+                <a href="#" class= "list-group-item">Chicken Parmeasan</a>      
             </ListGroup>
 
         )
@@ -19,9 +21,7 @@ class RecipeList extends React.Component{
                 <ListGroup.Item>Tomato Basil Soup</ListGroup.Item> 
                 <ListGroup.Item>Ceasar Salad</ListGroup.Item>
                 <ListGroup.Item>Chicken Parmeasan</ListGroup.Item>  
-                <a href="#" class= "list-group-item">Tomato Basil Soup</a>
-                <a href="#" class= "list-group-item">Ceasar Salad</a>
-                <a href="#" class= "list-group-item">Chicken Parmeasan</a>           
+                      
 < */
 
 export default RecipeList

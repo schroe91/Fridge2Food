@@ -51,19 +51,21 @@ h3{
 
 #recipe-search {
   display: flex;
+  margin-left: 5px;
+  align-content: stretch;
 }
 
 #recipe-list {
   padding-top: 50px;
 }
 
-#num-of-recipes {
-  position: absolute;
-  left: 80%;
+#num-of-recipes{
+  height: auto;
+  width: auto;
+  margin-left:10px;
+
 }
-#newIng{
-  padding-top: 40%; 
-}
+
 .button {
   font-family: "Roboto", Arial, sans-serif;
   color: #000000;

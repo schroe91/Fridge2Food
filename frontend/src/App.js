@@ -8,7 +8,6 @@ import RecipeSearch from './components/RecipeSearch'
 
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
-import NewIngredient from './components/NewIngredient'
 import RecipeFilter from './components/recipefilter'
 
 class App extends Component {
@@ -38,9 +37,6 @@ class App extends Component {
           <div id="num-of-recipes">
               <NumOfRecipes />
             </div>
-          <div id="newIng">
-              <NewIngredient/>
-          </div>
         </div>
       </div>
     );
