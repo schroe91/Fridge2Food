@@ -4,8 +4,10 @@ import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 class NumOfRecipes extends React.Component {
 	render() {
 		return (
-			<ListGroup>
-        		<ListGroupItem className="justify-content-between"># of Recipes <Badge pill>4</Badge></ListGroupItem>
+			<ListGroup style={size}>
+        		<ListGroupItem className="justify-content-between py-2"># of Recipes 
+					<Badge pill style={badge}>4</Badge>
+				</ListGroupItem>
 			</ListGroup>
 		);
 	}
@@ -14,10 +16,11 @@ class NumOfRecipes extends React.Component {
 export default NumOfRecipes;
 
 const size = {
-	maxWidth: "200px",
-	width: "110%",
+	marginTop: "-1px",
+	position: "absolute",
+	left: "82%",
+	width: "12%"
 }
-
 const badge = {
 	float: "right",
 	marginTop: "3px",

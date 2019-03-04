@@ -31,13 +31,13 @@ class recipefilter extends Component{
             </DropdownButton>
 
             
-                <DropdownButton id="sort" title="Sort By" size="sm">
+                <DropdownButton id="sort" title="Sort By">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Calories</Dropdown.Item>
                 </DropdownButton>
 
-            <DropdownButton id="meal type" title="Meal Type" size="sm">
+            <DropdownButton id="meal type" title="Meal Type">
                 <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>

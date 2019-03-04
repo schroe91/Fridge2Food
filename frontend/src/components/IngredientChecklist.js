@@ -63,8 +63,8 @@ class IngredientChecklist extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row mt-3">
+      <div className="container" style={checkList}>
+        <div className="row mt-5">
           <div className="col-sm-12">
             <form onSubmit={this.handleFormSubmit}>
               {this.createCheckboxes()}
@@ -82,3 +82,7 @@ class IngredientChecklist extends Component {
 }
 
 export default IngredientChecklist;
+const checkList = {
+  marginTop: "10px",
+  marginLeft: "50px",
+}
