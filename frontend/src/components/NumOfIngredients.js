@@ -33,10 +33,8 @@ class NumOfIngredients extends React.Component {
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="list">
-				<IngredientList funct={this.updateNum} />
-				<div id="input" style={input}>
+					<IngredientList funct={this.updateNum} />
 					<IngredientChecklist funct={this.updateNum}/>
-				</div>
 				</div>
 			</ListGroup>
 		);
@@ -48,9 +46,6 @@ export default NumOfIngredients;
 const badge = {
 	float: "right",
 	marginTop: "3px",
-}
-const input = {
-	display: "flex",
 }
 const label = {
 	width: "85%",
