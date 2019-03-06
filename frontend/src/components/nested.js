@@ -22,7 +22,7 @@ class NestedLogin extends React.Component {
   login(username, password) {
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/login', {
+    fetch('http://127.0.0.1:5000/api/user/login', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ class NestedLogin extends React.Component {
     console.log(email);
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/register',{
+    fetch('http://127.0.0.1:5000/api/users',{
       method:"POST",
       headers: {
         'Content-Type': 'application/json'
@@ -58,8 +58,8 @@ class NestedLogin extends React.Component {
   }
   handleSubmit2(ev){
     ev.preventDefault();
-    const {newUsername, newPassword, newEmail} = this.state;
-    this.newUser(newUsername, newPassword, newEmail);
+    const {newEmail, newUsername, newPassword} = this.state;
+    this.newUser(newEmail, newUsername, newPassword);
     this.setState({
       newUsername: '',
       newPassword: '',
@@ -80,7 +80,7 @@ class NestedLogin extends React.Component {
       />
     </div>
     <div>
-      <input type="text" name="password" placeholder="Password" size="22"
+      <input type="password" name="password" placeholder="Password" size="22"
 						onChange={this.handleChange} value={this.state.password}/>
     </div>
     <div onSubmit={this.handleSubmit}>
@@ -101,7 +101,7 @@ class NestedLogin extends React.Component {
           onChange={this.handleChange} value={this.state.newEmail}/>
           <input type="text" name="newUsername" placeholder="Username" size="22"
           onChange={this.handleChange} value={this.state.newUsername}/>
-          <input type="text" name="newPassword" placeholder="Password" size="22"
+          <input type="password" name="newPassword" placeholder="Password" size="22"
           onChange={this.handleChange} value={this.state.newPassword}/>
            <Button type="submit" onClick={this.handleSubmit2}> Submit </Button>
         </div>
