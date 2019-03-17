@@ -106,10 +106,10 @@ const delButton = {
 const delAll = {
 	textAlign: "center",
 	marginTop: "10px",
-	paddingLeft: "40px",
+	paddingLeft: "12px"
 }
 
 const form = {
 	marginTop: "20px",
-	paddingLeft: "40px",
+	paddingLeft: "15px",
 }

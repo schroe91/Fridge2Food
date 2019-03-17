@@ -29,14 +29,12 @@ class NumOfIngredients extends React.Component {
 	render() {
 		return (
 			<ListGroup>
-				<ListGroupItem className="justify-content-between"># of Ingredients
+				<ListGroupItem className="justify-content-between py-2" style={label}># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="list">
-				<IngredientList funct={this.updateNum} />
-				<div id="input" style={input}>
+					<IngredientList funct={this.updateNum} />
 					<IngredientChecklist funct={this.updateNum}/>
-				</div>
 				</div>
 			</ListGroup>
 		);
@@ -46,9 +44,10 @@ class NumOfIngredients extends React.Component {
 export default NumOfIngredients;
 
 const badge = {
-	marginLeft: "25px",
+	float: "right",
+	marginTop: "3px",
 }
-
-const input = {
-	display: "flex",
+const label = {
+	width: "85%",
+	marginLeft: "15px",
 }
