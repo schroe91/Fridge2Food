@@ -51,6 +51,14 @@ def add_user_ingredients(id):
     db.session.commit()
     return jsonify(user.to_dict()), 201
 
+@bp.route('/users/<int:user_id>/ingredients', methods=['DELETE'])
+def delete_all_user_ingredients(user_id):
+    user = User.query.get_or_404(user_id)
+    for ing in user.ingredients:
+        user.ingredients.remove(ing)
+    db.session.commit()
+    return '', 204
+
 @bp.route('/users/<int:user_id>/ingredients/<int:ing_id>', methods=['DELETE'])
 def delete_user_ingredient(user_id, ing_id):
     user = User.query.get_or_404(user_id)
