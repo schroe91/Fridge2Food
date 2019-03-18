@@ -13,11 +13,13 @@ class NestedLogin extends React.Component {
       newUsername: '',
       newPassword: '',
       newEmail: '',
+      email3: '',
 		}
 
 		this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSubmit3 = this.handleSubmit3.bind(this);
 	}
   login(username, password) {
     console.log(username);
@@ -46,6 +48,16 @@ class NestedLogin extends React.Component {
       body: JSON.stringify({email: email, username: username, password: password})
     }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Failed to regiester"}})))
   }
+  forgotPassword(email){
+    console.log(email);
+    fetch('http://127.0.0.1:5000/api/',{
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: email})
+    }).then( response => response.ok ).then(success => ( success ? this.setState({isAuth: success}) : this.setState({error: {message: "Failed to send emailr"}})))
+  }
 
 	handleSubmit(ev) {
     ev.preventDefault();
@@ -66,6 +78,14 @@ class NestedLogin extends React.Component {
       newEmail: '',
     });
   }
+  handleSubmit3(ev){
+    ev.preventDefault();
+    const {email3} = this.state;
+    this.forgotPassword(email3);
+    this.setState({
+      email3:'',
+    })
+  }
   render(){
     return (
     <Popup
@@ -85,7 +105,18 @@ class NestedLogin extends React.Component {
     </div>
     <div onSubmit={this.handleSubmit}>
       <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
-      <Button>Forgot Password</Button>
+      <Popup
+        trigger={<button type="submit" className="button"> Forgot Password </button>}
+        position="bottom right"
+        closeOnDocumentClick
+      >
+        <div>
+          enter your email
+          <input type="text" name="email3" placeholder="Email" size= "22"
+            onChange={this.handleChange} value={this.state.email3}/>
+            <Button type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
+        </div>
+      </Popup>
       <Popup
     trigger={<button> Create new user </button>}
     modal

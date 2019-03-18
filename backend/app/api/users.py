@@ -1,6 +1,7 @@
-from flask import jsonify, request, Response, url_for, abort
+from flask import jsonify, request, Response, url_for, abort, g
 from app import db
 from flask_login import current_user, login_user, logout_user
+from flask_httpauth import HTTPBasicAuth
 from app.models import User, Ingredient
 from app.api import bp
 
@@ -29,7 +30,7 @@ def user_login():
     if user.check_password(password) is False:
         abort(400)
     login_user(user)
-    db.session.add(user)
+    #db.session.add(user)
     db.session.commit()
     return jsonify(user.to_dict())
 
@@ -68,3 +69,10 @@ def delete_user_ingredient(user_id, ing_id):
     user.ingredients.remove(ing)
     db.session.commit()
     return '', 204
+
+#Token
+@bp.route('/token')
+@auth.login_required
+def get_auth_token():
+    token = g.user.generate_auth_token(600)
+    return jsonify({'token': token.decode('ascii'), 'duration': 600})
