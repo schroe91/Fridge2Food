@@ -18,9 +18,8 @@ def get_recipe(id):
 def get_all_recipes():
     recipes = Recipe.query
     if request.args.get('name') != None:
-        query = Recipe.query.filter(Recipe.name.like("%"+request.args.get('name')+"%"))
-        recipes = recipes.union(query)
-
+        recipes = Recipe.query.filter(Recipe.name.like("%"+request.args.get('name')+"%"))
+        
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
         ingredients = [Ingredient.query.get(id) for id in ing_arr]
@@ -29,11 +28,10 @@ def get_all_recipes():
             containsAllIngredients = True
             for ing in recipe.ingredients:
                 if ing not in ingredients:
-                    containsAllIngrdients = False
+                    containsAllIngredients = False
             if containsAllIngredients:
                 new_recipes.append(recipe)
         recipes = new_recipes
         print(request.args.get('ingredients'))
-        
-        
-    return jsonify([r.to_dict() for r in recipes])
+        return jsonify([r.to_dict() for r in recipes])
+    
