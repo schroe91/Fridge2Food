@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from "react-bootstrap/Dropdown";
 import './RecipeFilter.css';
-import DropdownMenu from "react-bootstrap/DropdownMenu";
 
 class recipefilter extends Component{
+
     constructor(props) {
         super(props);
         this.state = {isToggleOn: true};
-    
+        this.title1 = "Dietary Restrictions";
+        this.title2 = "Sort By";
+        this.title3 = "Meal Type";
         this.handleClick = this.handleClick.bind(this);
       }
     
@@ -21,8 +23,7 @@ class recipefilter extends Component{
     render(){
         return(
             <div id="filters">
-            <DropdownButton id="diet" title="Dietary Restrictions" aria-expanded={this.state.isToggleOn} button onClick={this.handleClick}>
-
+            <DropdownButton id="diet" title={this.title1} aria-expanded={this.state.isToggleOn} button onClick={this.handleClick}>
                 <Dropdown.Item href="#/action-1">Vegetarian</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Vegan</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Pescatarian</Dropdown.Item>
