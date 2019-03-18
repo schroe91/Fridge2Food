@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import g
 from flask_httpauth import HTTPBasicAuth
 from flask_login import UserMixin
-from app import db, login
+from app import db, login, auth
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 
 

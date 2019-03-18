@@ -3,6 +3,7 @@ Click==7.0
 elasticsearch==6.3.1
 Flask==1.0.2
 Flask-Cors==3.0.7
+Flask-HTTPAuth==3.2.4
 Flask-Login==0.4.1
 Flask-Migrate==2.3.1
 Flask-SQLAlchemy==2.3.2

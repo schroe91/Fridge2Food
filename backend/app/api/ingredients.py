@@ -30,4 +30,3 @@ def add_ingredient():
         response.status_code = 409
         response.headers['location'] = '/ingredients/{}'.format(ing[0].id)
         return response
-    
