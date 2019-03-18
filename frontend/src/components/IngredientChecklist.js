@@ -63,19 +63,15 @@ class IngredientChecklist extends Component {
 
   render() {
     return (
-      <div className="container" style={checkList}>
-        <div className="row mt-5">
-          <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
-              {this.createCheckboxes()}
-              <div className="form-group mt-2">
-                <button type="submit" className="btn btn-primary">
-                  Save
-                </button>
-              </div>
-            </form>
+      <div style={checkList}>
+        <form onSubmit={this.handleFormSubmit}>
+          {this.createCheckboxes()}
+          <div className="form-group mt-2">
+            <button type="submit" className="btn btn-primary">
+              Save
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
@@ -83,6 +79,6 @@ class IngredientChecklist extends Component {
 
 export default IngredientChecklist;
 const checkList = {
-  marginTop: "10px",
-  marginLeft: "50px",
+  marginTop: "20px",
+  marginLeft: "15px",
 }

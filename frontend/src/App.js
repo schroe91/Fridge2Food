@@ -29,14 +29,14 @@ class App extends Component {
             <div id="recipe-search">
               <RecipeSearch />          
               <RecipeFilter />
+              <div id="numRecipes">
+                <NumOfRecipes />
+              </div>
             </div>
             <div id="recipe-list">
               <RecipeList />
             </div>
           </div>
-          <div id="num-of-recipes">
-              <NumOfRecipes />
-            </div>
         </div>
       </div>
     );
@@ -47,4 +47,5 @@ export default App;
 
 const style = {
   position: "absolute",
+  width: "100%",
 }

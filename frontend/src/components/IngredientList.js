@@ -1,6 +1,5 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
-import NewIngredients from "./NewIngredient";
 import './IngredientList.css'
 
 class IngredientList extends React.Component {
@@ -88,7 +87,6 @@ class IngredientList extends React.Component {
 					Delete All
 				</button>
 				</div>
-				<NewIngredients />
 			</div>
 		)
 	}
