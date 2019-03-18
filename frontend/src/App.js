@@ -11,10 +11,20 @@ import NumOfRecipes from './components/NumOfRecipes'
 import RecipeFilter from './components/recipefilter'
 //import SearchBar from './components/SearchBar'
 
+import {BrowserRouter as Router} from 'react-router-dom'
+import Route from 'react-router-dom/Route'
+
+const Recipe = ({match}) => {
+  return(<h1>Your recipe is {match.params.recipe}</h1>)
+} 
+
 class App extends Component {
   render() {
     return (
       <div id="layout" style={style}>
+        <Router>
+          <Route path="/recipe/:recipe" exact strict component={Recipe}/>
+        </Router>
         <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
@@ -30,14 +40,14 @@ class App extends Component {
             <div id="recipe-search">
               <RecipeSearch />          
               <RecipeFilter />
+              <div id="numRecipes">
+                <NumOfRecipes />
+              </div>
             </div>
             <div id="recipe-list">
               <RecipeList />
             </div>
           </div>
-          <div id="num-of-recipes">
-              <NumOfRecipes />
-            </div>
         </div>
       </div>
     );
@@ -48,4 +58,5 @@ export default App;
 
 const style = {
   position: "absolute",
+  width: "100%",
 }

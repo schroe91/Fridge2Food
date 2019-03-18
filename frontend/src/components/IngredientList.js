@@ -1,6 +1,5 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
-import NewIngredients from "./NewIngredient";
 import './IngredientList.css'
 
 class IngredientList extends React.Component {
@@ -16,21 +15,31 @@ class IngredientList extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
+		this.deleteAll = this.deleteAll.bind(this);
 	}
 
 	AddIngredient() {
-    fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
-        method: "POST",
-        body: JSON.stringify(this.state.name)
-    }).then( response => response.ok )
+		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state.name)
+		}).then( response => response.ok )
 	}
 
-deleteIngredient(){
-	fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
-        method: "DELETE",
-        body: JSON.stringify(this.state.name)
-    }).then( response => response.ok )
-}
+	deleteIngredient(){
+		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
+			method: "DELETE",
+			body: JSON.stringify(this.state.name)
+		}).then( response => response.ok )
+	}
+
+	deleteAll(){
+		fetch('http://127.0.0.1:5000/api/users/<int:user_id>/ingredients',{
+			method: "DELETEALL",
+		}).then(response => response.ok)
+	}
 
 	handleChange(ev) {
 		this.setState({value: ev.target.value});
@@ -61,6 +70,7 @@ deleteIngredient(){
 		if(i > -1) {
 			newState.list.splice(i, 1);
 			newState.numOfIngredients -= 1;
+			this.state.name = this.state.value;
 			this.props.funct(-1); //Passes value to NumOfIngredients.js
 			this.setState(newState);
 			this.deleteIngredient();
@@ -74,6 +84,7 @@ deleteIngredient(){
 		newState.numOfIngredients = 0;
 		this.props.funct("delAll", numToDel); //Passes value to NumOfIngredients.js
 		this.setState(newState);
+		this.deleteAll();
 	}
 
 	render() {
@@ -107,7 +118,6 @@ deleteIngredient(){
 					Delete All
 				</button>
 				</div>
-				<NewIngredients />
 			</div>
 		)
 	}
