@@ -8,13 +8,29 @@ class IngredientList extends React.Component {
 		super(props);
 		this.state = {
 			list: [],
+			name: "",
 			numOfIngredients: 0,
 		}
-
+		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.deleteIngredient = this.deleteIngredient.bind(this);
 	}
+
+	AddIngredient() {
+    fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
+        method: "POST",
+        body: JSON.stringify(this.state.name)
+    }).then( response => response.ok )
+	}
+
+deleteIngredient(){
+	fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
+        method: "DELETE",
+        body: JSON.stringify(this.state.name)
+    }).then( response => response.ok )
+}
 
 	handleChange(ev) {
 		this.setState({value: ev.target.value});
@@ -27,6 +43,8 @@ class IngredientList extends React.Component {
 		if(this.state.list.indexOf(this.state.value) === -1) {
 			this.state.list.unshift(this.state.value);
 			this.props.funct(1); //Passes value to NumOfIngredients.js
+			this.state.name = this.state.value;
+			this.AddIngredient();
 		}
 
 		//Reset form
@@ -45,6 +63,7 @@ class IngredientList extends React.Component {
 			newState.numOfIngredients -= 1;
 			this.props.funct(-1); //Passes value to NumOfIngredients.js
 			this.setState(newState);
+			this.deleteIngredient();
 		}
 	}
 
@@ -106,7 +125,7 @@ const delButton = {
 const delAll = {
 	textAlign: "center",
 	marginTop: "10px",
-	paddingLeft: "12px"
+	paddingLeft: "n12px"
 }
 
 const form = {

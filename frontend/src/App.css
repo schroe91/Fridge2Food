@@ -1,6 +1,7 @@
 #top-border {
   display: flex;
   height: 63px;
+  width: 1405px;
   background-color: powderblue;
 }
 

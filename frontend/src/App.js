@@ -9,11 +9,12 @@ import RecipeSearch from './components/RecipeSearch'
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
 import RecipeFilter from './components/recipefilter'
+//import SearchBar from './components/SearchBar'
 
 class App extends Component {
   render() {
     return (
-      <div id="layout">
+      <div id="layout" style={style}>
         <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
@@ -44,3 +45,7 @@ class App extends Component {
 }
 
 export default App;
+
+const style = {
+  position: "absolute",
+}

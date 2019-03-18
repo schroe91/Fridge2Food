@@ -38,7 +38,7 @@ class NewIngredient extends React.Component {
       return(
       <Popup
       trigger={<button className="button"> Add New Ingredient </button>}
-      position="bottom right"
+      position="bottom left"
       closeOnDocumentClick
       >
       <div>
