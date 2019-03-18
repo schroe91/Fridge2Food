@@ -28,25 +28,9 @@ const Home = () => {
       <NestedLogin />
     </div>
     </div>
-    <div id="info-panel">
-    <div id="ingredients-panel">
-      <NumOfIngredients />
     </div>
-    <div id="recipe-panel">
-      <div id="recipe-search">
-        <RecipeSearch />          
-        <RecipeFilter />
-      <div id="numRecipes">
-        <NumOfRecipes />
-      </div>
-      </div>
-    <div id="recipe-list">
-      <RecipeList />
-    </div>
-    </div>
-    </div>
-    </div>)
-}
+  )}
+  
 
 class App extends Component {
   render() {
