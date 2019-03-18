@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app import db
-from app.models import Recipe
+from app.models import Recipe, Ingredient
 from app.api import bp
 
 def string_to_boolean(str):
@@ -20,6 +20,20 @@ def get_all_recipes():
     if request.args.get('name') != None:
         query = Recipe.query.filter(Recipe.name.like("%"+request.args.get('name')+"%"))
         recipes = recipes.union(query)
+
+    if request.args.get('ingredients') != None:
+        ing_arr = request.args.get('ingredients').split(",")
+        ingredients = [Ingredient.query.get(id) for id in ing_arr]
+        new_recipes = []
+        for recipe in recipes:
+            containsAllIngredients = True
+            for ing in recipe.ingredients:
+                if ing not in ingredients:
+                    containsAllIngrdients = False
+            if containsAllIngredients:
+                new_recipes.append(recipe)
+        recipes = new_recipes
+        print(request.args.get('ingredients'))
         
-    
+        
     return jsonify([r.to_dict() for r in recipes])
