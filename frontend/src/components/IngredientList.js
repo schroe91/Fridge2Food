@@ -1,6 +1,5 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
-import NewIngredients from "./NewIngredient";
 import './IngredientList.css'
 
 class IngredientList extends React.Component {
@@ -8,12 +7,38 @@ class IngredientList extends React.Component {
 		super(props);
 		this.state = {
 			list: [],
+			name: "",
 			numOfIngredients: 0,
 		}
-
+		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.deleteIngredient = this.deleteIngredient.bind(this);
+		this.deleteAll = this.deleteAll.bind(this);
+	}
+
+	AddIngredient() {
+		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state.name)
+		}).then( response => response.ok )
+	}
+
+	deleteIngredient(){
+		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
+			method: "DELETE",
+			body: JSON.stringify(this.state.name)
+		}).then( response => response.ok )
+	}
+
+	deleteAll(){
+		fetch('http://127.0.0.1:5000/api/users/<int:user_id>/ingredients',{
+			method: "DELETEALL",
+		}).then(response => response.ok)
 	}
 
 	handleChange(ev) {
@@ -27,6 +52,8 @@ class IngredientList extends React.Component {
 		if(this.state.list.indexOf(this.state.value) === -1) {
 			this.state.list.unshift(this.state.value);
 			this.props.funct(1); //Passes value to NumOfIngredients.js
+			this.state.name = this.state.value;
+			this.AddIngredient();
 		}
 
 		//Reset form
@@ -43,8 +70,10 @@ class IngredientList extends React.Component {
 		if(i > -1) {
 			newState.list.splice(i, 1);
 			newState.numOfIngredients -= 1;
+			this.state.name = this.state.value;
 			this.props.funct(-1); //Passes value to NumOfIngredients.js
 			this.setState(newState);
+			this.deleteIngredient();
 		}
 	}
 
@@ -55,6 +84,7 @@ class IngredientList extends React.Component {
 		newState.numOfIngredients = 0;
 		this.props.funct("delAll", numToDel); //Passes value to NumOfIngredients.js
 		this.setState(newState);
+		this.deleteAll();
 	}
 
 	render() {
@@ -88,7 +118,6 @@ class IngredientList extends React.Component {
 					Delete All
 				</button>
 				</div>
-				<NewIngredients />
 			</div>
 		)
 	}
@@ -106,7 +135,7 @@ const delButton = {
 const delAll = {
 	textAlign: "center",
 	marginTop: "10px",
-	paddingLeft: "12px"
+	paddingLeft: "n12px"
 }
 
 const form = {

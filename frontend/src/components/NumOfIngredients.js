@@ -2,8 +2,7 @@ import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
 import IngredientChecklist from "./IngredientChecklist";
-import './NumOfIngredients.css';
-
+import NewIngredients from "./NewIngredient";
 
 class NumOfIngredients extends React.Component {
 	constructor(props) {
@@ -33,9 +32,12 @@ class NumOfIngredients extends React.Component {
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
 				<div id="list">
-					<IngredientList funct={this.updateNum} />
+					<div style={listStyle}>
+						<IngredientList funct={this.updateNum} />
+					</div>
 					<IngredientChecklist funct={this.updateNum}/>
 				</div>
+				<NewIngredients />
 			</ListGroup>
 		);
 	}
@@ -50,4 +52,8 @@ const badge = {
 const label = {
 	width: "85%",
 	marginLeft: "15px",
+}
+
+const listStyle = {
+	display: "inline"
 }

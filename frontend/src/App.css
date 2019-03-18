@@ -1,6 +1,8 @@
 #top-border {
   display: flex;
+  width: stretch;
   height: 63px;
+  width: 1405px;
   background-color: powderblue;
 }
 
@@ -23,7 +25,6 @@
 #info-panel {
   position: absolute;
   height: 590px;
-  width: 1405px;
   display: flex;
   flex-direction: row;
   padding-top: 20px;
@@ -52,18 +53,14 @@ h3{
 #recipe-search {
   display: flex;
   margin-left: 5px;
-  align-content: stretch;
+}
+
+#numRecipes {
+  width: 200px;
 }
 
 #recipe-list {
   padding-top: 50px;
-}
-
-#num-of-recipes{
-  height: auto;
-  width: auto;
-  margin-left:10px;
-
 }
 
 .button {

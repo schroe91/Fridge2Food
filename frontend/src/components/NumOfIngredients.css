@@ -1,8 +1,0 @@
-#list{
-    display:flex;
-    flex-direction: row; 
-}
-#input{
-    margin-top: -40px;
-    align-items: flex-start,
-}
