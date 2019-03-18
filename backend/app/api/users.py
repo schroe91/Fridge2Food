@@ -1,5 +1,5 @@
 from flask import jsonify, request, Response, url_for, abort, g
-from app import db
+from app import db, auth
 from flask_login import current_user, login_user, logout_user
 from flask_httpauth import HTTPBasicAuth
 from app.models import User, Ingredient
