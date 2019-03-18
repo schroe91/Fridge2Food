@@ -9,10 +9,11 @@ import RecipeSearch from './components/RecipeSearch'
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
 import RecipeFilter from './components/recipefilter'
-//import SearchBar from './components/SearchBar'
+import SearchBar from './components/SearchBar'
 
 import {BrowserRouter as Router} from 'react-router-dom'
 import Route from 'react-router-dom/Route'
+import dietaryRestrictions from './components/dietaryRestrictions'
 
 const Recipe = ({match}) => {
   return(<h1>Your recipe is {match.params.recipe}</h1>)
@@ -38,7 +39,8 @@ class App extends Component {
           </div>
           <div id="recipe-panel">
             <div id="recipe-search">
-              <RecipeSearch />          
+              <SearchBar />
+              <dietaryRestrictions />          
               <RecipeFilter />
               <div id="numRecipes">
                 <NumOfRecipes />
