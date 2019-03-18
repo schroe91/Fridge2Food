@@ -9,7 +9,7 @@ import RecipeSearch from './components/RecipeSearch'
 import NumOfIngredients from './components/NumOfIngredients'
 import NumOfRecipes from './components/NumOfRecipes'
 import RecipeFilter from './components/recipefilter'
-import SearchBar from './components/SearchBar'
+//import SearchBar from './components/SearchBar'
 
 class App extends Component {
   render() {
@@ -18,9 +18,6 @@ class App extends Component {
         <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
-          <div>
-            <SearchBar/>
-          </div>
           <div id="login">
             <NestedLogin />
           </div>
