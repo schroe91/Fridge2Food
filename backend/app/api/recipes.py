@@ -11,8 +11,8 @@ def string_to_boolean(str):
 
 @bp.route('/recipes/<int:id>', methods=['GET'])
 def get_recipe(id):
-    searchResults = Recipe.query.get(id)
-    return jsonify([r.to_dict() for r in searchResults])
+#    searchResults = Recipe.query.get(id)
+    return jsonify(Recipe.query.get_or_404(id).to_dict())
 
 @bp.route('/recipes', methods=['GET'])
 def get_all_recipes():
