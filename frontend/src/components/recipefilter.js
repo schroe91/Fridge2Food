@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from "react-bootstrap/Dropdown";
 import './RecipeFilter.css';
+import Form from 'react-bootstrap/Form';
 
 class recipefilter extends Component{
 
@@ -23,27 +24,28 @@ class recipefilter extends Component{
     render(){
         return(
             <div id="filters">
-            <DropdownButton id="diet" title={this.title1} aria-expanded={this.state.isToggleOn} button onClick={this.handleClick}>
-                <Dropdown.Item href="#/action-1">Vegetarian</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Vegan</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Pescatarian</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">Gluten-free</Dropdown.Item>
-                <Dropdown.Item href="#/action-5">Lactose-free</Dropdown.Item>
-            </DropdownButton>
-
-            
-                <DropdownButton id="sort" title="Sort By">
+            <Form>
+              {['checkbox'].map(type => (
+                <div key={`inline-${type}`} className="mb-3">
+                  <Form.Check inline label="vegetarian" type={type} id={`inline-${type}-vegetarian`} />
+                  <Form.Check inline label="vegan" type={type} id={`inline-${type}-vegan`} />
+                  <Form.Check inline label="gluten-free" type={type} id={`inline-${type}-gluten-free`}/>
+                  <Form.Check inline label="lactose-free" type={type} id={`inline-${type}-lactose-free`}/>
+                </div>
+              ))}
+            </Form>
+              <DropdownButton id="sort" title="Sort By">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Calories</Dropdown.Item>
                 </DropdownButton>
 
-            <DropdownButton id="meal type" title="Meal Type">
-                <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">Dessert</Dropdown.Item>
-            </DropdownButton>
+              <DropdownButton id="meal type" title="Meal Type">
+                  <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
+                  <Dropdown.Item href="#/action-4">Dessert</Dropdown.Item>
+              </DropdownButton>
             </div>
         );
     }
