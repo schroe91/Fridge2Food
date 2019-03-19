@@ -148,26 +148,3 @@ class NestedLogin extends React.Component {
   }
 }
 export default NestedLogin;
-
-/*<Popup
-          trigger={<button className="button style"> Create new user </button>}
-          modal
-        >
-          {close => (
-            <div style={modalStyle} size="sm">
-              <a className="close" onClick={close} style={closeButton}>
-                &times;
-              </a>
-              <div className="header"> Enter new user information </div>
-              <div className="actions">
-                <input type="text" name="newEmail" placeholder="Email" size="22"
-                  onChange={this.handleChange} value={this.state.newEmail} />
-                <input type="text" name="newUsername" placeholder="Username" size="22"
-                  onChange={this.handleChange} value={this.state.newUsername} />
-                <input type="password" name="newPassword" placeholder="Password" size="22"
-                  onChange={this.handleChange} value={this.state.newPassword} />
-                <Button type="submit" onClick={this.handleSubmit2} style={submit}> Submit </Button>
-              </div>
-            </div>
-          )}
-        </Popup> */
