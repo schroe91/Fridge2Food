@@ -123,9 +123,9 @@ class NestedLogin extends React.Component {
   >
     {close => (
       <div >
-        <a className="close" onClick={close}>
+        <button className="close" onClick={close}>
           &times;
-        </a>
+        </button>
         <div className="header"> Enter new user information </div>
         <div className="actions">
           <input type="text" name="newEmail" placeholder="Email" size="22"
