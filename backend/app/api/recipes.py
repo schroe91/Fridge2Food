@@ -33,5 +33,5 @@ def get_all_recipes():
                 new_recipes.append(recipe)
         recipes = new_recipes
         print(request.args.get('ingredients'))
-        return jsonify([r.to_dict() for r in recipes])
+    return jsonify([r.to_dict() for r in recipes])
     
