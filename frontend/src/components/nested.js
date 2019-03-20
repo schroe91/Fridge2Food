@@ -26,7 +26,7 @@ class NestedLogin extends React.Component {
   login(username, password) {
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/api/user/login', {
+    fetch('http://127.0.0.1:5000/api/users/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
