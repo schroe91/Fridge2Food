@@ -21,26 +21,7 @@ const Home = () => {
   //render(){
   return(
     <div id="layout" style={style}>
-    <div id="top-border">
-    <img src={logo} alt="" id="logo"/>
-    <h2 id="title">Fridge2Food</h2>
-    <div id="login">
-      <NestedLogin />
-    </div>
-    </div>
-    </div>
-  )}
-  
-
-class App extends Component {
-  render() {
-    return (
-      <div id="layout" style={style}>
-        <Router>
-          <Route path="/recipe/:recipe" exact strict component={Recipe}/>
-          <Route path="/" exact strict component={Home}/>
-        </Router>
-        <div id="top-border">
+      <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
           <div id="login">
@@ -53,7 +34,7 @@ class App extends Component {
           </div>
           <div id="recipe-panel">
             <div id="recipe-search">
-              <SearchBar />
+              <RecipeSearch />
               <dietaryRestrictions />          
               <RecipeFilter />
               <div id="numRecipes">
@@ -65,7 +46,18 @@ class App extends Component {
             </div>
           </div>
         </div>
-        
+    </div>
+  )}
+  
+
+class App extends Component {
+  render() {
+    return (
+      <div id="layout" style={style}>
+        <Router>
+          <Route path="/recipe/:recipe" exact strict component={Recipe}/>
+          <Route path="/" exact strict component={Home}/>
+        </Router>
       </div>
     );
   }

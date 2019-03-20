@@ -1,5 +1,4 @@
 import React from "react"
-import ListGroup from "react-bootstrap/ListGroup"
 import "./RecipeList.css"
 import {Link} from 'react-router';
 
@@ -11,7 +10,7 @@ class RecipeList extends React.Component{
         };
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         fetch('http://127.0.0.1:5000/api/recipes/get_all_recipes')
             .then(response => {
                 response.json();
@@ -26,7 +25,7 @@ class RecipeList extends React.Component{
                 console.log("state",this.state.recipes);
             })
     }
-
+*/
     render(){
         return( 
             <div>
