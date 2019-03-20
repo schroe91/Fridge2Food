@@ -34,7 +34,7 @@ const Home = () => {
           </div>
           <div id="recipe-panel">
             <div id="recipe-search">
-              <SearchBar />
+              <RecipeSearch />
               <dietaryRestrictions />          
               <RecipeFilter />
               <div id="numRecipes">
