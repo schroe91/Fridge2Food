@@ -80,5 +80,4 @@ class IngredientChecklist extends Component {
 export default IngredientChecklist;
 const checkList = {
   marginTop: "20px",
-  marginLeft: "15px",
 }

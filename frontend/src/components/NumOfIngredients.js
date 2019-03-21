@@ -25,7 +25,7 @@ class NumOfIngredients extends React.Component {
 				<ListGroupItem className="justify-content-between py-2" style={label}># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
-				<div id="list">
+				<div>
 					<div style={listStyle}>
 						<IngredientList setNumOfIngredients={this.updateNum} />
 					</div>
@@ -43,8 +43,7 @@ const badge = {
 	marginTop: "3px",
 }
 const label = {
-	width: "85%",
-	marginLeft: "15px",
+	width: "100%",
 }
 
 const listStyle = {

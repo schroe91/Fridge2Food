@@ -85,12 +85,12 @@ class IngredientList extends React.Component {
 
 	render() {
 		return (
-			<div style={layout}>
-				<div style={input}>
+			<div id="Ingredientlayout">
+				<div id="input">
 					<IngredientInput funct={this.handleSubmit} />
 					<IngredientChecklist addIngredient={this.handleSubmit} removeIngredient={this.handleDelete} />
 				</div>
-				<div>
+				<div id="list">
 					<ul id="template">
 						{this.state.list.map((item) => (
 							<li>
@@ -103,12 +103,12 @@ class IngredientList extends React.Component {
 							</li>
 						))}
 					</ul>
-					<div style={delAll}>
+					<div id="delAll">
 						<button
 							className="btn btn-danger"
 							onClick={() => { this.handleDeleteAll() }}>
 							Delete All
-				</button>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -123,18 +123,4 @@ const delButton = {
 	border: '0',
 	color: "#c20",
 	outline: 'none',
-}
-
-const delAll = {
-	textAlign: "center",
-	marginTop: "10px",
-	paddingLeft: "n12px"
-}
-
-const layout = {
-	display: "flex",
-}
-
-const input = {
-	display: "block",
 }

@@ -1,3 +1,25 @@
-#ingredientInput{
-    align-content: left,
+#Ingredientlayout {
+    display: flex;
+    padding-left: 10px;
+}
+
+#input {
+    padding-top: 10px;
+    display: "block";
+}
+
+#delAll {
+	margin-top: "10px";
+}
+
+#list {
+    padding-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#template {
+    list-style-type: none;
+    padding-left: 0px;
+    padding-bottom: 10px;
 }
