@@ -39,20 +39,21 @@ def user_logout():
     logout_user()
     return url_for('main.index')
 
-@bp.route('/users/changename/<int:id>', methods=['POST'])
-def change_name(id):
+@bp.route('/users/changename', methods=['POST'])
+def change_name():
     newusername = request.json.get('username')
     password = request.json.get('password')
     if newusername is None or password is None:
         abort(400)
     if User.query.filter_by(username = newusername).first() is not None:
         abort(400)
-    user = User.query.get_or_404(id)
-    if user.check_password(password) is False:
+    #user = User.query.get_or_404(id)
+    
+    if current_user.check_password(password) is False:
         abort(400)
-    user.username = newusername
+    current_user.username = newusername
     db.session.commit()
-    return jsonify(user.to_dict())
+    return jsonify(current_user.to_dict())
 
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
