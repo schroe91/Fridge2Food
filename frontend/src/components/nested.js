@@ -26,7 +26,7 @@ class NestedLogin extends React.Component {
   login(username, password) {
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/api/user/login', {
+    fetch('http://127.0.0.1:5000/api/users/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -116,18 +116,18 @@ class NestedLogin extends React.Component {
         </div>
         <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
         <Popup
-          trigger={<button type="submit" className="button style"> Forgot Password </button>}
+          trigger={<button type="submit" className="button" id="bStyle"> Forgot Password </button>}
           position="bottom right"
           closeOnDocumentClick
         >
           <div>
             Enter your email
-              <input type="text" name="email3" placeholder="Email" size="22"
+            <input type="text" name="email3" placeholder="Email" size="22"
               onChange={this.handleChange} value={this.state.email3} />
-            <Button type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
+            <Button className="button" type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
           </div>
         </Popup>
-        <button className="button style" onClick={this.toggleModal}> Create new user </button>
+        <button className="button" id="bStyle" onClick={this.toggleModal}> Create new user </button>
         <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
           <ModalHeader toggle={this.toggle}>Enter New User Info</ModalHeader>
           <ModalBody>

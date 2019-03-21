@@ -21,9 +21,9 @@ class IngredientChecklist extends Component {
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
     if(this.state.checkboxes[name])
-      this.props.funct(-1);
+      this.props.funct(name, 0);
     else
-      this.props.funct(1);
+      this.props.funct(name, 1);
 
     this.setState(prevState => ({
       checkboxes: {

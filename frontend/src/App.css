@@ -36,6 +36,10 @@ h3{
   color: darkslategray
 }
 
+#ingredients-panel {
+  width: 550px;
+}
+
 #ingredients-panel * {
   order: 1;
   flex-basis: 0px;
