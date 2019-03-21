@@ -15,6 +15,7 @@ import SearchBar from './components/SearchBar'
 import {BrowserRouter as Router} from 'react-router-dom'
 import Route from 'react-router-dom/Route'
 import Recipe from './components/Recipe'
+import Userpage from './components/Userpage'
 
 
 const Home = () => {
@@ -27,7 +28,7 @@ const Home = () => {
           <div id="login">
             <NestedLogin />
           </div>
-        </div>
+      </div>
         <div id="info-panel">
           <div id="ingredients-panel">
             <NumOfIngredients />
@@ -57,6 +58,7 @@ class App extends Component {
         <Router>
           <Route path="/recipe/:recipe" exact strict component={Recipe}/>
           <Route path="/" exact strict component={Home}/>
+          <Route path="/user/:id" exact strict component={Userpage}/>
         </Router>
       </div>
     );
