@@ -4,9 +4,10 @@ import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Userpage extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
+      id: this.props.match.params.id,
       name: '',
       email: '',
       modal: false,
@@ -22,10 +23,15 @@ class Userpage extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleModal2 = this.toggleModal2.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
 componentDidMount(){
-  fetch('http://127.0.0.1:5000/api/users/4') 
+  const first = 'http://127.0.0.1:5000/api/users/';
+  const second = this.state.id;
+  const link = first + second;
+  console.log(link);
+  fetch(link) 
   .then( response => response.json())
   .then(data=>this.setState({name: data.username ,email: data.email}))
 }
@@ -45,6 +51,7 @@ toggleModal2() {
   }));
 }
 handleChange(e) {
+  console.log(this.state.id);
   this.setState({ [e.target.name]: e.target.value });
 }
 handleSubmit(ev) {
@@ -93,7 +100,7 @@ render(){
       </div>
     
   <div>
-    <h3></h3>
+    <h3>   </h3>
     <img src={profilepic} alt="" id="pic"/>
     <h2>Username: {this.state.name}</h2>
     <h2>Email: {this.state.email}</h2>
