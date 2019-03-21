@@ -72,13 +72,13 @@ handleSubmit2(ev){
     oldPassword: '',
   })
 }
-changeUsername(newU, password){
-  fetch('http://127.0.0.1:5000/api/users/username', {
+changeUsername(username, password){
+  fetch('http://127.0.0.1:5000/api/users/changename', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: newU, password: password })
+      body: JSON.stringify({ username: username, password: password })
     }).then(response => response.ok).then(console.log('username success'))
 }
 changePassword(newP, oldP){
