@@ -10,7 +10,6 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
-			numOfIngredients: 0,
 		}
 		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -52,7 +51,6 @@ class IngredientList extends React.Component {
 		if (this.state.list.indexOf(ingredient) === -1) {
 			const newState = this.state;
 			newState.list.unshift(ingredient);
-			//this.props.funct(1); //Passes value to NumOfIngredients.js
 			newState.name = ingredient;
 			this.setState(newState);
 			this.AddIngredient();
@@ -61,7 +59,6 @@ class IngredientList extends React.Component {
 		//Reset form
 		this.setState({
 			value: "",
-			numOfIngredients: this.state.numOfIngredients + 1
 		});
 	}
 
@@ -71,7 +68,6 @@ class IngredientList extends React.Component {
 
 		if (i > -1) {
 			newState.list.splice(i, 1);
-			newState.numOfIngredients -= 1;
 			this.state.name = this.state.value;
 			this.setState(newState);
 			this.deleteIngredient();
@@ -81,25 +77,10 @@ class IngredientList extends React.Component {
 
 	handleDeleteAll() {
 		const newState = this.state;
-		//const numToDel = newState.numOfIngredients;
 		newState.list = [];
-		newState.numOfIngredients = 0;
 		this.setState(newState);
 		this.deleteAll();
 		this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
-	}
-
-	/* Updates ingredient list whenever an ingredient is added/removed.
-	 *@param ingredient	The ingredient to be added/removed.
-	 *@param del				0 if ingredient is to be removed, 1 if it is to be added.
-	 */
-	updateList(ingredient, del) {
-		if (del === 0) {
-			this.handleDelete(ingredient);
-		} else {
-			this.handleSubmit(ingredient);
-		}
-		this.props.setNumOfIngredients(this.state.list);
 	}
 
 	render() {
@@ -107,7 +88,7 @@ class IngredientList extends React.Component {
 			<div style={layout}>
 				<div style={input}>
 					<IngredientInput funct={this.handleSubmit} />
-					<IngredientChecklist funct={this.updateList} />
+					<IngredientChecklist addIngredient={this.handleSubmit} removeIngredient={this.handleDelete} />
 				</div>
 				<div>
 					<ul id="template">
