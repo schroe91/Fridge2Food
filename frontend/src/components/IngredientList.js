@@ -10,6 +10,7 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
+			user:"",
 		}
 		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -23,7 +24,11 @@ class IngredientList extends React.Component {
 	}
 
 	AddIngredient() {
-		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.name;
+		const third = '/ingredients'  
+  		const link = first + second + third;
+		fetch(link, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
@@ -33,14 +38,23 @@ class IngredientList extends React.Component {
 	}
 
 	deleteIngredient() {
-		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.user
+		const third = '/ingredients'
+		const fourth = this.state.name;  
+  		const link = first + second + third + fourth;
+		fetch(link, {
 			method: "DELETE",
 			body: JSON.stringify(this.state.name)
 		}).then(response => response.ok)
 	}
 
 	deleteAll() {
-		fetch('http://127.0.0.1:5000/api/users/<int:user_id>/ingredients', {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.user;
+		const third = '/ingredients'  
+  		const link = first + second + third;
+		fetch(link, {
 			method: "DELETEALL",
 		}).then(response => response.ok)
 	}

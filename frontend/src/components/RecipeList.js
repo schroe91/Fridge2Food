@@ -29,7 +29,6 @@ class RecipeList extends React.Component{
     render(){
         return( 
             <div>
-                <p>Matched Recipes</p>
                 <ul>
                     {this.state.recipes.map((recipe,index) => (
                         <li><Link to={recipe.index}>{recipe.index}</Link></li>
