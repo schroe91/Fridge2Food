@@ -17,6 +17,9 @@ class IngredientList extends React.Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
+
+		this.update = React.createRef();
+		this.updateAll = React.createRef();
 	}
 
 	AddIngredient() {
@@ -73,6 +76,7 @@ class IngredientList extends React.Component {
 			this.deleteIngredient();
 			this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
 		}
+		this.update.current.handleDeleteFromParent(item);
 	}
 
 	handleDeleteAll() {
@@ -81,6 +85,7 @@ class IngredientList extends React.Component {
 		this.setState(newState);
 		this.deleteAll();
 		this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
+		this.updateAll.current.handleDeleteAllFromParent();
 	}
 
 	render() {
@@ -88,7 +93,12 @@ class IngredientList extends React.Component {
 			<div id="Ingredientlayout">
 				<div id="input">
 					<IngredientInput funct={this.handleSubmit} />
-					<IngredientChecklist addIngredient={this.handleSubmit} removeIngredient={this.handleDelete} />
+					<IngredientChecklist 
+						addIngredient={this.handleSubmit} 
+						removeIngredient={this.handleDelete} 
+						ref={this.update}	
+						ref={this.updateAll}
+					/>
 				</div>
 				<div id="list">
 					<ul id="template">

@@ -24,7 +24,7 @@ const Home = () => {
     <div id="layout" style={style}>
       <div id="top-border">
         <img src={logo} alt="" id="logo" />
-        <h2 id="title">Fridge2Food</h2>
+        <h2 id="title"><b>Fridge2Food</b></h2>
         <div id="login">
           <NestedLogin />
         </div>
