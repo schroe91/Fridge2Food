@@ -3,7 +3,7 @@ import Checkbox from "./Checkbox";
 
 const OPTIONS = ["Bread", "Chicken", "Lettuce", "Beef", "Turkey", "Ham", "Rice", "Tomato", "Bacon", "Mayonnaise"];
 
-class IngredientChecklist extends Component { 
+class IngredientChecklist extends Component {
   componentWillMount = () => {
     this.selectedCheckboxes = new Set();
   }
@@ -36,6 +36,7 @@ class IngredientChecklist extends Component {
   //Used for when a checklist ingredient is removed from the list
   //Updates the checklist accordingly
   handleDeleteFromParent(name) {
+    alert(name);
     this.setState(prevState => ({
       checkboxes: {
         ...prevState.checkboxes,

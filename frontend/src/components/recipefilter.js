@@ -8,11 +8,17 @@ class recipefilter extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {isToggleOn: true};
+        this.state = {checkboxes: filters.reduce(
+          (options, option) => ({
+            ...options,
+            [option]: false
+          }),
+        )}
         this.title1 = "Dietary Restrictions";
         this.title2 = "Sort By";
         this.title3 = "Meal Type";
         this.handleClick = this.handleClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
       }
     
       handleClick() {
@@ -21,16 +27,23 @@ class recipefilter extends Component{
         }));
       }
 
+      handleChange() {
+        
+      }
+
     render(){
         return(
             <div id="filters">
-              <ReactMultiSelectCheckboxes options={filters} isSearchable={false}/>
+              <ReactMultiSelectCheckboxes 
+                options={filters} 
+                isSearchable={false} 
+                onChange={this.handleChange}
+              />
               <DropdownButton id="sort" title="Sort By">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Calories</Dropdown.Item>
                 </DropdownButton>
-
               <DropdownButton id="meal type" title="Meal Type">
                   <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>

@@ -1,7 +1,8 @@
 import React from "react"
 import "./RecipeList.css"
-import {Link} from 'react-router';
+import PropTypes from "prop-types"
 import ListGroup from 'react-bootstrap/ListGroup'
+import NumOfRecipes from "./NumOfRecipes";
 
 class RecipeList extends React.Component{
     constructor(props){
@@ -20,6 +21,10 @@ class RecipeList extends React.Component{
         .then(data => {this.setState({ recipes: data })})
     }
 
+    componentWillUpdate() {
+        //this.props.callback(this.state.recipes);
+    }
+
     render(){
         return( 
             <div>
@@ -30,13 +35,17 @@ class RecipeList extends React.Component{
                         this.state.second = recipe.id,
                         this.state.link = this.state.first + this.state.second,
                         <a href={this.state.link} class="list-group-item">{recipe.name}</a>
-                    ))}       
+                    ))}   
             </ListGroup>
         </div>);       
 
     }
 }
+export default RecipeList
 
+NumOfRecipes.protoTypes = {
+    callback : PropTypes.func,
+}
 /*          
 <ul>
                     {this.state.recipes.map((recipe) => (
@@ -49,5 +58,3 @@ class RecipeList extends React.Component{
                
                       
 < */
-
-export default RecipeList
