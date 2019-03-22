@@ -19,9 +19,10 @@ class RecipeList extends React.Component{
     render(){
         return( 
             <div>
+                <p>"Recipe List"</p>
                 <ul>
-                    {this.state.recipes.map((recipe,index) => (
-                        <li><Link to={recipe.index}>{recipe.index}</Link></li>
+                    {this.state.recipes.map((recipe) => (
+                        <li><Link to={recipe.id}>{recipe.name}</Link></li>
                     ))}
                 </ul>
         </div>);       

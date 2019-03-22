@@ -3,7 +3,6 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from "react-bootstrap/Dropdown";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import './RecipeFilter.css';
-import Form from 'react-bootstrap/Form';
 
 class recipefilter extends Component{
 
