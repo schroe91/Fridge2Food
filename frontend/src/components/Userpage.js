@@ -12,6 +12,7 @@ class Userpage extends Component {
       email: '',
       modal: false,
       modal2: false,
+      oldUsername: '',
       newUsername: '',
       password: '',
       oldPassword: '',
@@ -55,8 +56,8 @@ handleChange(e) {
 }
 handleSubmit(ev) {
   ev.preventDefault();
-  const { newUsername, password, } = this.state;
-  this.changeUsername(newUsername, password);
+  const { newUsername, oldUsername, password, } = this.state;
+  this.changeUsername(newUsername, oldUsername, password);
   this.setState({
     newUsername: '',
     oldUsername: '',
@@ -72,13 +73,13 @@ handleSubmit2(ev){
     oldPassword: '',
   })
 }
-changeUsername(username, password){
-  fetch('http://127.0.0.1:5000/api/users/changename', {
+changeUsername(newU, oldU, password){
+  fetch('http://127.0.0.1:5000/api/users/newusername', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: username, password: password })
+      body: JSON.stringify({ newUsername: newU, oldUsername: oldU, password: password })
     }).then(response => response.ok).then(console.log('username success'))
 }
 changePassword(newP, oldP){
@@ -107,6 +108,8 @@ render(){
         <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
           <ModalHeader toggle={this.toggle}>Enter New Username</ModalHeader>
           <ModalBody>
+            <input type="text" name="oldUsername" placeholder="Old username" size="22"
+              onChange={this.handleChange} value={this.state.newEmail} />
             <input type="text" name="newUsername" placeholder="New Username" size="22"
               onChange={this.handleChange} value={this.state.newUsername} />
             <input type="password" name="password" placeholder="Password" size="22"

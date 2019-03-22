@@ -10,22 +10,12 @@ class RecipeList extends React.Component{
         };
     }
 
-    /*componentDidMount() {
-        fetch('http://127.0.0.1:5000/api/recipes/get_all_recipes')
-            .then(response => {
-                response.json();
-            }).then(data => {
-                let recipes = data.response.map((recipe) => {
-                    return(
-                        <div key={recipe.result}>
-                        </div>
-                    )
-                })
-                this.setState({recipes: recipes});
-                console.log("state",this.state.recipes);
-            })
+    componentDidMount() {
+        fetch('http://127.0.0.1:5000/api/recipes')
+        .then(response => response.json())
+        .then(data => {this.setState({ recipes: data })})
     }
-*/
+
     render(){
         return( 
             <div>
