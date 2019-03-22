@@ -26,7 +26,7 @@ class IngredientList extends React.Component {
 
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.state.name;
+		const second = this.state;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {

@@ -30,7 +30,6 @@ class RecipeList extends React.Component {
                         this.state.first = '/recipe/',
                         this.state.second = recipe.id,
                         this.state.link = this.state.first + this.state.second,
-                        this.state.recipes.unshift(recipe.name),
                         <a href={this.state.link} class="list-group-item">{recipe.name}</a>
                     ))}
                 </ListGroup>
