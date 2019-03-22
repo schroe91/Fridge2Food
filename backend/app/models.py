@@ -111,7 +111,7 @@ class Recipe(db.Model):
             'prep_steps': self.prep_steps,
             'prep_time': self.prep_time,
             'calories': self.calories,
-            'carbs': self.calories,
+            'carbs': self.carbs,
             'protein': self.protein,
             'is_vegan': self.is_vegan,
             'is_vegetarian': self.is_vegetarian,

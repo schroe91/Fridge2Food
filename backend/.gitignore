@@ -6,3 +6,4 @@ app.db
 migrations
 .flaskenv
 test_commands.py
+.#*
