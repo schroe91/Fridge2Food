@@ -24,7 +24,7 @@ componentDidMount(){
   fetch(link) 
   .then( response => response.json())
   .then(data=>this.setState({ingredients: data.ingredients ,name: data.name, calories: data.calories, carbs: data.carbs,
-    date: data.date_added, prep_time: data.prep_steps, prep_steps: data.prep_time}))
+    date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps}))
 }
 
 render(){
