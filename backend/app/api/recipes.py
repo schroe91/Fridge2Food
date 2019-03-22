@@ -18,7 +18,20 @@ def get_recipe(id):
 def get_all_recipes():
     recipes = Recipe.query
     if request.args.get('name') != None:
-        recipes = Recipe.query.filter(Recipe.name.like("%"+request.args.get('name')+"%"))
+        recipe_query = Recipe.query.filter(Recipe.name.like("%"+request.args.get('name')+"%"))
+        recipes = recipes.intersect(recipe_query)
+
+    if request.args.get('type') != None:
+        type_arr = request.args.get('type').split(',')
+        if 'vegan' in type_arr:
+            recipe_query = Recipe.query.filter(Recipe.is_vegan==True)
+            recipes = recipes.intersect(recipe_query)
+        if 'vegetarian' in type_arr:
+            recipe_query = Recipe.query.filter(Recipe.is_vegetarian==True)
+            recipes = recipes.intersect(recipe_query)
+        if 'glutenfree' in type_arr:
+            recipe_query = Recipe.query.filter(Recipe.is_glutenfree==True)
+            recipes = recipes.intersect(recipe_query)
         
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
