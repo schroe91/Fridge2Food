@@ -37,7 +37,7 @@ render(){
     
   <div>
     <h2>Recipe: {this.state.name}</h2>
-    <p>Prep time: {this.state.prep_time}</p>
+    <p>Prep time: {this.state.prep_time} hours</p>
     <p>Calories: {this.state.calories}</p>
     <p>Carbs: {this.state.carbs}</p>
     <h2>Ingredients</h2>
