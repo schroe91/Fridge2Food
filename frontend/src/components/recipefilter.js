@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from "react-bootstrap/Dropdown";
+import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import './RecipeFilter.css';
 import Form from 'react-bootstrap/Form';
 
@@ -24,16 +25,7 @@ class recipefilter extends Component{
     render(){
         return(
             <div id="filters">
-            <Form>
-              {['checkbox'].map(type => (
-                <div key={`inline-${type}`} className="mb-3">
-                  <Form.Check inline label="vegetarian" type={type} id={`inline-${type}-vegetarian`} />
-                  <Form.Check inline label="vegan" type={type} id={`inline-${type}-vegan`} />
-                  <Form.Check inline label="gluten-free" type={type} id={`inline-${type}-gluten-free`}/>
-                  <Form.Check inline label="lactose-free" type={type} id={`inline-${type}-lactose-free`}/>
-                </div>
-              ))}
-            </Form>
+              <ReactMultiSelectCheckboxes options={filters} isSearchable={false}/>
               <DropdownButton id="sort" title="Sort By">
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
@@ -52,4 +44,10 @@ class recipefilter extends Component{
 }
 export default recipefilter;
 
+const filters = [
+  {value: 1, label: "Gluten Free"},
+  {value: 2, label: "Lactose Free"},
+  {value: 3, label: "Vegan"},
+  {value: 4, label: "Vegetarian"},
+]
                 //<DropdownButton><DropdownButton id="diet" title="Dietary Restrictions" size="sm">
