@@ -100,6 +100,7 @@ class NestedLogin extends React.Component {
 
   render() {
     return (
+      <div id="user">
       <Popup
         trigger={<button className="button"> Login </button>}
         position="bottom right"
@@ -144,6 +145,16 @@ class NestedLogin extends React.Component {
           </ModalFooter>
         </Modal>
       </Popup>
+      <Popup
+      trigger={<button className="button"> Logout </button>}
+      position="bottom right"
+      closeOnDocumentClick
+      >
+      <div>
+        You have logged out
+      </div>
+      </Popup>
+    </div>
     )
   }
 }

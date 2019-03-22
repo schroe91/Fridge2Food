@@ -6,7 +6,7 @@ class NumOfRecipes extends React.Component {
 		return (
 			<ListGroup>
         		<ListGroupItem className="justify-content-between py-2"># of Recipes 
-					<Badge pill style={badge}></Badge>
+					<Badge pill style={badge}>{this.props.numOfRecipes}</Badge>
 				</ListGroupItem>
 			</ListGroup>
 		);
