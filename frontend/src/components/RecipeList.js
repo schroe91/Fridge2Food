@@ -1,12 +1,16 @@
 import React from "react"
 import "./RecipeList.css"
 import {Link} from 'react-router';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class RecipeList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             recipes: [],
+            first: '',
+            second: 0,
+            link: '',
         };
     }
 
@@ -19,24 +23,30 @@ class RecipeList extends React.Component{
     render(){
         return( 
             <div>
-                <p>"Recipe List"</p>
-                <ul>
-                    {this.state.recipes.map((recipe) => (
-                        <li><Link to={recipe.id}>{recipe.name}</Link></li>
-                    ))}
-                </ul>
+                <h3>Recipe List</h3>
+                <ListGroup variant="flush"> 
+                {this.state.recipes.map((recipe) => (
+                        this.state.first = '/recipe/',
+                        this.state.second = recipe.id,
+                        this.state.link = this.state.first + this.state.second,
+                        <a href={this.state.link} class="list-group-item">{recipe.name}</a>
+                    ))}       
+            </ListGroup>
         </div>);       
 
     }
 }
 
-/*                       
-                <ListGroup variant="flush">   
-                <a href="#" class= "list-group-item">Turkey and Cheese Sandwich</a>
-                <a href="#" class= "list-group-item">Tomato Basil Soup</a>
-                <a href="#" class= "list-group-item">Ceasar Salad</a>
-                <a href="#" class= "list-group-item">Chicken Parmeasan</a>      
-            </ListGroup>
+/*          
+<ul>
+                    {this.state.recipes.map((recipe) => (
+                        this.state.first = '/recipe',
+                        this.state.second = recipe.id,
+                        this.state.link = this.state.first + this.state.second,
+                        <li><Link to={this.statelink}>{recipe.name}</Link></li>
+                    ))}
+                </ul>             
+               
                       
 < */
 
