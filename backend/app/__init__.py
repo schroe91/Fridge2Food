@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
+from flask_avatars import Avatars
 
 from config import Config
 
@@ -16,6 +17,7 @@ auth = HTTPBasicAuth()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    avatars = Avatars(app)
     CORS(app)
     #login = LoginManager(app)
     db.init_app(app)
