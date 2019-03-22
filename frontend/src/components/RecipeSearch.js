@@ -6,12 +6,19 @@ class SearchBar extends React.Component {
 		this.state = {value: ''};
 	
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.Search = this.Search.bind(this);
 	  }
 	
 	handleChange(event) {
 	    this.setState({value: event.target.value});
 	    this.Search();
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+		this.setState({value: ""});
 	}
 
 	Search() {
@@ -25,13 +32,14 @@ class SearchBar extends React.Component {
 	
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
 				<input
 					className="py-2"
 					type="text"
 					name="search-input"
 					placeholder="Search for recipe"
 					onChange={this.handleChange}
+					value={this.state.value}
 				/>
 			</form>
 		);

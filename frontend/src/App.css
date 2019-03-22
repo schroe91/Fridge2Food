@@ -34,11 +34,15 @@
 }
 
 h2 {
-  color: darkslategray
+  color: darkslategray;
 }
 
 #ingredients-panel {
   width: 350px;
+}
+
+#filter {
+  display: flex;
 }
 
 #filter * {
@@ -46,12 +50,12 @@ h2 {
 }
 
 #recipe-panel {
-  padding-left: 10px;
+  padding-left: 70px;
 }
 
 #recipe-search {
-  display: flex;
   margin-left: 5px;
+  display: flex;
 }
 
 #numRecipes {
@@ -59,7 +63,7 @@ h2 {
 }
 
 #recipe-list {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .button {
