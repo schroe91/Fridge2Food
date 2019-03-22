@@ -37,7 +37,6 @@ const Home = () => {
           <div id="recipe-search">
             <RecipeSearch />
             <div id="filter">
-              <dietaryRestrictions />
               <RecipeFilter />
               <div id="numRecipes">
                 <NumOfRecipes />
