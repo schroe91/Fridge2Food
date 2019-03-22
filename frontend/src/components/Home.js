@@ -19,6 +19,8 @@ class Home extends Component {
 		}
 	}
 
+	//Callback function to set numOfRecipes.
+	//Sets this.state and sends it to NumOfRecipes.js
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
 		this.setState({
@@ -51,7 +53,7 @@ class Home extends Component {
 							</div>
 						</div>
 						<div id="recipe-list">
-							<RecipeList callback={this.setNumOfRecipes.bind(this)}/>
+							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)}/>
 						</div>
 					</div>
 				</div>
