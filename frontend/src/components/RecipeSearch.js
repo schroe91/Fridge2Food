@@ -31,8 +31,6 @@ class SearchBar extends React.Component {
 				'Content-Type': 'application/json'
 			},
 		}).then(response => response.json)
-			.then(data => this.setState({ recipes: data }))
-			alert(this.state.recipes[0].name)
 	}
 
 	render() {

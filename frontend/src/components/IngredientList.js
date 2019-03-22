@@ -26,7 +26,7 @@ class IngredientList extends React.Component {
 
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.state;
+		const second = 1;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
@@ -34,13 +34,13 @@ class IngredientList extends React.Component {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(this.state.name)
+			body: JSON.stringify({id: 1})
 		}).then(response => response.ok)
 	}
 
 	deleteIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.state.user
+		const second = 1;
 		const third = '/ingredients'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;

@@ -37,10 +37,8 @@ class NestedLogin extends React.Component {
       },
       body: JSON.stringify({ username: username, password: password })
     }).then(response => response.ok)
-      .then(success => (success ? this.setState({ isAuth: success }) : this.setState({ error: { message: "Incorrect email/password" } })))
-      .then(data => this.setState({ id: data.id }))
-    alert(this.state.id);
-  }
+      .then(success => (success ? this.setState({ isAuth: success }) : alert("Invalid username/password") ))
+    }
 
   logout(ev) {
     if (this.state.isAuth) {
@@ -69,7 +67,7 @@ class NestedLogin extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email: email, username: username, password: password })
-    }).then(response => response.ok).then(success => (success ? this.setState({ isAuth: success }) : this.setState({ error: { message: "Failed to regiester" } })))
+    }).then(response => response.ok).then(success => (success ? this.setState({ isAuth: success }) : alert("Email/username already taken")))
   }
 
   forgotPassword(email) {
@@ -131,7 +129,7 @@ class NestedLogin extends React.Component {
           closeOnDocumentClick
         >
           <div>
-            enter login information
+            Enter login information
           <input type="text" name="username" placeholder="Username" size="22"
               onChange={this.handleChange} value={this.state.username} />
           </div>
