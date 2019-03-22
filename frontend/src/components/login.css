@@ -11,3 +11,7 @@
 #bStyle {
     font-size: 11px;
 }
+
+#user {
+    display:flex;
+}
