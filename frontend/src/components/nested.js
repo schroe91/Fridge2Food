@@ -15,6 +15,7 @@ class NestedLogin extends React.Component {
       newEmail: '',
       email3: '',
       modal: false,
+      id: 0,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,7 @@ class NestedLogin extends React.Component {
     this.handleSubmit3 = this.handleSubmit3.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
   }
 
   login(username, password) {
@@ -34,7 +36,10 @@ class NestedLogin extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username: username, password: password })
-    }).then(response => response.ok).then(success => (success ? this.setState({ isAuth: success }) : this.setState({ error: { message: "Incorrect email/password" } })))
+    }).then(response => response.ok)
+      .then(success => (success ? this.setState({ isAuth: success }) : this.setState({ error: { message: "Incorrect email/password" } })))
+      .then(data => this.setState({ id: data.id }))
+    alert(this.state.id);
   }
 
   logout(ev) {
@@ -121,7 +126,7 @@ class NestedLogin extends React.Component {
     return (
       <div id="user">
         <Popup
-          trigger={<button className="button">{this.state.isAuth ? "My Account" : "Login"}</button>}
+          trigger={<button className="button">{this.state.isAuth ? "Manage Account" : "Login"}</button>}
           position="bottom right"
           closeOnDocumentClick
         >

@@ -100,6 +100,7 @@ render(){
   <div>
     <h3>   </h3>
     <img src={profilepic} alt="" id="pic"/>
+    <button className="button style">Edit Profile Picture</button>
     <h2>Username: {this.state.name}</h2>
     <h2>Email: {this.state.email}</h2>
     <button className="button style" onClick={this.toggleModal}> Change Username </button>
