@@ -38,13 +38,16 @@ class NestedLogin extends React.Component {
   }
 
   logout(ev) {
-    fetch('http://127.0.0.1:5000/api/users/logout', {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(response => response.ok).then(this.setState({ isAuth: false }))
-    alert("You have been logged out");
+    if (this.state.isAuth) {
+      fetch('http://127.0.0.1:5000/api/users/logout', {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(response => response.ok).then(this.setState({ isAuth: false }))
+      alert("You have been logged out");
+    } else
+      alert("You are not currently logged in");
   }
 
   handleChange(e) {
@@ -87,7 +90,7 @@ class NestedLogin extends React.Component {
 
   handleSubmit2(ev) {
     ev.preventDefault();
-    if(this.state) {
+    if (this.state) {
       const { newEmail, newUsername, newPassword } = this.state;
       this.newUser(newEmail, newUsername, newPassword);
       this.setState({
@@ -117,52 +120,52 @@ class NestedLogin extends React.Component {
   render() {
     return (
       <div id="user">
-      <Popup
-        trigger={<button className="button">{this.state.isAuth ? "My Account" : "Login"}</button>}
-        position="bottom right"
-        closeOnDocumentClick
-      >
-        <div>
-          enter login information
-          <input type="text" name="username" placeholder="Username" size="22"
-            onChange={this.handleChange} value={this.state.username} />
-        </div>
-        <div>
-          <input type="password" name="password" placeholder="Password" size="22"
-            onChange={this.handleChange} value={this.state.password} />
-        </div>
-        <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
         <Popup
-          trigger={<button type="submit" className="button" id="bStyle"> Forgot Password </button>}
+          trigger={<button className="button">{this.state.isAuth ? "My Account" : "Login"}</button>}
           position="bottom right"
           closeOnDocumentClick
         >
           <div>
-            Enter your email
-            <input type="text" name="email3" placeholder="Email" size="22"
-              onChange={this.handleChange} value={this.state.email3} />
-            <Button className="button" type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
+            enter login information
+          <input type="text" name="username" placeholder="Username" size="22"
+              onChange={this.handleChange} value={this.state.username} />
           </div>
+          <div>
+            <input type="password" name="password" placeholder="Password" size="22"
+              onChange={this.handleChange} value={this.state.password} />
+          </div>
+          <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
+          <Popup
+            trigger={<button type="submit" className="button" id="bStyle"> Forgot Password </button>}
+            position="bottom right"
+            closeOnDocumentClick
+          >
+            <div>
+              Enter your email
+            <input type="text" name="email3" placeholder="Email" size="22"
+                onChange={this.handleChange} value={this.state.email3} />
+              <Button className="button" type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
+            </div>
+          </Popup>
+          <button className="button" id="bStyle" onClick={this.toggleModal}> Create new user </button>
+          <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
+            <ModalHeader toggle={this.toggle}>Enter New User Info</ModalHeader>
+            <ModalBody>
+              <input type="text" name="newEmail" placeholder="Email" size="22"
+                onChange={this.handleChange} value={this.state.newEmail} />
+              <input type="text" name="newUsername" placeholder="Username" size="22"
+                onChange={this.handleChange} value={this.state.newUsername} />
+              <input type="password" name="newPassword" placeholder="Password" size="22"
+                onChange={this.handleChange} value={this.state.newPassword} />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
+              <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+            </ModalFooter>
+          </Modal>
         </Popup>
-        <button className="button" id="bStyle" onClick={this.toggleModal}> Create new user </button>
-        <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
-          <ModalHeader toggle={this.toggle}>Enter New User Info</ModalHeader>
-          <ModalBody>
-            <input type="text" name="newEmail" placeholder="Email" size="22"
-              onChange={this.handleChange} value={this.state.newEmail} />
-            <input type="text" name="newUsername" placeholder="Username" size="22"
-              onChange={this.handleChange} value={this.state.newUsername} />
-            <input type="password" name="newPassword" placeholder="Password" size="22"
-              onChange={this.handleChange} value={this.state.newPassword} />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
-            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </Popup>
-      <button className="button" onClick={this.logout}> Logout </button>
-    </div>
+        <button className="button" onClick={this.logout}> Logout </button>
+      </div>
     )
   }
 }
