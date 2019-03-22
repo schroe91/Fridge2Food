@@ -50,8 +50,8 @@ h2 {
 }
 
 #recipe-search {
-  display: flex;
   margin-left: 5px;
+  display: flex;
 }
 
 #numRecipes {
