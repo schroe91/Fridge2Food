@@ -22,6 +22,7 @@ class IngredientList extends React.Component {
 
 		this.delAll = React.createRef();
 		//this.del = React.createRef();
+		//hkjhjlk
 	}
 
 	AddIngredient() {

@@ -2,6 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./login.css"
+import IngredientList from "./IngredientList";
 
 class NestedLogin extends React.Component {
 
@@ -122,6 +123,7 @@ class NestedLogin extends React.Component {
   render() {
     return (
       <div id="user">
+      <IngredientList userID = {this.state.id}/>
         <Popup
           trigger={<button className="button">{this.state.isAuth ? "My Account" : "Login"}</button>}
           position="bottom right"
