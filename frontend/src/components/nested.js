@@ -8,6 +8,7 @@ class NestedLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: 0,
       username: '',
       password: '',
       newUsername: '',
@@ -35,6 +36,7 @@ class NestedLogin extends React.Component {
       },
       body: JSON.stringify({ username: username, password: password })
     }).then(response => response.ok).then(success => (success ? this.setState({ isAuth: success }) : this.setState({ error: { message: "Incorrect email/password" } })))
+    .then(data =>this.setState({id: data.id}))
   }
 
   logout(ev) {

@@ -16,7 +16,7 @@ db.session.add(Ingredient(name='pork'))
 db.session.add(Ingredient(name='pinto beans'))
 
 db.session.add(User(username='Anthony', email='test@example.com'))
-db.session.add(Recipe(name='Better Pork', creator_id=1))
+db.session.add(Recipe(name='Better Pork', creator_id=2))
 
 r = Recipe.query.get(2)
 r.ingredients.append(Ingredient.query.get(1))
