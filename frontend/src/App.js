@@ -12,51 +12,55 @@ import RecipeFilter from './components/recipefilter'
 import SearchBar from './components/SearchBar'
 
 
-import {BrowserRouter as Router} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import Route from 'react-router-dom/Route'
 import Recipe from './components/Recipe'
+import Userpage from './components/Userpage'
 
 
 const Home = () => {
   //render(){
-  return(
+  return (
     <div id="layout" style={style}>
       <div id="top-border">
-          <img src={logo} alt="" id="logo"/>
-          <h2 id="title">Fridge2Food</h2>
-          <div id="login">
-            <NestedLogin />
-          </div>
+        <img src={logo} alt="" id="logo" />
+        <h2 id="title"><b>Fridge2Food</b></h2>
+        <div id="login">
+          <NestedLogin />
         </div>
-        <div id="info-panel">
-          <div id="ingredients-panel">
-            <NumOfIngredients />
-          </div>
-          <div id="recipe-panel">
-            <div id="recipe-search">
-              <RecipeSearch />
-              <dietaryRestrictions />          
+      </div>
+      <div id="info-panel">
+        <div id="ingredients-panel">
+          <NumOfIngredients />
+        </div>
+        <div id="recipe-panel">
+          <div id="recipe-search">
+            <RecipeSearch />
+            <div id="filter">
               <RecipeFilter />
               <div id="numRecipes">
                 <NumOfRecipes />
               </div>
             </div>
-            <div id="recipe-list">
-              <RecipeList />
-            </div>
+          </div>
+          <div id="recipe-list">
+            <RecipeList />
           </div>
         </div>
+      </div>
     </div>
-  )}
-  
+  )
+}
+
 
 class App extends Component {
   render() {
     return (
       <div id="layout" style={style}>
         <Router>
-          <Route path="/recipe/:recipe" exact strict component={Recipe}/>
-          <Route path="/" exact strict component={Home}/>
+          <Route path="/recipe/:recipe" exact strict component={Recipe} />
+          <Route path="/" exact strict component={Home} />
+          <Route path="/user/:id" exact strict component={Userpage} />
         </Router>
       </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
-import IngredientChecklist from "./IngredientChecklist";
 import NewIngredients from "./NewIngredient";
 
 class NumOfIngredients extends React.Component {
@@ -14,14 +13,9 @@ class NumOfIngredients extends React.Component {
 		this.updateNum = this.updateNum.bind(this);
 	}
 
-	updateNum(value, numToDel) {
+	updateNum(list) {
 		const newState = this.state;
-
-		if(value === "delAll") {
-			newState.num -= numToDel;
-		} else {
-			newState.num = newState.num + value;
-		}
+		newState.num = list.length;
 		this.setState(newState);
 	}
 
@@ -31,11 +25,10 @@ class NumOfIngredients extends React.Component {
 				<ListGroupItem className="justify-content-between py-2" style={label}># of Ingredients
 					<Badge style={badge} pill>{this.state.num}</Badge>
 				</ListGroupItem>
-				<div id="list">
+				<div>
 					<div style={listStyle}>
-						<IngredientList funct={this.updateNum} />
+						<IngredientList setNumOfIngredients={this.updateNum} />
 					</div>
-					<IngredientChecklist funct={this.updateNum}/>
 				</div>
 				<NewIngredients />
 			</ListGroup>
@@ -50,8 +43,7 @@ const badge = {
 	marginTop: "3px",
 }
 const label = {
-	width: "85%",
-	marginLeft: "15px",
+	width: "100%",
 }
 
 const listStyle = {

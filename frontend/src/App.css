@@ -2,7 +2,7 @@
   display: flex;
   width: stretch;
   height: 63px;
-  width: 1405px;
+  max-width: 100%;
   background-color: powderblue;
 }
 
@@ -24,35 +24,38 @@
 
 #info-panel {
   position: absolute;
+  width: stretch;
   height: 590px;
   display: flex;
   flex-direction: row;
-  padding-top: 20px;
+  padding-top: 15px;
   align-items: stretch;
   align-items: flex-start;
 }
 
-h3{
-  color: darkslategray
+h2 {
+  color: darkslategray;
 }
 
-#ingredients-panel * {
-  order: 1;
-  flex-basis: 0px;
-  align-self: flex-start;
+#ingredients-panel {
+  width: 350px;
+}
+
+#filter {
+  display: flex;
+}
+
+#filter * {
+  padding-left: 10px;
 }
 
 #recipe-panel {
-  padding-left: 30px;
-}
-
-#recipe-search * {
-  padding-left: 15px;
+  padding-left: 70px;
 }
 
 #recipe-search {
-  display: flex;
   margin-left: 5px;
+  display: flex;
 }
 
 #numRecipes {
@@ -60,7 +63,7 @@ h3{
 }
 
 #recipe-list {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .button {

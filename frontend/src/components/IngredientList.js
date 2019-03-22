@@ -1,6 +1,8 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
 import './IngredientList.css'
+import IngredientChecklist from "./IngredientChecklist";
+import IngredientInput from "./IngredientInput";
 
 class IngredientList extends React.Component {
 	constructor(props) {
@@ -8,7 +10,7 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
-			numOfIngredients: 0,
+			user:"",
 		}
 		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -16,50 +18,64 @@ class IngredientList extends React.Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
+
+		this.update = React.createRef();
+		this.updateAll = React.createRef();
 	}
 
 	AddIngredient() {
-		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients', {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.name;
+		const third = '/ingredients'  
+  		const link = first + second + third;
+		fetch(link, {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(this.state.name)
-		}).then( response => response.ok )
+		}).then(response => response.ok)
 	}
 
-	deleteIngredient(){
-		fetch('http://127.0.0.1:5000/api/users/<int:id>/ingredients<int:ing_id>', {
+	deleteIngredient() {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.user
+		const third = '/ingredients'
+		const fourth = this.state.name;  
+  		const link = first + second + third + fourth;
+		fetch(link, {
 			method: "DELETE",
 			body: JSON.stringify(this.state.name)
-		}).then( response => response.ok )
+		}).then(response => response.ok)
 	}
 
-	deleteAll(){
-		fetch('http://127.0.0.1:5000/api/users/<int:user_id>/ingredients',{
+	deleteAll() {
+		const first = 'http://127.0.0.1:5000/api/users/';
+		const second = this.state.user;
+		const third = '/ingredients'  
+  		const link = first + second + third;
+		fetch(link, {
 			method: "DELETEALL",
 		}).then(response => response.ok)
 	}
 
 	handleChange(ev) {
-		this.setState({value: ev.target.value});
+		this.setState({ value: ev.target.value });
 	}
 
-	handleSubmit(ev) {
-		ev.preventDefault();
-
+	handleSubmit(ingredient) {
 		//Only update list if ingredient is not already in there
-		if(this.state.list.indexOf(this.state.value) === -1) {
-			this.state.list.unshift(this.state.value);
-			this.props.funct(1); //Passes value to NumOfIngredients.js
-			this.state.name = this.state.value;
+		if (this.state.list.indexOf(ingredient) === -1) {
+			const newState = this.state;
+			newState.list.unshift(ingredient);
+			newState.name = ingredient;
+			this.setState(newState);
 			this.AddIngredient();
 		}
-
+		this.props.setNumOfIngredients(this.state.list);
 		//Reset form
 		this.setState({
 			value: "",
-			numOfIngredients: this.state.numOfIngredients + 1
 		});
 	}
 
@@ -67,56 +83,57 @@ class IngredientList extends React.Component {
 		const newState = this.state;
 		let i = this.state.list.indexOf(item);
 
-		if(i > -1) {
+		if (i > -1) {
 			newState.list.splice(i, 1);
-			newState.numOfIngredients -= 1;
 			this.state.name = this.state.value;
-			this.props.funct(-1); //Passes value to NumOfIngredients.js
 			this.setState(newState);
 			this.deleteIngredient();
+			this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
 		}
+		this.update.current.handleDeleteFromParent(item);
 	}
 
 	handleDeleteAll() {
 		const newState = this.state;
-		const numToDel = newState.numOfIngredients;
 		newState.list = [];
-		newState.numOfIngredients = 0;
-		this.props.funct("delAll", numToDel); //Passes value to NumOfIngredients.js
 		this.setState(newState);
 		this.deleteAll();
+		this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
+		this.updateAll.current.handleDeleteAllFromParent();
 	}
 
 	render() {
 		return (
-			<div id="ingredientInput">
-				<form id="ingredient-form" onSubmit={this.handleSubmit} style={form}>
-						<input
-							type="text"
-							name="ingredientInput"
-							placeholder="Type an ingredient"
-							value={this.state.value}
-							onChange={this.handleChange}
-							autoFocus
-						/>
-				</form>
-				<ul id="template">
-					{this.state.list.map((item) => (
-						<li>
-							{item}
-							 <button 
-								style={delButton}
-								onClick={() => {this.handleDelete(item)}}>
-								<i class="fa fa-times"></i>
-							</button>
-						</li>
-					))}
-				</ul>
-				<div style={delAll}>
-				<button
-					onClick={() => {this.handleDeleteAll()}}>
-					Delete All
-				</button>
+			<div id="Ingredientlayout">
+				<div id="input">
+					<IngredientInput funct={this.handleSubmit} />
+					<IngredientChecklist 
+						addIngredient={this.handleSubmit} 
+						removeIngredient={this.handleDelete} 
+						ref={this.update}	
+						ref={this.updateAll}
+					/>
+				</div>
+				<div id="list">
+					<ul id="template">
+						{this.state.list.map((item) => (
+							<li>
+								{item}
+								<button
+									style={delButton}
+									onClick={() => { this.handleDelete(item) }}>
+									<i class="fa fa-times"></i>
+								</button>
+							</li>
+						))}
+					</ul>
+					<div id="delAll">
+						<button
+							className="btn btn-danger"
+							onClick={() => { this.handleDeleteAll() }}>
+							Delete All
+						</button>
+					</div>
 				</div>
 			</div>
 		)
@@ -127,18 +144,7 @@ export default IngredientList
 
 const delButton = {
 	backgroundColor: 'transparent',
-    border: '0',
-    color: "#c20",
-		outline: 'none',
-}
-
-const delAll = {
-	textAlign: "center",
-	marginTop: "10px",
-	paddingLeft: "n12px"
-}
-
-const form = {
-	marginTop: "20px",
-	paddingLeft: "15px",
+	border: '0',
+	color: "#c20",
+	outline: 'none',
 }

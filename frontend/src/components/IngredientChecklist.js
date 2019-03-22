@@ -21,9 +21,9 @@ class IngredientChecklist extends Component {
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
     if(this.state.checkboxes[name])
-      this.props.funct(-1);
+      this.props.removeIngredient(name);
     else
-      this.props.funct(1);
+      this.props.addIngredient(name);
 
     this.setState(prevState => ({
       checkboxes: {
@@ -32,6 +32,32 @@ class IngredientChecklist extends Component {
       }
     }));
   };
+
+  //Used for when a checklist ingredient is removed from the list
+  //Updates the checklist accordingly
+  handleDeleteFromParent(name) {
+    this.setState(prevState => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }));
+  };
+
+  //Used for when the Delete All button is pressed
+  //Updates the checklist accordingly
+  handleDeleteAllFromParent() {
+    const newState = this.state;
+    newState.checkboxes = OPTIONS.reduce(
+      (options, option) => ({
+        ...options,
+        [option]: false
+      }),
+      {}
+    )
+    this.setState(newState);
+  };
+
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
 
@@ -80,5 +106,4 @@ class IngredientChecklist extends Component {
 export default IngredientChecklist;
 const checkList = {
   marginTop: "20px",
-  marginLeft: "15px",
 }
