@@ -10,24 +10,25 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
-			user:"",
+			user: "",
 		}
 		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.handleDeleteAll = this.handleDeleteAll.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
 
-		this.update = React.createRef();
-		this.updateAll = React.createRef();
+		this.delAll = React.createRef();
+		//this.del = React.createRef();
 	}
 
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
 		const second = this.state.name;
-		const third = '/ingredients'  
-  		const link = first + second + third;
+		const third = '/ingredients'
+		const link = first + second + third;
 		fetch(link, {
 			method: "POST",
 			headers: {
@@ -41,8 +42,8 @@ class IngredientList extends React.Component {
 		const first = 'http://127.0.0.1:5000/api/users/';
 		const second = this.state.user
 		const third = '/ingredients'
-		const fourth = this.state.name;  
-  		const link = first + second + third + fourth;
+		const fourth = this.state.name;
+		const link = first + second + third + fourth;
 		fetch(link, {
 			method: "DELETE",
 			body: JSON.stringify(this.state.name)
@@ -52,8 +53,8 @@ class IngredientList extends React.Component {
 	deleteAll() {
 		const first = 'http://127.0.0.1:5000/api/users/';
 		const second = this.state.user;
-		const third = '/ingredients'  
-  		const link = first + second + third;
+		const third = '/ingredients'
+		const link = first + second + third;
 		fetch(link, {
 			method: "DELETEALL",
 		}).then(response => response.ok)
@@ -84,13 +85,13 @@ class IngredientList extends React.Component {
 		let i = this.state.list.indexOf(item);
 
 		if (i > -1) {
+			//this.del.current.handleDeleteFromParent();
 			newState.list.splice(i, 1);
 			this.state.name = this.state.value;
 			this.setState(newState);
 			this.deleteIngredient();
 			this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
 		}
-		this.update.current.handleDeleteFromParent(item);
 	}
 
 	handleDeleteAll() {
@@ -99,7 +100,7 @@ class IngredientList extends React.Component {
 		this.setState(newState);
 		this.deleteAll();
 		this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
-		this.updateAll.current.handleDeleteAllFromParent();
+		this.delAll.current.handleDeleteAllFromParent();
 	}
 
 	render() {
@@ -107,11 +108,10 @@ class IngredientList extends React.Component {
 			<div id="Ingredientlayout">
 				<div id="input">
 					<IngredientInput funct={this.handleSubmit} />
-					<IngredientChecklist 
-						addIngredient={this.handleSubmit} 
-						removeIngredient={this.handleDelete} 
-						ref={this.update}	
-						ref={this.updateAll}
+					<IngredientChecklist
+						addIngredient={this.handleSubmit}
+						removeIngredient={this.handleDelete}
+						ref={this.delAll}
 					/>
 				</div>
 				<div id="list">
