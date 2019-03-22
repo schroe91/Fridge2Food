@@ -7,32 +7,34 @@ class SearchBar extends React.Component {
 			value: '',
 			recipes: [],
 		};
-	
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.Search = this.Search.bind(this);
-	  }
-	
+	}
+
 	handleChange(event) {
-	    this.setState({value: event.target.value});
-	    this.Search();
+		this.setState({ value: event.target.value });
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
-
-		this.setState({value: ""});
+		this.Search();
+		this.setState({ value: "" });
 	}
 
 	Search() {
-		fetch('http://127.0.0.1:5000//recipes/<int:id>', {
+		var list = [];
+		fetch('http://127.0.0.1:5000/api/recipes', {
 			method: "GET",
 			headers: {
 				'Content-Type': 'application/json'
 			},
-		}).then( response => response.ok )
+		}).then(response => response.json)
+			.then(data => this.setState({ recipes: data }))
+			alert(this.state.recipes[0].name)
 	}
-	
+
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>

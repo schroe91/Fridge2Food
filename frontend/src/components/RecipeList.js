@@ -17,8 +17,11 @@ class RecipeList extends React.Component {
         fetch('http://127.0.0.1:5000/api/recipes')
             .then(response => response.json())
             .then(data => { this.setState({ recipes: data }) })
+    }   
 
-        this.props.setNumOfRecipes(this.state.recipes); //Sends recipe array to Home.js (the parent)
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.recipes !== prevState.recipes)
+            this.props.setNumOfRecipes(this.state.recipes); //Sends recipe array to Home.js (the parent)
     }
 
     render() {
