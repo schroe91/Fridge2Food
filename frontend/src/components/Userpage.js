@@ -112,9 +112,10 @@ class Userpage extends Component {
             <button className="button style">Edit Profile Picture</button>
           </div>
           <div id="info">
+            <h3 id="header">Account Info</h3>
             <div id="username">
-              <h2>Username: {this.state.name}</h2>
-              <button className="button style" onClick={this.toggleModal}> Change Username </button>
+              <h5>Username: {this.state.name}</h5>
+              <button className="button" onClick={this.toggleModal}> Change Username </button>
               <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter New Username</ModalHeader>
                 <ModalBody>
@@ -129,21 +130,23 @@ class Userpage extends Component {
                 </ModalFooter>
               </Modal>
             </div>
-            <h2>Email: {this.state.email}</h2>
-            <button className="button style" onClick={this.toggleModal2}> Change Password </button>
-            <Modal isOpen={this.state.modal2} toggle={this.toggleModal2} size="sm">
-              <ModalHeader toggle={this.toggle}>Enter New Password</ModalHeader>
-              <ModalBody>
-                <input type="password" name="oldPassword" placeholder="Old Password" size="22"
-                  onChange={this.handleChange} value={this.state.oldPassword} />
-                <input type="password" name="newPassword" placeholder="New Password" size="22"
-                  onChange={this.handleChange} value={this.state.newPassword} />
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
-                <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
-              </ModalFooter>
-            </Modal>
+            <div id="email">
+              <h5>Email: {this.state.email}</h5>
+              <button className="button" onClick={this.toggleModal2}> Change Password </button>
+              <Modal isOpen={this.state.modal2} toggle={this.toggleModal2} size="sm">
+                <ModalHeader toggle={this.toggle}>Enter New Password</ModalHeader>
+                <ModalBody>
+                  <input type="password" name="oldPassword" placeholder="Old Password" size="22"
+                    onChange={this.handleChange} value={this.state.oldPassword} />
+                  <input type="password" name="newPassword" placeholder="New Password" size="22"
+                    onChange={this.handleChange} value={this.state.newPassword} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
+                  <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+            </div>
           </div>
         </div>
       </div>
