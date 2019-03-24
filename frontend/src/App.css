@@ -7,8 +7,7 @@
 }
 
 #login {
-  position: absolute;
-  left: 81%;
+  margin-left: auto;
 }
 
 #logo {
@@ -50,16 +49,17 @@ h2 {
 }
 
 #recipe-panel {
-  padding-left: 70px;
+  padding-left: 50px;
 }
 
 #recipe-search {
-  margin-left: 5px;
   display: flex;
 }
 
 #numRecipes {
   width: 200px;
+  margin-left: auto;
+  margin-right: 15px;
 }
 
 #recipe-list {
@@ -90,4 +90,8 @@ h2 {
 .button:hover,
 .button.hover {
   border-color: #2980b9;
+}
+
+.list-group-item {
+  padding: .75rem .75rem !important;
 }

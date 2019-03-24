@@ -1,0 +1,17 @@
+#userPage {
+    display: flex;
+}
+
+#backButton {
+    margin-left: auto;
+}
+
+#profilePic {
+    display: flex;
+    flex-direction: column;
+    width: 17%;
+}
+
+#profilePic .button {
+    font-size: 12px;
+}

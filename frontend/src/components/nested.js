@@ -124,7 +124,7 @@ class NestedLogin extends React.Component {
     return (
       <div id="user">
         <Popup
-          trigger={<button className="button">{this.state.isAuth ? "Manage Account" : "Login"}</button>}
+          trigger={<button className="button" id="login">{this.state.isAuth ? "Manage Account" : "Login"}</button>}
           position="bottom right"
           closeOnDocumentClick
         >
@@ -167,7 +167,7 @@ class NestedLogin extends React.Component {
             </ModalFooter>
           </Modal>
         </Popup>
-        <button className="button" onClick={this.logout}> Logout </button>
+        <button className="button" id="logout" onClick={this.logout}> Logout </button>
       </div>
     )
   }

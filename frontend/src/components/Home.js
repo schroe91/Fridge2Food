@@ -12,10 +12,10 @@ import NumOfRecipes from './NumOfRecipes'
 import RecipeFilter from './recipefilter'
 
 class Home extends Component {
-	constructor(){
+	constructor() {
 		super();
-		this.state= {
-			numOfRecipes : 0
+		this.state = {
+			numOfRecipes: 0
 		}
 	}
 
@@ -24,7 +24,7 @@ class Home extends Component {
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
 		this.setState({
-			numOfRecipes : num
+			numOfRecipes: num
 		})
 	}
 
@@ -47,14 +47,14 @@ class Home extends Component {
 							<RecipeSearch />
 							<div id="filter">
 								<RecipeFilter />
-								<div id="numRecipes">
-									<NumOfRecipes numOfRecipes={this.state.numOfRecipes}/>
-								</div>
 							</div>
 						</div>
 						<div id="recipe-list">
-							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)}/>
+							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} />
 						</div>
+					</div>
+					<div id="numRecipes">
+						<NumOfRecipes numOfRecipes={this.state.numOfRecipes} />
 					</div>
 				</div>
 			</div>
@@ -64,6 +64,6 @@ class Home extends Component {
 export default Home;
 
 const style = {
-  position: "absolute",
-  width: "100%",
+	position: "absolute",
+	width: "100%",
 }
