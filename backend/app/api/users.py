@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user
 from flask_httpauth import HTTPBasicAuth
 from app.models import User, Ingredient
 from app.api import bp
-
+from app.functions import login_required
 @bp.route('/users', methods=['POST'])
 def new_user():
     username = request.json.get('username')
@@ -22,6 +22,8 @@ def new_user():
 
 @bp.route('/users/login', methods=['POST'])
 def user_login():
+    print(request.headers)
+    #print(request.body)
     username = request.json.get('username')
     password = request.json.get('password')
     if username is None or password is None:
@@ -41,6 +43,8 @@ def user_logout():
 
 @bp.route('/users/changename', methods=['POST'])
 def change_name():
+    print(current_user)
+    print(request.headers)
     newusername = request.json.get('username')
     password = request.json.get('password')
     if newusername is None or password is None:
@@ -56,6 +60,7 @@ def change_name():
     return jsonify(current_user.to_dict())
 
 @bp.route('/users/newpassword', methods=['POST'])
+@login_required
 def change_password():
     newPass = request.json.get('newPassword')
     oldPass = request.json.get('oldPassword')
@@ -66,6 +71,11 @@ def change_password():
     #current_user.password = newPass
     current_user.set_password(newPass)
     db.session.commit()
+    return jsonify(current_user.to_dict())
+
+@bp.route('/users/current', methods=['GET'])
+@login_required
+def get_current_user():
     return jsonify(current_user.to_dict())
 
 @bp.route('/users/<int:id>', methods=['GET'])
