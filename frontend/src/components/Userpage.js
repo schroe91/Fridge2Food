@@ -26,7 +26,7 @@ class Userpage extends Component {
   }
 
 componentDidMount(){
-  const first = 'http://127.0.0.1:5000/api/users/';
+  const first = '/api/users/';
   const second = this.state.id;
   const link = first + second;
   console.log(link);
@@ -72,7 +72,7 @@ handleSubmit2(ev){
   })
 }
 changeUsername(newU, password){
-  fetch('http://127.0.0.1:5000/api/users/changename', {
+  fetch('/api/users/changename', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ changeUsername(newU, password){
     }).then(response => response.ok).then(console.log('username success'))
 }
 changePassword(newP, oldP){
-  fetch('http://127.0.0.1:5000/api/users/newpassword', {
+  fetch('/api/users/newpassword', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

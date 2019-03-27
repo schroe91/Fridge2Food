@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
 
 	Search() {
 		var list = [];
-		fetch('http://127.0.0.1:5000/api/recipes', {
+		fetch('/api/recipes', {
 			method: "GET",
 			headers: {
 				'Content-Type': 'application/json'

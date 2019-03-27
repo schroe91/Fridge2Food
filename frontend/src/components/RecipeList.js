@@ -14,7 +14,7 @@ class RecipeList extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://127.0.0.1:5000/api/recipes')
+        fetch('/api/recipes')
             .then(response => response.json())
             .then(data => { this.setState({ recipes: data }) })
     }   

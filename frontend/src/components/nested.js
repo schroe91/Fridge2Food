@@ -30,7 +30,7 @@ class NestedLogin extends React.Component {
   login(username, password) {
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/api/users/login', {
+    fetch('/api/users/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ class NestedLogin extends React.Component {
 
   logout(ev) {
     if (this.state.isAuth) {
-      fetch('http://127.0.0.1:5000/api/users/logout', {
+      fetch('/api/users/logout', {
         method: "GET",
         headers: {
           'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ class NestedLogin extends React.Component {
     console.log(email);
     console.log(username);
     console.log(password);
-    fetch('http://127.0.0.1:5000/api/users', {
+    fetch('/api/users', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
