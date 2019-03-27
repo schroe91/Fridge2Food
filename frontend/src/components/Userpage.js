@@ -7,7 +7,7 @@ class Userpage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      id: this.props.match.params.id,
+      //id: this.props.match.params.id,
       name: '',
       email: '',
       modal: false,
@@ -26,11 +26,11 @@ class Userpage extends Component {
   }
 
 componentDidMount(){
-  const first = '/api/users/';
-  const second = this.state.id;
-  const link = first + second;
-  console.log(link);
-  fetch(link) 
+  //const first = '/api/users/';
+  //const second = this.state.id;
+  //const link = first + second;
+ // console.log(link);
+  fetch('/api/users/current') 
   .then( response => response.json())
   .then(data=>this.setState({name: data.username ,email: data.email}))
 }

@@ -18,7 +18,7 @@ class Recipe extends Component {
   }
 
 componentDidMount(){
-  const first = 'http://127.0.0.1:5000/api/recipes/';
+  const first = '/api/recipes/';
   const second = this.state.id;
   const link = first + second;
   fetch(link) 

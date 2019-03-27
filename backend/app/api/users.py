@@ -5,6 +5,7 @@ from flask_httpauth import HTTPBasicAuth
 from app.models import User, Ingredient
 from app.api import bp
 from app.functions import login_required
+
 @bp.route('/users', methods=['POST'])
 def new_user():
     username = request.json.get('username')
@@ -37,11 +38,13 @@ def user_login():
     return jsonify(user.to_dict())
 
 @bp.route('/users/logout', methods=['GET'])
+@login_required
 def user_logout():
     logout_user()
     return url_for('main.index')
 
 @bp.route('/users/changename', methods=['POST'])
+@login_required
 def change_name():
     print(current_user)
     print(request.headers)

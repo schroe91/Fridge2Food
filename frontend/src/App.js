@@ -15,7 +15,7 @@ class App extends Component {
         <Router>
           <Route path="/recipe/:recipe" exact strict component={Recipe} />
           <Route path="/" exact strict component={Home} />
-          <Route path="/user/:id" exact strict component={Userpage} />
+          <Route path="/user" exact strict component={Userpage} />
         </Router>
       </div>
     );
