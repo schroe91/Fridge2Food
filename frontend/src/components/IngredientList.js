@@ -40,7 +40,7 @@ class IngredientList extends React.Component {
 
 	deleteIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = 1;
+		const second = this.state.user;
 		const third = '/ingredients'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
