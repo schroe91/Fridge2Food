@@ -15,8 +15,10 @@ class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
-			numOfRecipes: 0
+			numOfRecipes: 0,
+			userId: 0
 		}
+		this.setId = this.setId.bind(this) 
 	}
 
 	//Callback function to set numOfRecipes.
@@ -24,8 +26,11 @@ class Home extends Component {
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
 		this.setState({
-			numOfRecipes: num
+			numOfRecipes: num,
 		})
+	}
+	setId = (id) => {
+		this.setState({userId : id})
 	}
 
 	render() {
@@ -35,12 +40,12 @@ class Home extends Component {
 					<img src={logo} alt="" id="logo" />
 					<h2 id="title"><b>Fridge2Food</b></h2>
 					<div id="login">
-						<NestedLogin />
+						<NestedLogin user={this.setId}/>
 					</div>
 				</div>
 				<div id="info-panel">
 					<div id="ingredients-panel">
-						<NumOfIngredients />
+						<NumOfIngredients user={this.setId}/>
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">

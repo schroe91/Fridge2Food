@@ -10,7 +10,6 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
-			user: "",
 		}
 		this.AddIngredient = this.AddIngredient.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -21,12 +20,11 @@ class IngredientList extends React.Component {
 		this.deleteAll = this.deleteAll.bind(this);
 
 		this.delAll = React.createRef();
-		//this.del = React.createRef();
 	}
 
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = 1;
+		const second = this.props.setUserId;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
@@ -40,7 +38,7 @@ class IngredientList extends React.Component {
 
 	deleteIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.state.user;
+		const second = this.props.setUserId;
 		const third = '/ingredients'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
@@ -52,7 +50,7 @@ class IngredientList extends React.Component {
 
 	deleteAll() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.state.user;
+		const second = this.props.setUserId;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
@@ -87,7 +85,7 @@ class IngredientList extends React.Component {
 		if (i > -1) {
 			//this.del.current.handleDeleteFromParent();
 			newState.list.splice(i, 1);
-			this.state.name = this.state.value;
+			this.setState({name:this.state.value})
 			this.setState(newState);
 			this.deleteIngredient();
 			this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js

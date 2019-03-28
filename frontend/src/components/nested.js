@@ -44,7 +44,9 @@ class NestedLogin extends React.Component {
 	    return Promise.reject(new Error("Invalid username/password"));
 	}
     }).then(data => {
-	this.setState({id: data.id});
+      this.props.user(data.id);
+  this.setState({id: data.id})
+  this.props.user(this.state.id)
     }, error=> alert(error.toString()))
       
   }
