@@ -1,0 +1,21 @@
+#convertLabel {
+    padding-left: 22px;
+}
+
+#temp {
+    border: solid;
+    border-width: 1px;
+    margin-left: auto;
+    margin-right: 10px;
+    max-width: 250px;
+    padding: 10px;
+}
+
+label {
+    padding-right: 20px;
+}
+
+#tempInput {
+    width: 100px;
+    margin-right: 20px;
+}
