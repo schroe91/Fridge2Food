@@ -45,7 +45,7 @@ class Home extends Component {
 				</div>
 				<div id="info-panel">
 					<div id="ingredients-panel">
-						<NumOfIngredients user={this.setId}/>
+						<NumOfIngredients user={this.state.userId}/>
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">

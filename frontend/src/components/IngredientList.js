@@ -5,8 +5,8 @@ import IngredientChecklist from "./IngredientChecklist";
 import IngredientInput from "./IngredientInput";
 
 class IngredientList extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			list: [],
 			name: "",
@@ -24,7 +24,7 @@ class IngredientList extends React.Component {
 
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.props.setUserId;
+		const second = this.props.userId;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
@@ -38,7 +38,7 @@ class IngredientList extends React.Component {
 
 	deleteIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.props.setUserId;
+		const second = this.props.userId;
 		const third = '/ingredients'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
@@ -50,7 +50,7 @@ class IngredientList extends React.Component {
 
 	deleteAll() {
 		const first = 'http://127.0.0.1:5000/api/users/';
-		const second = this.props.setUserId;
+		const second = this.props.userId;
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
