@@ -14,6 +14,7 @@ class Recipe extends Component {
       date: '',
       prep_time: '',
       prep_steps: '',
+      comments: [],
 
     }
   }
@@ -50,6 +51,12 @@ class Recipe extends Component {
           </ul>
           <h2>Steps: {this.state.prep_steps}</h2>
           <p>Date created: {this.state.date}</p>
+          <h2>Comments</h2>
+          <ul>
+            {this.state.comments.map(comment => {
+              return <li key={`comment`}>{comment} user: </li>
+            })}
+          </ul>
         </div>
         <Converters />
       </div>
