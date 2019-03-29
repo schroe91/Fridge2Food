@@ -38,34 +38,41 @@ class Recipe extends Component {
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
         </div>
-        <div>
-          <h2>Recipe: {this.state.name}</h2>
-          <p>Prep time: {this.state.prep_time}</p>
-          <p>Calories: {this.state.calories}</p>
-          <p>Carbs: {this.state.carbs}</p>
-          <h2>Ingredients</h2>
-          <ul>
-            {this.state.ingredients.map(ingredient => {
-              return <li key={`ingredient-${ingredient.id}`}>{ingredient.name}</li>
-            })}
-          </ul>
-          <h2>Steps: {this.state.prep_steps}</h2>
-          <p>Date created: {this.state.date}</p>
-          <h2>Comments</h2>
-          <ul>
-            {this.state.comments.map(comment => {
-              return <li key={`comment`}>{comment} user: </li>
-            })}
-          </ul>
+        <div style={pageStyle}>
+          <div>
+            <h2>Recipe: {this.state.name}</h2>
+            <p>Prep time: {this.state.prep_time}</p>
+            <p>Calories: {this.state.calories}</p>
+            <p>Carbs: {this.state.carbs}</p>
+            <h2>Ingredients</h2>
+            <ul>
+              {this.state.ingredients.map(ingredient => {
+                return <li key={`ingredient-${ingredient.id}`}>{ingredient.name}</li>
+              })}
+            </ul>
+            <h2>Steps: {this.state.prep_steps}</h2>
+            <p>Date created: {this.state.date}</p>
+            <h2>Comments</h2>
+            <ul>
+              {this.state.comments.map(comment => {
+                return <li key={`comment`}>{comment} user: </li>
+              })}
+            </ul>
+          </div>
+          <Converters />
         </div>
-        <Converters />
       </div>
     )
   }
 
 }
+export default Recipe;
+
 const style = {
   position: "absolute",
   width: "100%",
 }
-export default Recipe;
+
+const pageStyle = {
+  display: "flex",
+}
