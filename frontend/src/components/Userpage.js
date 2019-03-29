@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 class Userpage extends Component {
   constructor(props){
@@ -95,6 +96,9 @@ render(){
       <div id="top-border">
           <img src={logo} alt="" id="logo"/>
           <h2 id="title">Fridge2Food</h2>
+          <div id="login">
+						<button className="button" id="login"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
+					</div>
       </div>
     
   <div>

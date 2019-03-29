@@ -2,6 +2,8 @@ import React from "react";
 import Popup from "reactjs-popup";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./login.css"
+import { NavLink } from 'react-router-dom';
+import App from "../App.js";
 
 class NestedLogin extends React.Component {
 
@@ -131,11 +133,12 @@ class NestedLogin extends React.Component {
     }));
   }
 
+
   render() {
     return (
       <div id="user">
         <Popup
-          trigger={<button className="button" id="login">{this.state.isAuth ? "Manage Account" : "Login"}</button>}
+          trigger={<button className="button" id="login">{this.state.isAuth ?<NavLink to ="/user" activeClassName="active">Manage Account</NavLink>: "Login"}</button>}
           position="bottom right"
           closeOnDocumentClick
         >
@@ -184,6 +187,7 @@ class NestedLogin extends React.Component {
   }
 }
 export default NestedLogin;
+
 /**<Popup
       trigger={<button className="button" onClick={this.logout}> Logout </button>}
       position="bottom right"
