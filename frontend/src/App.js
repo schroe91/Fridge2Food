@@ -6,6 +6,7 @@ import Route from 'react-router-dom/Route'
 import Recipe from './components/Recipe'
 import Userpage from './components/Userpage'
 import Home from './components/Home'
+import Substitution from './components/Substitution'
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route path="/recipe/:recipe" exact strict component={Recipe} />
           <Route path="/" exact strict component={Home} />
           <Route path="/user" exact strict component={Userpage} />
+          <Route path="/substitutions" exact strict component={Substitution}/>
         </Router>
       </div>
     );

@@ -2,6 +2,7 @@ import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
 import NewIngredients from "./NewIngredient";
+import { NavLink } from 'react-router-dom';
 
 class NumOfIngredients extends React.Component {
 	constructor(props) {
@@ -33,6 +34,11 @@ class NumOfIngredients extends React.Component {
 					</div>
 				</div>
 				<NewIngredients />
+				<div>
+					<div style={listStyle}>
+						<button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
+					</div>
+				</div>
 			</ListGroup>
 		);
 	}
