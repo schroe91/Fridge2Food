@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
 import Converters from "./Converters";
+import { NavLink } from 'react-router-dom';
 
 class Recipe extends Component {
   constructor(props) {
@@ -61,6 +62,9 @@ class Recipe extends Component {
           </div>
           <Converters />
         </div>
+        <div>
+						<button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
+					</div>
       </div>
     )
   }

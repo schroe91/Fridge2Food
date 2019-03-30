@@ -3,7 +3,6 @@ import Popup from "reactjs-popup";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./login.css"
 import { NavLink } from 'react-router-dom';
-import App from "../App.js";
 
 class NestedLogin extends React.Component {
 

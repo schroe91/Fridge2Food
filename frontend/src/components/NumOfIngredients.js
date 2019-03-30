@@ -34,11 +34,6 @@ class NumOfIngredients extends React.Component {
 					</div>
 				</div>
 				<NewIngredients />
-				<div>
-					<div style={listStyle}>
-						<button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
-					</div>
-				</div>
 			</ListGroup>
 		);
 	}

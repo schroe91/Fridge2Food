@@ -1,8 +1,8 @@
 {
   "name": "fridge2food-frontend",
   "version": "0.1.0",
-    "private": true,
-    "proxy": "http://localhost:5000",
+  "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "aphrodite": "^2.3.1",
     "bootstrap": "^4.3.1",
