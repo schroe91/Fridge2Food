@@ -32,7 +32,13 @@ def get_all_recipes():
         if 'glutenfree' in type_arr:
             recipe_query = Recipe.query.filter(Recipe.is_glutenfree==True)
             recipes = recipes.intersect(recipe_query)
+
+    if request.args.get('calories') != None:
+        calorie_query = Recipe.query.filter(Recipe.calories)
         
+             
+    
+    
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
         ingredients = [Ingredient.query.get(id) for id in ing_arr]
@@ -45,6 +51,8 @@ def get_all_recipes():
             if containsAllIngredients:
                 new_recipes.append(recipe)
         recipes = new_recipes
-        print(request.args.get('ingredients'))
+        print(request.args.get('ingredients')) 
     return jsonify([r.to_dict() for r in recipes])
     
+
+
