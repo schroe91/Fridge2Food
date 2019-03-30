@@ -34,7 +34,29 @@ class Substitution extends Component {
 					</div>
         </div>
         <div>
-          <h3>This is the Substitution page</h3>
+          <h2>Common Ingredient Substitutions</h2>
+          <h3>Eggs:</h3>
+          <p>1 egg = ¼ cup applesauce</p>
+          <p>1 egg = 1 tablespoons ground flaxseed + 3 tablespoons water</p>
+          <p>1 egg = ¼ cup silken tofu pureed</p>
+          <p>1 egg = 3 tablespoons mayonnaise</p>
+          <p>1 egg = ½ banana mashed with ½ teaspoon baking powder</p>
+          <h3>Butter:</h3>
+          <p>1 cup salted butter = 1 cup margarine</p>
+          <p>1 cup salted butter = 1 cup vegetable shortening + ½ teaspoon salt</p>
+          <p>1 cup salted butter = 7/8 cup lard + ½ teaspoon salt</p>
+          <p>1 cup unsalted butter = 1 cup salted butter = 1 cup vegetable shortening = 1 cup lard *minus* ½ teaspoon salt from recipe</p>
+          <h3>Baking Powder:</h3>
+          <p>1 teaspoon baking powder = ¼ teaspoon baking soda + ½ teaspoon cream of tartar + ¼ teaspoon cornstarch</p>
+          <h3>Milk:</h3>
+          <p>1 cup whole milk = ½ cup evaporated milk + ½ cup water</p>
+          <p>whole milk = 1 cup skim milk + 2 tablespoons melted butter or margarine</p>
+          <h3>Sour Cream:</h3>
+          <p>1 cup sour cream = 1 cup plain yogurt</p>
+          <h3>Yeast:</h3>
+          <p>1 envelope (¼-ounce) active dry yeast = 2¼ teaspoons active dry yeast</p>
+          <p>1 envelope (¼-ounce) active dry yeast = 2¼ teaspoons rapid-rise yeast</p>
+          <p>1 envelope (¼-ounce) active dry yeast = ⅓ of a 2-ounce cake yeast</p>
         </div>
         <Converters />
       </div>

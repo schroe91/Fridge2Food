@@ -16,7 +16,6 @@ class Recipe extends Component {
       prep_time: '',
       prep_steps: '',
       comments: [],
-
     }
   }
 
@@ -42,16 +41,17 @@ class Recipe extends Component {
         <div style={pageStyle}>
           <div>
             <h2>Recipe: {this.state.name}</h2>
-            <p>Prep time: {this.state.prep_time}</p>
-            <p>Calories: {this.state.calories}</p>
-            <p>Carbs: {this.state.carbs}</p>
-            <h2>Ingredients</h2>
+            <p>Prep time: {this.state.prep_time} hours</p>
+            <p>{this.state.calories} calories</p>
+            <p>{this.state.carbs} carbs</p>
+            <h2>Ingredients:</h2>
             <ul>
               {this.state.ingredients.map(ingredient => {
                 return <li key={`ingredient-${ingredient.id}`}>{ingredient.name}</li>
               })}
             </ul>
-            <h2>Steps: {this.state.prep_steps}</h2>
+            <h2>Steps:</h2> 
+            <p>{this.state.prep_steps}</p>
             <p>Date created: {this.state.date}</p>
             <h2>Comments</h2>
             <ul>
@@ -64,7 +64,7 @@ class Recipe extends Component {
         </div>
         <div>
 						<button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
-					</div>
+				</div>
       </div>
     )
   }
