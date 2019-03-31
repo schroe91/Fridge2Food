@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
 import { NavLink } from 'react-router-dom';
+import Inputs from "./Inputs"
 
 class CreateRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      ingredients: [],
+      ingredients: [{name:"", amount:""}],
       calories: '',
       carbs: '',
       date: '',
       prep_time: '',
       prep_steps: '',
-      comments: [],
+      cats: [{ingredient:"", amount:""}],
+      owner: "",
+      description: ""
     }
+    
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -29,10 +33,27 @@ class CreateRecipe extends Component {
         date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps
       }))
   }*/
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  //handleChange(e) {
+   // this.setState({ [e.target.name]: e.target.value });
+  //}
+
+  handleChange = (e) => {
+    if (["name", "age"].includes(e.target.className) ) {
+      let cats = [...this.state.cats]
+      cats[e.target.dataset.id][e.target.className] = e.target.value
+      this.setState({ cats }, () => console.log(this.state.cats))
+    } else {
+      this.setState({ [e.target.name]: e.target.value })
+    }
   }
+addIngredient = (e) => {
+    this.setState((prevState) => ({
+      cats: [...prevState.cats, {ingredient:"", amount:""}],
+    }));
+  }
+handleSubmit = (e) => { e.preventDefault() }
   render() {
+    let {owner, calories, carbs, prep_time, cats, prep_steps} = this.state
     return (
       <div id="layout" style={style}>
         <div id="top-border">
@@ -44,21 +65,23 @@ class CreateRecipe extends Component {
         </div>
         <h2>Create New Recipe</h2>
         
-
-        <div className="col-md-5">
-          <div className="form-area">  
-              <form role="form">
-                <br styles="clear:both" />
-                <div className="form-group">
-                  <input value={this.state.name} name="name"type="text" onChange={this.handleChange} className="form-control" placeholder="Recipe Name" required />
-                </div>
-                <div className="from-group">
-                    <input value={this.state.ingredients} name="ingredients" type="text" onChange={this.handleChange} className="form-control" placeholder="Ingredients" required />
-                </div>
-                <button type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Create Recipe</button>
-              </form>
-          </div>
-        </div>
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
+        
+        <label htmlFor="name">Recipe Name</label> 
+        <input type="text" name="owner" id="owner" value={owner} />
+        <div><label htmlFor="calories">Calories</label> 
+        <input type="text" name="calories" id="calories" value={calories} /></div>
+        <div><label htmlFor="carbs">Carbs</label> 
+        <input type="text" name="carbs" id="carbs" value={carbs} /></div>
+        <div><label htmlFor="preptime">Prep Time</label> 
+        <input type="text" name="prep_time" id="prep_time" value={prep_time} /></div>
+        <div><button onClick={this.addIngredient}>Add new new Ingredient</button></div>
+        
+        <Inputs cats={cats} />
+        <div><label htmlFor="prep_steps">Instructions</label> 
+        <input type="text" size="22" name="prep_steps" id="prep_steps" value={prep_steps} /></div>
+        <input type="submit" value="Submit" /> 
+        </form>
         
       </div>
     )
