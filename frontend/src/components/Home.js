@@ -16,7 +16,8 @@ class Home extends Component {
 		super();
 		this.state = {
 			numOfRecipes: 0,
-			userId: 0
+			userId: 0,
+			recipe: ''
 		}
 		this.setId = this.setId.bind(this) 
 	}
@@ -31,6 +32,9 @@ class Home extends Component {
 	}
 	setId = (id) => {
 		this.setState({userId : id})
+	}
+	recipe = (recipe) => {
+		this.setState({recipe: recipe})
 	}
 
 	render() {
@@ -49,13 +53,13 @@ class Home extends Component {
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">
-							<RecipeSearch />
+							<RecipeSearch getRecipe = {this.recipe.bind(this)} />
 							<div id="filter">
 								<RecipeFilter />
 							</div>
 						</div>
 						<div id="recipe-list">
-							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} />
+							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} userId = {this.state.userId} recipe={this.state.recipe} />
 						</div>
 					</div>
 					<div id="numRecipes">

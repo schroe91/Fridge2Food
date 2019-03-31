@@ -5,7 +5,8 @@ class SearchBar extends React.Component {
 		super(props);
 		this.state = {
 			value: '',
-			recipes: [],
+			recipe: '',
+			id: 0
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -24,13 +25,15 @@ class SearchBar extends React.Component {
 	}
 
 	Search() {
-		var list = [];
-		fetch('/api/recipes', {
-			method: "GET",
-			headers: {
-				'Content-Type': 'application/json'
-			},
-		}).then(response => response.json)
+		fetch('/api/recipes?name=' + this.state.value)
+            .then(response => response.json())
+			/*.then(data => { 
+				alert(data);
+				this.setState({ id: data.id }) })
+			//if(this.state.id > 0){
+			window.open("/recipe/" + this.state.id);
+			//}*/
+			this.props.getRecipe(this.state.recipe)
 	}
 
 	render() {

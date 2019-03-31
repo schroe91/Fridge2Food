@@ -32,7 +32,7 @@ componentDidMount(){
   //const link = first + second;
  // console.log(link);
   fetch('/api/users/current') 
-  .then( response => response.json())
+  .then( response => response.ok)
   .then(data=>this.setState({name: data.username ,email: data.email}))
 }
 toggleModal() {
@@ -135,6 +135,21 @@ render(){
           <ModalFooter>
             <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
             <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+        
+        <button className="button style" onClick={this.toggleModal3}> Add Allergy</button>
+        <Modal isOpen={this.state.modal3} toggle={this.toggleModal3} size="sm">
+          <ModalHeader toggle={this.toggle}>Enter Allergy</ModalHeader>
+          <ModalBody>
+            <input type="password" name="oldPassword" placeholder="Old Password" size="22"
+              onChange={this.handleChange} value={this.state.oldPassword} />
+            <input type="password" name="newPassword" placeholder="New Password" size="22"
+              onChange={this.handleChange} value={this.state.newPassword} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
+            <Button color="secondary" onClick={this.toggleModal3}>Cancel</Button>
           </ModalFooter>
         </Modal>
   </div>
