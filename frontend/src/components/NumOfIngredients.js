@@ -4,6 +4,7 @@ import IngredientList from "./IngredientList";
 import NewIngredients from "./NewIngredient";
 import { NavLink } from 'react-router-dom';
 
+
 class NumOfIngredients extends React.Component {
 	constructor(props) {
 		super(props)
@@ -34,6 +35,11 @@ class NumOfIngredients extends React.Component {
 					</div>
 				</div>
 				<NewIngredients />
+				<div>
+					<div style={listStyle}>
+						<button className="button" id="tocreaterecipe"><NavLink exact to="/CreateRecipe" activeClassName="active">Create New Recipe</NavLink></button>
+					</div>
+				</div>
 			</ListGroup>
 		);
 	}
