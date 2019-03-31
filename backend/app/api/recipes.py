@@ -34,10 +34,18 @@ def get_all_recipes():
             recipes = recipes.intersect(recipe_query)
 
     if request.args.get('calories') != None:
-        calorie_query = Recipe.query.filter(Recipe.calories)
-        
-             
+        cal_arr = request.args.get('calories').split(',')
+        calorie = [Recipe.query.get(calories) for cals in cal_arr]
+        for recipe in recipes:
+            if calorie < recipe.calories:
+                recipes = recipes.intersect(recipe_query)     
     
+    if request.args.get('prep_time') != None:
+        prep_arr = request.args.get('prep_time').split(',')
+        time = [Recipe.query.get(prep_time) for prep in prep_arr]
+        for recipe in recipes:
+            if time < recipe.prep_time:
+                recipes = recipes.intersect(recipe_query) 
     
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
