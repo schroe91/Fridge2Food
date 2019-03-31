@@ -17,6 +17,7 @@ class Userpage extends Component {
       password: '',
       oldPassword: '',
       newPassword: '',
+      favorites: []
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -152,6 +153,11 @@ render(){
             <Button color="secondary" onClick={this.toggleModal3}>Cancel</Button>
           </ModalFooter>
         </Modal>
+        <ul>
+              {this.state.favorites.map(favorite => {
+                return <li key={`favorite`}>{favorite.name}</li>
+              })}
+            </ul>
   </div>
   </div>)
 }
