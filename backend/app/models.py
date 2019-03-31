@@ -83,18 +83,18 @@ class User(UserMixin, db.Model):
    # def load_user(id):
    #return User.query.get(int(id))
 
-   def send_email(subject, sender, recipient, text_body, html_body):
+    def send_email(subject, sender, recipient, text_body, html_body):
        msg = Message(subject, sender=sender, recipient=recipient)
        msg.body = text_body
        msg.html = html_body
        mail.send(msg)
+       return
     
     def send_reset_email(user):
         token = user.generate_auth_token()
-        send_email('Reset your password', sender='schroe91@purdue.edu', recipient=[user.email]text_body=render_template('email/reset_password.txt',
-                                         user=user, token=token),
-               html_body=render_template('email/reset_password.html',
-                                         user=user, token=token))
+        #userN = User.query.filter_by(email).first()
+        send_email('Reset your password', sender='schroe91@purdue.edu', recipient=['schroe91@purdue.edu'], text_body=render_template('templates/reset_password.txt', user=user, token=token), html_body=render_template('templates/reset_password.html', user=user, token=token))
+        return
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)

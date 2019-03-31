@@ -76,6 +76,25 @@ def change_password():
     db.session.commit()
     return jsonify(current_user.to_dict())
 
+@bp.route('/users/request_reset', methods=['POST'])
+def request_reset():
+    email = request.json.get('email')
+    user = User.query.filter_by(email=email).first()
+    if user:
+        send_reset_email(user)
+    return
+
+
+@bp.route('/users/reset_password/<token>', methods=['POST'])
+def reset_password(token):
+    user = User.verify_auth_token(token)
+    if not user:
+        abort(400)
+    password = request.json.get('password')
+    user.set_password(password)
+    db.session.commit()
+    return jsonify(user.to_dict())
+
 @bp.route('/users/current', methods=['GET'])
 @login_required
 def get_current_user():
