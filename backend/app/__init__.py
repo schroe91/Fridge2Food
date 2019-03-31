@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from flask_avatars import Avatars
+from flask_mail import Mail
 
 from config import Config
 
@@ -12,6 +13,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 auth = HTTPBasicAuth()
+mail = Mail()
 
 
 def create_app(config_class=Config):
@@ -24,6 +26,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
 
     login.init_app(app)
+    mail.init_app(app)
 
     app.config['SECRET_KEY'] = 'just a random string'
 
