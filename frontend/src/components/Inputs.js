@@ -1,5 +1,5 @@
 import React from "react"
-const CatInputs = (props) => {
+const Inputs = (props) => {
   return (
     props.cats.map((val, idx)=> {
       let catId = `cat-${idx}`, ageId = `age-${idx}`
@@ -28,4 +28,4 @@ const CatInputs = (props) => {
     })
   )
 }
-export default CatInputs
+export default Inputs

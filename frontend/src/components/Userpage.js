@@ -13,18 +13,24 @@ class Userpage extends Component {
       email: '',
       modal: false,
       modal2: false,
+      modal3: false,
+      modal4: false,
       newUsername: '',
       password: '',
       oldPassword: '',
       newPassword: '',
-      favorites: []
+      favorites: [],
+      newPic:''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleModal2 = this.toggleModal2.bind(this);
+    this.toggleModal3 = this.toggleModal3.bind(this);
+    this.toggleModal4 = this.toggleModal4.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    
   }
 
 componentDidMount(){
@@ -49,6 +55,20 @@ toggleModal2() {
     modal2: !prevState.modal2,
     newPassword: '',
     oldPassword: '',
+  }));
+}
+toggleModal3() {
+  this.setState(prevState => ({
+    modal: !prevState.modal3,
+    newUsername: '',
+    oldUsername: '',
+    password: '',
+  }));
+}
+toggleModal4() {
+  this.setState(prevState => ({
+    modal: !prevState.modal4,
+    newPic : '',
   }));
 }
 handleChange(e) {
@@ -105,7 +125,21 @@ render(){
   <div>
     <h3>   </h3>
     <img src={profilepic} alt="" id="pic"/>
-    <button className="button style">Edit Profile Picture</button>
+    
+    <button className="button style" onClick={this.toggleModal4}> Edit Profile Picture </button>
+        <Modal isOpen={this.state.modal4} toggle={this.toggleModal4} size="sm">
+          <ModalHeader toggle={this.toggle}>Enter New pic</ModalHeader>
+          <ModalBody>
+            <input type="text" name="newPic" placeholder="New profile picture" size="22"
+              onChange={this.handleChange} value={this.state.newPic} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit}>Submit</Button>
+            <Button color="secondary" onClick={this.toggleModal4}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
+
     <h2>Username: {this.state.name}</h2>
     <h2>Email: {this.state.email}</h2>
     <button className="button style" onClick={this.toggleModal}> Change Username </button>

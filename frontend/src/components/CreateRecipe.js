@@ -7,7 +7,7 @@ class CreateRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      recipe: '',
       ingredients: [{name:"", amount:""}],
       calories: '',
       carbs: '',
@@ -15,8 +15,6 @@ class CreateRecipe extends Component {
       prep_time: '',
       prep_steps: '',
       cats: [{ingredient:"", amount:""}],
-      owner: "",
-      description: ""
     }
     
     this.handleChange = this.handleChange.bind(this);
@@ -33,10 +31,6 @@ class CreateRecipe extends Component {
         date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps
       }))
   }*/
-  //handleChange(e) {
-   // this.setState({ [e.target.name]: e.target.value });
-  //}
-
   handleChange = (e) => {
     if (["name", "age"].includes(e.target.className) ) {
       let cats = [...this.state.cats]
@@ -53,7 +47,7 @@ addIngredient = (e) => {
   }
 handleSubmit = (e) => { e.preventDefault() }
   render() {
-    let {owner, calories, carbs, prep_time, cats, prep_steps} = this.state
+    let {recipe, calories, carbs, prep_time, cats, prep_steps} = this.state
     return (
       <div id="layout" style={style}>
         <div id="top-border">
@@ -67,17 +61,22 @@ handleSubmit = (e) => { e.preventDefault() }
         
         <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
         
-        <label htmlFor="name">Recipe Name</label> 
-        <input type="text" name="owner" id="owner" value={owner} />
+        <div><label htmlFor="recipe">Recipe Name</label> 
+        <input type="text" name="recipe" id="recipe" value={recipe} /></div>
+        <br></br>
         <div><label htmlFor="calories">Calories</label> 
         <input type="text" name="calories" id="calories" value={calories} /></div>
+        <br></br>
         <div><label htmlFor="carbs">Carbs</label> 
         <input type="text" name="carbs" id="carbs" value={carbs} /></div>
+        <br></br>
         <div><label htmlFor="preptime">Prep Time</label> 
         <input type="text" name="prep_time" id="prep_time" value={prep_time} /></div>
+        <br></br>
         <div><button onClick={this.addIngredient}>Add new new Ingredient</button></div>
-        
+        <br></br>
         <Inputs cats={cats} />
+        <br></br>
         <div><label htmlFor="prep_steps">Instructions</label> 
         <input type="text" size="22" name="prep_steps" id="prep_steps" value={prep_steps} /></div>
         <input type="submit" value="Submit" /> 
