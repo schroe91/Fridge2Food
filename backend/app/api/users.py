@@ -3,6 +3,7 @@ from app import db, auth
 from flask_login import current_user, login_user, logout_user
 from flask_httpauth import HTTPBasicAuth
 from app.models import User, Ingredient
+from app.email import send_reset_email
 from app.api import bp
 from app.functions import login_required
 
@@ -80,9 +81,10 @@ def change_password():
 def request_reset():
     email = request.json.get('email')
     user = User.query.filter_by(email=email).first()
+    print(email)
     if user:
         send_reset_email(user)
-    return
+    return ''
 
 
 @bp.route('/users/reset_password/<token>', methods=['POST'])

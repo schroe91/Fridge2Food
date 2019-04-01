@@ -1,14 +1,12 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import g, render_template
+from flask import current_app as app
 from flask_httpauth import HTTPBasicAuth
 from flask_login import UserMixin
 from flask_mail import Message
 from app import db, login, auth, mail
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
-
-
-
 
 
 recipe_ingredient = db.Table(
@@ -37,7 +35,7 @@ class User(UserMixin, db.Model):
     """ def avatar(self, size):
         return 'http://www.gravatar.com/avatar/HASH' % (md5(self.email.encode('utf-8')).hexdigest(), size) """
     allergies = db.Column(db.String(140))
-    favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
+    #favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
     def to_dict(self):
         data = {
             'id': self.id,
@@ -83,18 +81,9 @@ class User(UserMixin, db.Model):
    # def load_user(id):
    #return User.query.get(int(id))
 
-    def send_email(subject, sender, recipient, text_body, html_body):
-       msg = Message(subject, sender=sender, recipient=recipient)
-       msg.body = text_body
-       msg.html = html_body
-       mail.send(msg)
-       return
+   
+
     
-    def send_reset_email(user):
-        token = user.generate_auth_token()
-        #userN = User.query.filter_by(email).first()
-        send_email('Reset your password', sender='schroe91@purdue.edu', recipient=['schroe91@purdue.edu'], text_body=render_template('templates/reset_password.txt', user=user, token=token), html_body=render_template('templates/reset_password.html', user=user, token=token))
-        return
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
