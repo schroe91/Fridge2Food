@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import Converters from "./Converters";
 import { NavLink } from 'react-router-dom';
+import 'font-awesome/css/font-awesome.min.css';
+import "./Recipe.css";
 
 class Recipe extends Component {
   constructor(props) {
@@ -16,7 +18,17 @@ class Recipe extends Component {
       prep_time: '',
       prep_steps: '',
       comments: [],
+      favColor: "gray",
     }
+
+    this.handleFavorite = this.handleFavorite.bind(this);
+  }
+
+  handleFavorite(ev) {
+    if(this.state.favColor === "gray")
+      this.setState({ favColor: "rgb(255, 115, 0)"});
+    else
+      this.setState({ favColor: "gray" });
   }
 
   componentDidMount() {
@@ -33,14 +45,31 @@ class Recipe extends Component {
 
   render() {
     return (
-      <div id="layout" style={style}>
+      <div id="layout">
         <div id="top-border">
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
         </div>
-        <div style={pageStyle}>
+        <div id="pageStyle">
           <div>
-            <h2>Recipe: {this.state.name}</h2>
+            <div id="interactions">
+              <h2>Recipe: {this.state.name}</h2>
+              <label id="favLabel">Favorite!</label>
+              <button 
+                onClick={this.handleFavorite} 
+                id="favorite"
+                style={{color:this.state.favColor}} 
+              >
+                <i class="fa fa-heart fa-2x" id="favorite"></i>
+              </button>
+              <div id="rating">
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+              </div>
+            </div>
             <p>Prep time: {this.state.prep_time} hours</p>
             <p>{this.state.calories} calories</p>
             <p>{this.state.carbs} carbs</p>
@@ -74,12 +103,3 @@ class Recipe extends Component {
 
 }
 export default Recipe;
-
-const style = {
-  position: "absolute",
-  width: "100%",
-}
-
-const pageStyle = {
-  display: "flex",
-}

@@ -1,0 +1,38 @@
+#layout {
+    position: absolute;
+    width: 100%;
+}
+
+#pageStyle {
+    display: flex;
+}
+
+#interactions {
+    display: flex;
+}
+
+#interactions * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#favorite {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    margin-right: 40px;
+}
+
+button#favorite {
+    width: 32px;
+}
+
+#favLabel {
+    margin-right: 0 !important;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h2 {
+    padding-right: 40px;
+}
