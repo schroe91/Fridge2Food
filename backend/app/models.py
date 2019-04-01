@@ -125,6 +125,7 @@ class Recipe(db.Model):
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, index=True, unique=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     recipes = db.relationship('Recipe', secondary=recipe_ingredient,
                               primaryjoin=(recipe_ingredient.c.ingredient_id == id),
                               backref=db.backref('recipe_ingredients', lazy='dynamic'),
