@@ -14,20 +14,20 @@ class RecipeList extends React.Component {
         };
     }
 
-    getingredients(){
+   /* getingredients(){
         fetch('/users/' + this.props.userId, {
             method: "GET"
         }).then(response=>response.json)
         .then(data=>{this.setState({ingredients: data.ingredients})})
     }
-
+*/
     componentDidMount() {
-        if(this.props.recipe == null){
-        this.getingredients();
-        fetch('/api/recipes?')
+        //if(this.props.recipe == null){
+       // this.getingredients();
+        fetch('/api/recipes')
             .then(response => response.json())
             .then(data => { this.setState({ recipes: data }) })
-        }
+        //}
     }   
 
     componentDidUpdate(prevProps, prevState) {
