@@ -81,11 +81,9 @@ def change_password():
 def request_reset():
     email = request.json.get('email')
     user = User.query.filter_by(email=email).first()
-    print(email)
     if user:
         send_reset_email(user)
     return ''
-
 
 @bp.route('/users/reset_password/<token>', methods=['POST'])
 def reset_password(token):
