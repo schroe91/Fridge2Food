@@ -1,4 +1,5 @@
 from flask import jsonify, request, Response, url_for, abort, g
+from flask import current_app as app
 from app import db, auth
 from flask_login import current_user, login_user, logout_user
 from flask_httpauth import HTTPBasicAuth
@@ -6,6 +7,12 @@ from app.models import User, Ingredient
 from app.email import send_reset_email
 from app.api import bp
 from app.functions import login_required
+import requests
+from tempfile import SpooledTemporaryFile
+from PIL import Image
+from resizeimage import resizeimage
+import time
+import os
 
 @bp.route('/users', methods=['POST'])
 def new_user():
@@ -43,6 +50,31 @@ def user_login():
 def user_logout():
     logout_user()
     return url_for('main.index')
+
+@bp.route('/users/changeavatar', methods=['POST'])
+@login_required
+def image_change():
+    url = request.json.get('image_url')
+    
+    #url = "https://via.placeholder.com/550"
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with SpooledTemporaryFile() as f:#open(path, 'wb') as f:
+            for chunk in r:
+                f.write(chunk)
+            with Image.open(f) as img:
+                cover = resizeimage.resize_cover(img, [200,200])
+                filename = str.format("{}_{}.png",
+                                      current_user.id,
+                                      time.time())
+                filepath = os.path.join(app.config['PROFILE_IMAGE_FOLDER'],
+                                            filename)
+                print(filepath)
+                cover.save(filepath, "PNG")
+                print(url_for('static', filename="images/"+filename))
+                current_user.avatar_url = url_for('static', filename="images/"+filename)
+                db.session.commit()
+                return jsonify(current_user.to_dict())
 
 @bp.route('/users/changename', methods=['POST'])
 @login_required

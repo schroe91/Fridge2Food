@@ -27,15 +27,9 @@ def create_app(config_class=Config):
 
     login.init_app(app)
 
-    app.config.update(
-	DEBUG=True,
-	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
-	MAIL_USERNAME = 'fridge2food@gmail.com',
-	MAIL_PASSWORD = 'teamnumber18'
-	)
+    #app.config.update(
+	
+    #)
     mail = Mail(app)
 
     app.config['SECRET_KEY'] = 'just a random string'

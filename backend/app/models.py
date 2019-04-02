@@ -1,13 +1,13 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import g, render_template
+from flask import g, render_template, url_for
 from flask import current_app as app
 from flask_httpauth import HTTPBasicAuth
 from flask_login import UserMixin
 from flask_mail import Message
 from app import db, login, auth, mail
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
-
+import os
 
 recipe_ingredient = db.Table(
     'recipe_ingredient',
@@ -32,9 +32,8 @@ class User(UserMixin, db.Model):
                                   primaryjoin=(user_ingredient.c.user_id == id),
                                   backref = db.backref('user_ingredient', lazy='dynamic'),
                                   lazy='dynamic')
-    """ def avatar(self, size):
-        return 'http://www.gravatar.com/avatar/HASH' % (md5(self.email.encode('utf-8')).hexdigest(), size) """
-    allergies = db.Column(db.String(140))
+    avatar_url = db.Column(db.String(120), default = "/static/images/default.png")
+    #allergies = db.Column(db.String(140))
     #favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
     def to_dict(self):
         data = {
@@ -42,6 +41,7 @@ class User(UserMixin, db.Model):
             'username': self.username,
             'email': self.email,
             'ingredients': [i.to_dict() for i in self.ingredients],
+            'avatar_url': self.avatar_url
         }
         return data
     

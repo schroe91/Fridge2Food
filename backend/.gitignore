@@ -1,9 +1,11 @@
 __pycache__
 *.pyc
 *~
+.env
 venv
 app.db
 migrations
 .flaskenv
 test_commands.py
+app/static/images/*.png
 .#*
