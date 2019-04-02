@@ -20,7 +20,8 @@ class Userpage extends Component {
       oldPassword: '',
       newPassword: '',
       favorites: [],
-      newPic:''
+	newPic:'',
+	avatar_url: profilepic
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,9 +39,12 @@ componentDidMount(){
   //const second = this.state.id;
   //const link = first + second;
  // console.log(link);
-  fetch('/api/users/current') 
-  .then( response => response.ok)
-  .then(data=>this.setState({name: data.username ,email: data.email}))
+    fetch('/api/users/current') 
+	.then(response => response.json())
+	.then(data => {this.setState({name: data.username,
+				     email: data.email,
+				     avatar_url: data.avatar_url})
+		       console.log(data.avatar_url)})
 }
 toggleModal() {
   this.setState(prevState => ({
@@ -124,7 +128,7 @@ render(){
     
   <div>
     <h3>   </h3>
-    <img src={profilepic} alt="" id="pic"/>
+    <img src={this.state.avatar_url} alt="" id="pic"/>
     
     <button className="button style" onClick={this.toggleModal4}> Edit Profile Picture </button>
         <Modal isOpen={this.state.modal4} toggle={this.toggleModal4} size="sm">
