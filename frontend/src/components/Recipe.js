@@ -63,6 +63,9 @@ class Recipe extends Component {
         <div id="top-border">
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
+          <button className="button" id="login">
+            <NavLink exact to="/" activeClassName="active">Home</NavLink>
+          </button>
         </div>
         <div id="pageStyle">
           <div>

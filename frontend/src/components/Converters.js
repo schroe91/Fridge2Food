@@ -111,12 +111,11 @@ class Converters extends React.Component {
 						<input
 							type="number"
 							name="temperature"
-							placeholder="Temperature"
 							value={this.state.value1}
 							id="tempInput"
 							onChange={this.handleTempChange}
 						/>
-						<label>
+						<label id="FRadio">
 							<input
 								type="radio"
 								value="f"

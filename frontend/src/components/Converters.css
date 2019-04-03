@@ -3,7 +3,7 @@
 }
 
 #convertLabel {
-    padding-left: 22px;
+    padding-left: 42px;
 }
 
 #temp {
@@ -17,6 +17,10 @@
 #tempInput {
     width: 100px;
     margin-right: 20px;
+}
+
+#FRadio {
+    padding-right: 22px;
 }
 
 #measure {
