@@ -41,39 +41,40 @@ class Converters extends React.Component {
 	handleMeasureSubmit(ev) {
 		ev.preventDefault();
 		var temp;
+		var rounded;
 
-		if (this.state.convertFrom != this.state.convertTo) {
+		if (this.state.convertFrom !== this.state.convertTo) {
 			if (this.state.convertFrom === "Cups") {
 				temp = this.state.value2 * cupsTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Tablespoons") {
 				temp = this.state.value2 * tbTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Teaspoons") {
 				temp = this.state.value2 * tspTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Pints") {
 				temp = this.state.value2 * pintsTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Quarts") {
 				temp = this.state.value2 * quartsTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Gallons") {
 				temp = this.state.value2 * gallonsTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Liters") {
 				temp = this.state.value2 * litersTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} else if(this.state.convertFrom === "Mililiters") {
 				temp = this.state.value2 * miliTo[this.state.convertTo];
-				var rounded = Math.round(temp * 10) / 10;
+				rounded = Math.round(temp * 10) / 10;
 				this.setState({ conversion: rounded.toFixed(1) });
 			} 
 		} else
