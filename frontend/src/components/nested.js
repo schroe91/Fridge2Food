@@ -42,7 +42,7 @@ class NestedLogin extends React.Component {
 	    //this.setState({isAuth : true})
             return response.json();
 	}else{
-	    return Promise.reject(new Error("Not a recipe"));
+	    return Promise.reject(new Error("Not a valid username"));
 	}
     }).then(data => {
   this.setState({id: data.id})
