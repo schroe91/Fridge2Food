@@ -27,7 +27,7 @@ button#favorite {
     width: 32px;
 }
 
-#favLabel {
+#favLabel, #rateLabel {
     margin-right: 0 !important;
     font-weight: bold;
     font-size: 20px;

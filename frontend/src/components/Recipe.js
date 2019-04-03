@@ -4,6 +4,7 @@ import Converters from "./Converters";
 import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Recipe.css";
+import StarRatings from 'react-star-ratings';
 
 class Recipe extends Component {
   constructor(props) {
@@ -19,14 +20,16 @@ class Recipe extends Component {
       prep_steps: '',
       comments: [],
       favColor: "gray",
+      rating: 0,
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleRating = this.handleRating.bind(this);
   }
 
   handleFavorite(ev) {
-    if(this.state.favColor === "gray")
-      this.setState({ favColor: "rgb(255, 115, 0)"});
+    if (this.state.favColor === "gray")
+      this.setState({ favColor: "rgb(255, 115, 0)" });
     else
       this.setState({ favColor: "gray" });
   }
@@ -43,6 +46,10 @@ class Recipe extends Component {
       }))
   }
 
+  handleRating(newRating) {
+    this.setState({ rating: newRating });
+  }
+
   render() {
     return (
       <div id="layout">
@@ -55,20 +62,23 @@ class Recipe extends Component {
             <div id="interactions">
               <h2>Recipe: {this.state.name}</h2>
               <label id="favLabel">Favorite!</label>
-              <button 
-                onClick={this.handleFavorite} 
+              <button
+                onClick={this.handleFavorite}
                 id="favorite"
-                style={{color:this.state.favColor}} 
+                style={{ color: this.state.favColor }}
               >
                 <i class="fa fa-heart fa-2x" id="favorite"></i>
               </button>
-              <div id="rating">
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-              </div>
+              <label id="rateLabel">Rate!</label>
+              <StarRatings
+                rating={this.state.rating}
+                starRatedColor="orange"
+                changeRating={this.handleRating}
+                numberOfStars={5}
+                name="rating"
+                starDimension="30px"
+                starSpacing="0px"
+              />
             </div>
             <p>Prep time: {this.state.prep_time} hours</p>
             <p>{this.state.calories} calories</p>
@@ -79,7 +89,7 @@ class Recipe extends Component {
                 return <li key={`ingredient-${ingredient.id}`}>{ingredient.name}</li>
               })}
             </ul>
-            <h2>Steps:</h2> 
+            <h2>Steps:</h2>
             <p>{this.state.prep_steps}</p>
             <p>Date created: {this.state.date}</p>
             <h2>Comments</h2>
@@ -92,10 +102,10 @@ class Recipe extends Component {
           <Converters />
         </div>
         <div>
-						<button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
-				</div>
+          <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
+        </div>
         <div>
-            <button className="button" id="fork">Fork Recipe</button>
+          <button className="button" id="fork">Fork Recipe</button>
         </div>
       </div>
     )
