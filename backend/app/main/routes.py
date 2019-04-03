@@ -3,8 +3,9 @@ from app import db
 from flask_login import current_user, login_user, logout_user
 from flask import render_template, redirect, url_for
 from app.models import User
-from app.forms import RegistrationForm, LoginForm
+#from app.forms import RegistrationForm, LoginForm
 
+"""
 @bp.route('/')
 @bp.route('/index')
 def index():
@@ -44,4 +45,4 @@ def register():
         return redirect(url_for('main.login'))
     #else show them the create user stuff again
     return render_template('register.html', title='Sign Up', form=form)
-
+"""
