@@ -39,7 +39,7 @@ class recipefilter extends Component{
                 isSearchable={false} 
                 onChange={this.handleChange}
               />
-              <DropdownButton id="sort" title="Sort By">
+              <DropdownButton id="sort" title="Sort By"  >
                 <Dropdown.Item href="#/action-1">Cooking Time</Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Rating</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">Calories</Dropdown.Item>

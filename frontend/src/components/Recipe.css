@@ -20,14 +20,14 @@
     background-color: transparent;
     border: 0;
     outline: none;
-    margin-right: 40px;
+    margin-right: 8px;
 }
 
 button#favorite {
     width: 32px;
 }
 
-#favLabel {
+#favLabel, #rateLabel {
     margin-right: 0 !important;
     font-weight: bold;
     font-size: 20px;
@@ -35,4 +35,22 @@ button#favorite {
 
 h2 {
     padding-right: 40px;
+}
+
+#totalFav {
+    padding-right: 20px;
+}
+
+#rightSideBar {
+    margin-left: auto;
+}
+
+#tosubs {
+    margin-top: 20px !important;
+}
+
+#tosubs, #fork {
+    font-size: 13px;
+    margin: 0;
+    margin-top: 10px;
 }

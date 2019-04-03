@@ -26,14 +26,21 @@ class SearchBar extends React.Component {
 
 	Search() {
 		fetch('/api/recipes?name=' + this.state.value)
-            .then(response => response.json())
-			/*.then(data => { 
-				alert(data);
-				this.setState({ id: data.id }) })
-			//if(this.state.id > 0){
+		.then(response =>{ 
+			if(response.ok){
+					//this.setState({isAuth : true})
+								return response.json();
+			}else{
+					return Promise.reject(new Error("Not a recipe"));
+			}
+				}).then(data => {
+			this.setState({id: data.id})
+				}, error=> alert(error.toString()))
+					
+			if(this.state.id > 0){
 			window.open("/recipe/" + this.state.id);
-			//}*/
-			this.props.getRecipe(this.state.recipe)
+			}
+			//this.props.getRecipe(this.state.recipe)
 	}
 
 	render() {
