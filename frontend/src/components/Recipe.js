@@ -20,7 +20,9 @@ class Recipe extends Component {
       prep_steps: '',
       comments: [],
       favColor: "gray",
+      totalFavorite: 0,
       rating: 0,
+      totalRating: 0,
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -28,10 +30,12 @@ class Recipe extends Component {
   }
 
   handleFavorite(ev) {
-    if (this.state.favColor === "gray")
-      this.setState({ favColor: "rgb(255, 115, 0)" });
-    else
-      this.setState({ favColor: "gray" });
+    if (this.state.favColor === "gray") {
+      this.setState({ favColor: "rgb(255, 115, 0)", totalFavorite: this.state.totalFavorite + 1 });
+    }
+    else {
+      this.setState({ favColor: "gray", totalFavorite: this.state.totalFavorite - 1 });
+    }
   }
 
   componentDidMount() {
@@ -44,6 +48,9 @@ class Recipe extends Component {
         ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
         date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps
       }))
+
+    //TODO Fetch user favorite and rating and total favorites and rating from backend
+
   }
 
   handleRating(newRating) {
@@ -56,6 +63,9 @@ class Recipe extends Component {
         <div id="top-border">
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
+          <button className="button" id="login">
+            <NavLink exact to="/" activeClassName="active">Home</NavLink>
+          </button>
         </div>
         <div id="pageStyle">
           <div>
@@ -69,6 +79,7 @@ class Recipe extends Component {
               >
                 <i class="fa fa-heart fa-2x" id="favorite"></i>
               </button>
+              <label id="totalFav">{"(" + this.state.totalFavorite + ")"}</label>
               <label id="rateLabel">Rate!</label>
               <StarRatings
                 rating={this.state.rating}
@@ -79,6 +90,7 @@ class Recipe extends Component {
                 starDimension="30px"
                 starSpacing="0px"
               />
+              <label>{"(" + this.state.totalRating + ")"}</label>
             </div>
             <p>Prep time: {this.state.prep_time} hours</p>
             <p>{this.state.calories} calories</p>
@@ -99,13 +111,15 @@ class Recipe extends Component {
               })}
             </ul>
           </div>
-          <Converters />
-        </div>
-        <div>
-          <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
-        </div>
-        <div>
-          <button className="button" id="fork">Fork Recipe</button>
+          <div id="rightSideBar">
+            <Converters />
+            <div>
+              <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
+            </div>
+            <div>
+              <button className="button" id="fork">Fork Recipe</button>
+            </div>
+          </div>
         </div>
       </div>
     )

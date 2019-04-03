@@ -109,14 +109,13 @@ class Converters extends React.Component {
 					<label id="convertLabel">Convert To:</label>
 					<form id="tempForm" onSubmit={this.handleTempSubmit}>
 						<input
-							type="text"
+							type="number"
 							name="temperature"
-							placeholder="Temperature"
 							value={this.state.value1}
 							id="tempInput"
 							onChange={this.handleTempChange}
 						/>
-						<label>
+						<label id="FRadio">
 							<input
 								type="radio"
 								value="f"
@@ -141,7 +140,7 @@ class Converters extends React.Component {
 					<form id="measureForm">
 						<div id="convertFrom">
 							<input
-								type="text"
+								type="number"
 								name="measurement"
 								value={this.state.value2}
 								id="measureInput"
