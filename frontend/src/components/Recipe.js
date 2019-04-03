@@ -83,7 +83,7 @@ class Recipe extends Component {
             <p>{this.state.prep_steps}</p>
             <p>Date created: {this.state.date}</p>
             <h2>Comments</h2>
-            <ul>
+            <ul id="comments">
               {this.state.comments.map(comment => {
                 return <li key={`comment`}>{comment} user: </li>
               })}
