@@ -108,13 +108,15 @@ class Recipe extends Component {
               })}
             </ul>
           </div>
-          <Converters />
-        </div>
-        <div>
-          <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
-        </div>
-        <div>
-          <button className="button" id="fork">Fork Recipe</button>
+          <div id="rightSideBar">
+            <Converters />
+            <div>
+              <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
+            </div>
+            <div>
+              <button className="button" id="fork">Fork Recipe</button>
+            </div>
+          </div>
         </div>
       </div>
     )
