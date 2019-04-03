@@ -49,7 +49,7 @@ def user_login():
 @login_required
 def user_logout():
     logout_user()
-    return url_for('main.index')
+    return url_for('api.user_login')
 
 @bp.route('/users/changeavatar', methods=['POST'])
 @login_required
