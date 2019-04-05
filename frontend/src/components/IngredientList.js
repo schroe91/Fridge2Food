@@ -25,9 +25,11 @@ class IngredientList extends React.Component {
 	AddIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
 		const second = this.props.userId;
+		console.log(this.props.userId)
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
+			mode: 'no-cors',
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
@@ -39,12 +41,15 @@ class IngredientList extends React.Component {
 	deleteIngredient() {
 		const first = 'http://127.0.0.1:5000/api/users/';
 		const second = this.props.userId;
-		const third = '/ingredients'
+		const third = '/ingredients/'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
 		fetch(link, {
 			method: "DELETE",
-			body: JSON.stringify(this.state.name)
+			headers:{
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(this.state.name),
 		}).then(response => response.ok)
 	}
 
@@ -115,12 +120,12 @@ class IngredientList extends React.Component {
 				<div id="list">
 					<ul id="template">
 						{this.state.list.map((item) => (
-							<li>
+							<li key = {item}>
 								{item}
-								<button
+								<button 
 									style={delButton}
 									onClick={() => { this.handleDelete(item) }}>
-									<i class="fa fa-times"></i>
+									<i className="fa fa-times"></i>
 								</button>
 							</li>
 						))}

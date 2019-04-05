@@ -10,7 +10,6 @@ class NumOfIngredients extends React.Component {
 		super(props)
 		this.state = {
 			num: 0,
-			userId : 0,
 		}
 
 		this.updateNum = this.updateNum.bind(this);
@@ -19,7 +18,6 @@ class NumOfIngredients extends React.Component {
 	updateNum(list) {
 		const newState = this.state;
 		newState.num = list.length;
-		newState.userId = this.props.user;
 		this.setState(newState);
 	}
 
@@ -31,7 +29,7 @@ class NumOfIngredients extends React.Component {
 				</ListGroupItem>
 				<div>
 					<div style={listStyle}>
-						<IngredientList setNumOfIngredients={this.updateNum} userId = {this.state.userId} />
+						<IngredientList setNumOfIngredients={this.updateNum} userId = {this.props.user} />
 					</div>
 				</div>
 				<NewIngredients />

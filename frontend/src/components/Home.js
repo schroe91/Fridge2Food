@@ -16,10 +16,12 @@ class Home extends Component {
 		super();
 		this.state = {
 			numOfRecipes: 0,
-			userId: 0,
+			userId:'',
 			filters: [],
 			sort: '',
-			mealType: ''
+			mealType: '',
+			recipes: [],
+			search: 0
 		}
 		this.setId = this.setId.bind(this) 
 	}
@@ -35,14 +37,23 @@ class Home extends Component {
 	setId = (id) => {
 		this.setState({userId : id})
 	}
-	setFilters(filters){
+	setFilters = (filters) =>{
 		this.setState({filters: filters})
 	}
-	setSort(sortby){
+	setSort = (sortby) =>{
 		this.setState({sort: sortby})
 	}
-	setMealType(mealtype){
+	setMealType = (mealtype) =>{
 		this.setState({mealType:mealtype})
+	}
+	setRecipes = (recipes, search) => {
+		this.setState({recipes: recipes, search:search})
+		console.log(this.state.recipes);
+		console.log(this.state.search)
+	}
+
+	setSearch = (search) => {
+		this.setState({search: search})
 	}
 
 	render() {
@@ -61,7 +72,7 @@ class Home extends Component {
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">
-							<RecipeSearch />
+							<RecipeSearch getRecipes = {this.setRecipes.bind(this)}/>
 							<div id="filter">
 								<RecipeFilter setFilters = {this.setFilters.bind(this)}
 								setSort = {this.setSort.bind(this)}
@@ -71,10 +82,13 @@ class Home extends Component {
 						</div>
 						<div id="recipe-list">
 							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} 
+							setSearch = {this.setSearch.bind(this)}
 							userId = {this.state.userId}
 							filters = {this.state.filters}
 							sort = {this.state.sort}
 							meal = {this.state.mealType}
+							recipes = {this.state.recipes}
+							search = {this.state.search}
 							/>
 						</div>
 					</div>

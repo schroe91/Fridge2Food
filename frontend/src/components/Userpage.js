@@ -22,7 +22,9 @@ class Userpage extends Component {
       newPassword: '',
       favorites: [],
       newPic: '',
-      avatar_url: profilepic
+      id: '',
+      avatar_url: profilepic,
+      ingredients: [],
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,21 +38,22 @@ class Userpage extends Component {
   }
 
   componentDidMount() {
-    //const first = '/api/users/';
-    //const second = this.state.id;
-    //const link = first + second;
-    // console.log(link);
     fetch('/api/users/current')
       .then(response => response.json())
       .then(data => {
         this.setState({
           name: data.username,
           email: data.email,
-          avatar_url: data.avatar_url
+          avatar_url: data.avatar_url,
+          id: data.id,
+          ingredients: data.ingredients
         })
+        console.log(this.state.id)
+        console.log(this.state.ingredients)
         console.log(data.avatar_url)
       })
   }
+
   toggleModal() {
     this.setState(prevState => ({
       modal: !prevState.modal,
@@ -168,6 +171,13 @@ class Userpage extends Component {
                   <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
                 </ModalFooter>
               </Modal>
+              <ul>
+              {this.state.ingredients.map((item) => (
+							<li>
+								{item}
+							</li>
+						))}
+              </ul>
             </div>
           </div>
         </div>
