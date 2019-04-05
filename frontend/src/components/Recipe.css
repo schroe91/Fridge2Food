@@ -5,6 +5,7 @@
 
 #pageStyle {
     display: flex;
+    margin-left: 5px;
 }
 
 #interactions {
@@ -53,4 +54,9 @@ h2 {
     font-size: 13px;
     margin: 0;
     margin-top: 10px;
+}
+
+#commentHeader {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #808080;
 }

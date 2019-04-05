@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Recipe.css";
 import StarRatings from 'react-star-ratings';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class Recipe extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class Recipe extends Component {
 
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleRating = this.handleRating.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.submitComment = this.submitComment.bind(this);
   }
 
   handleFavorite(ev) {
@@ -55,6 +58,19 @@ class Recipe extends Component {
 
   handleRating(newRating) {
     this.setState({ rating: newRating });
+  }
+
+  handleCommentChange(ev) {
+    this.setState({value: ev.target.value});
+  }
+
+  submitComment(ev) {
+    ev.preventDefault();
+    var newState = this.state;
+    newState.comments.unshift(this.state.value);
+    newState.value = "";
+
+    this.setState(newState);
   }
 
   render() {
@@ -104,12 +120,21 @@ class Recipe extends Component {
             <h2>Steps:</h2>
             <p>{this.state.prep_steps}</p>
             <p>Date created: {this.state.date}</p>
-            <h2>Comments</h2>
-            <ul id="comments">
-              {this.state.comments.map(comment => {
-                return <li key={`comment`}>{comment} user: </li>
-              })}
-            </ul>
+            <h2 id="commentHeader">Comments</h2>
+            <form onSubmit={this.submitComment}>
+              <input
+                type="text"
+                name="commentInput"
+                placeholder="Leave a comment"
+                value={this.state.value}
+                onChange={this.handleCommentChange}
+              />
+            </form>
+            <ListGroup variant="flush">
+              {this.state.comments.map((comment) => (
+                <li class="list-group-item">{comment}</li>
+              ))}
+            </ListGroup>
           </div>
           <div id="rightSideBar">
             <Converters />
