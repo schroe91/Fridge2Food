@@ -60,3 +60,25 @@ h2 {
     padding-bottom: 5px;
     border-bottom: 2px solid #808080;
 }
+
+#commentForm {
+    margin-bottom: 10px;
+}
+
+#comment {
+    display: flex;
+}
+
+#commentButtons {
+    margin-left: auto;
+}
+
+#like {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+}
+
+#reply {
+    margin-left: 20px;
+}

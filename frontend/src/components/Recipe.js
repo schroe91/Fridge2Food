@@ -24,12 +24,15 @@ class Recipe extends Component {
       totalFavorite: 0,
       rating: 0,
       totalRating: 0,
+      likeColor: "gray",
+      totalLike: 0,
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.submitComment = this.submitComment.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   handleFavorite(ev) {
@@ -38,6 +41,15 @@ class Recipe extends Component {
     }
     else {
       this.setState({ favColor: "gray", totalFavorite: this.state.totalFavorite - 1 });
+    }
+  }
+
+  handleLike(ev) {
+    if (this.state.likeColor === "gray") {
+      this.setState({ likeColor: "blue", totalLike: this.state.totalLike + 1 });
+    }
+    else {
+      this.setState({ likeColor: "gray", totalLike: this.state.totalLike - 1 });
     }
   }
 
@@ -121,7 +133,7 @@ class Recipe extends Component {
             <p>{this.state.prep_steps}</p>
             <p>Date created: {this.state.date}</p>
             <h2 id="commentHeader">Comments</h2>
-            <form onSubmit={this.submitComment}>
+            <form onSubmit={this.submitComment} id="commentForm">
               <input
                 type="text"
                 name="commentInput"
@@ -132,7 +144,16 @@ class Recipe extends Component {
             </form>
             <ListGroup variant="flush">
               {this.state.comments.map((comment) => (
-                <li class="list-group-item">{comment}</li>
+                <div class="list-group-item" id="comment">
+                  <li>{comment}</li>
+                  <div id="commentButtons">
+                    <button id="like" onClick={this.handleLike} style={{ color: this.state.likeColor }}>
+                      <i class="fa fa-thumbs-up fa-lg" id="like" />
+                    </button>
+                    <label>{"(" + this.state.totalLike + ")"}</label>
+                    <button id="reply">Reply</button>
+                  </div>
+                </div>
               ))}
             </ListGroup>
           </div>
