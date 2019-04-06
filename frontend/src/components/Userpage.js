@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
 import "./Userpage.css";
 
 class Userpage extends Component {

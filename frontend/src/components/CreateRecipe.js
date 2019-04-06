@@ -1,53 +1,73 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
 import { NavLink } from 'react-router-dom';
-import Inputs from "./Inputs"
+import "./Converters.css";
 
 class CreateRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
       recipe: '',
-      ingredients: [{name:"", amount:""}],
+      name: '',
+      ingredients: [{name:""}],
       calories: '',
       carbs: '',
       date: '',
       prep_time: '',
       prep_steps: '',
-      cats: [{ingredient:"", amount:""}],
     }
     
     this.handleChange = this.handleChange.bind(this);
+    this.createRecipe = this.createRecipe.bind(this);
   }
 
-  /*componentDidMount() {
-    const first = '/api/recipes/';
-    const second = this.state.id;
-    const link = first + second;
-    fetch(link)
-      .then(response => response.json())
-      .then(data => this.setState({
-        ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
-        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps
-      }))
-  }*/
+  createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps){
+    fetch('/api/create', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: recipe, ingredients: ingredients, calories: calories, carbs: carbs, date: date,
+                            prep_time: prep_time, prep_steps: prep_steps})
+    }).then(response => response.ok).then(success => (success ? alert("Recipe Successfully created") : alert("Failed to create recipe")))
+  }
+  
+  handleIngredientNameChange = idx => evt => {
+    console.log(this.state.ingredients);
+    const newIngredient = this.state.ingredients.map((ingredient, sidx) => {
+      if (idx !== sidx) return ingredient;
+      return { ...ingredient, name: evt.target.value };
+    });
+
+    this.setState({ ingredients: newIngredient });
+  };
+  handleSubmit = evt => {
+    const { name, ingredients } = this.state;
+    alert(`Incorporated: ${name} with ${ingredients.length} shareholders`);
+  };
+    handleAddIngredient = () => {
+    this.setState({
+      ingredients: this.state.ingredients.concat([{ name: "" }])
+    });
+  };
+
+  handleRemoveIngredient = idx => () => {
+    this.setState({
+      ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx)
+    });
+  };
   handleChange = (e) => {
-    if (["name", "age"].includes(e.target.className) ) {
-      let cats = [...this.state.cats]
-      cats[e.target.dataset.id][e.target.className] = e.target.value
-      this.setState({ cats }, () => console.log(this.state.cats))
-    } else {
-      this.setState({ [e.target.name]: e.target.value })
-    }
+    this.setState({ [e.target.name]: e.target.value })
   }
-addIngredient = (e) => {
-    this.setState((prevState) => ({
-      cats: [...prevState.cats, {ingredient:"", amount:""}],
-    }));
-  }
-handleSubmit = (e) => { e.preventDefault() }
+
+handleSubmit2 = (e) => { 
+  e.preventDefault();
+  const {recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
+  this.createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps);
+
+}
   render() {
-    let {recipe, calories, carbs, prep_time, cats, prep_steps} = this.state
+    let {recipe, calories, carbs, prep_time, prep_steps} = this.state
     return (
       <div id="layout" style={style}>
         <div id="top-border">
@@ -59,7 +79,7 @@ handleSubmit = (e) => { e.preventDefault() }
         </div>
         <h2>Create New Recipe</h2>
         
-        <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
+        <form onSubmit={this.handleSubmit2} onChange={this.handleChange} >
         
         <div><label htmlFor="recipe">Recipe Name</label> 
         <input type="text" name="recipe" id="recipe" value={recipe} /></div>
@@ -75,10 +95,38 @@ handleSubmit = (e) => { e.preventDefault() }
         <br></br>
         <div><button onClick={this.addIngredient}>Add new new Ingredient</button></div>
         <br></br>
-        <Inputs cats={cats} />
+        
+        {this.state.ingredients.map((ingredient, idx) => (
+          <div className="ingredient">
+            <input
+              type="text"
+              placeholder={`Ingredient ${idx + 1}`}
+              value={ingredient.name}
+              onChange={this.handleIngredientNameChange(idx)}
+            />
+            <button
+              type="button"
+              onClick={this.handleRemoveIngredient(idx)}
+              className="small"
+            >
+              -
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={this.handleAddIngredient}
+          className="small"
+        >
+          Add Ingredient
+        </button>
+
+
+
         <br></br>
-        <div><label htmlFor="prep_steps">Instructions</label> 
-        <input type="text" size="22" name="prep_steps" id="prep_steps" value={prep_steps} /></div>
+        <div><label htmlFor="prep_steps">Instructions:</label> 
+        </div>
+        <div><textarea  name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps}></textarea></div>
         <input type="submit" value="Submit" /> 
         </form>
         
@@ -92,8 +140,4 @@ export default CreateRecipe;
 const style = {
   position: "absolute",
   width: "100%",
-}
-
-const pageStyle = {
-  display: "flex",
 }
