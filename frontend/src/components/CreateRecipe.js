@@ -123,8 +123,7 @@ toggleModal() {
         <div><label htmlFor="preptime">Prep Time</label> 
         <input type="text" name="prep_time" id="prep_time" value={prep_time} /></div>
         <br></br>
-        <div><button onClick={this.addIngredient}>Add new new Ingredient</button></div>
-        <br></br>
+    
         
         {this.state.ingredients.map((ingredient, idx) => (
           <div className="ingredient">
@@ -159,7 +158,9 @@ toggleModal() {
         <div><textarea  name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps}></textarea></div>
         <div>
           <input type="submit" value="Submit" /> 
-          <button className="button" onClick={this.toggleModal}> Add Recipe Image</button>
+        </div>
+        </form>
+        <button className="button" onClick={this.toggleModal}> Add Recipe Image</button>
           <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
                 <ModalBody>
@@ -171,9 +172,6 @@ toggleModal() {
                   <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                 </ModalFooter>
               </Modal>
-        </div>
-        </form>
-        
       </div>
     )
   }
