@@ -8,6 +8,7 @@ import Userpage from './components/Userpage'
 import Home from './components/Home'
 import Substitution from './components/Substitution'
 import CreateRecipe from './components/CreateRecipe'
+import forkRecipe from './components/forkRecipe'
 
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path="/user" exact strict component={Userpage} />
           <Route path="/substitutions" exact strict component={Substitution}/>
           <Route path="/createRecipe" exact strict component={CreateRecipe}/>
+          <Route path="/forkRecipe" exact strict component={forkRecipe}/>
         </Router>
       </div>
     );
