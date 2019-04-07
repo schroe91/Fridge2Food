@@ -103,6 +103,10 @@ class Recipe(db.Model):
     is_vegan = db.Column(db.Boolean, default=False)
     is_vegetarian = db.Column(db.Boolean, default=False)
     is_glutenfree = db.Column(db.Boolean, default=False)
+    is_breakfast = db.Column(db.Boolean, default=False)
+    is_lunch = db.Column(db.Boolean, default=False)
+    is_dinner = db.Column(db.Boolean, default=False)
+    is_dessert = db.Column(db.Boolean, default=False)
 
     def to_dict(self):
         data = {
@@ -119,6 +123,10 @@ class Recipe(db.Model):
             'is_vegan': self.is_vegan,
             'is_vegetarian': self.is_vegetarian,
             'is_glutenfree': self.is_glutenfree
+            'is_lunch': self.is_lunch
+            'is_breakfast': self.is_breakfast
+            'is_dessert': self.is_dessert
+            'is_dinner': self.is_dinner
         }
         return data
 
