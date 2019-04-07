@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import { NavLink } from 'react-router-dom';
 import "./Converters.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class CreateRecipe extends Component {
   constructor(props) {
@@ -9,16 +10,19 @@ class CreateRecipe extends Component {
     this.state = {
       recipe: '',
       name: '',
+      modal: false,
       ingredients: [{name:""}],
       calories: '',
       carbs: '',
       date: '',
       prep_time: '',
       prep_steps: '',
+      recipeIMG_url: '',
     }
     
     this.handleChange = this.handleChange.bind(this);
     this.createRecipe = this.createRecipe.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps){
@@ -58,14 +62,40 @@ class CreateRecipe extends Component {
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
-  }
+  };
 
 handleSubmit2 = (e) => { 
   e.preventDefault();
   const {recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
   this.createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps);
 
+};
+addImage(recipeIMG_url){
+  fetch('/api/recipeIMG', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ url: recipeIMG_url})
+  }).then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
+};
+
+
+handleSubmit3(ev){
+  ev.preventDefault();
+    const { recipeIMG_url } = this.state;
+    this.addImage(recipeIMG_url);
+    this.setState({
+      recipeIMG_url: '',
+    });
 }
+toggleModal() {
+  this.setState(prevState => ({
+    modal: !prevState.modal,
+    recipeIMG_url:'',
+  }));
+}
+
   render() {
     let {recipe, calories, carbs, prep_time, prep_steps} = this.state
     return (
@@ -127,7 +157,21 @@ handleSubmit2 = (e) => {
         <div><label htmlFor="prep_steps">Instructions:</label> 
         </div>
         <div><textarea  name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps}></textarea></div>
-        <input type="submit" value="Submit" /> 
+        <div>
+          <input type="submit" value="Submit" /> 
+          <button className="button" onClick={this.toggleModal}> Add Recipe Image</button>
+          <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
+                <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
+                <ModalBody>
+                  <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22"
+                    onChange={this.handleChange} value={this.state.recipeIMG_url} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
+                  <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+        </div>
         </form>
         
       </div>
