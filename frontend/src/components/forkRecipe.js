@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import "./CreateRecipe.css"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-class CreateRecipe extends Component {
+class forkRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,23 @@ class CreateRecipe extends Component {
     this.createRecipe = this.createRecipe.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
-
+  componentDidMount() {
+    fetch('/api/users/current')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          recipe: data.name,
+          ingredients: data.ingredients,
+          carbs: data.carbs,
+          calories: data.calories,
+          date: data.date,
+          prep_steps: data.prep_steps,
+          prep_time: data.prep_time,
+          recipeIMG_url: data.recipe_url,
+        })
+        console.log(this.state.ingredients)
+      })
+  }
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps){
     fetch('/api/create', {
       method: "POST",
@@ -177,7 +193,7 @@ toggleModal() {
   }
 
 }
-export default CreateRecipe;
+export default forkRecipe;
 
 const style = {
   position: "absolute",
