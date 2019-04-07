@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
 import { NavLink } from 'react-router-dom';
-import "./Converters.css";
+import "./CreateRecipe.css"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class CreateRecipe extends Component {
