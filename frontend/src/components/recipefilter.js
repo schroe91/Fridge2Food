@@ -20,6 +20,16 @@ class recipefilter extends Component{
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
       }
+    filter_recipe() {
+        fetch('http://127.0.0.1:5000/api/recipes', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        })
+
+      }
     
       handleClick() {
         this.setState(state => ({

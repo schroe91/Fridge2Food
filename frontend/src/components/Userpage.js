@@ -15,6 +15,7 @@ class Userpage extends Component {
       modal2: false,
       modal3: false,
       modal4: false,
+      modal5: false,
       newUsername: '',
       password: '',
       oldPassword: '',
@@ -24,6 +25,8 @@ class Userpage extends Component {
       id: '',
       avatar_url: profilepic,
       ingredients: [],
+      allergies: [],
+      allergy: '',
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,9 +34,12 @@ class Userpage extends Component {
     this.toggleModal2 = this.toggleModal2.bind(this);
     this.toggleModal3 = this.toggleModal3.bind(this);
     this.toggleModal4 = this.toggleModal4.bind(this);
+    this.toggleModal5 = this.toggleModal5.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
-
+    this.addAllergy = this.addAllergy.bind(this);
+    this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
+    this.getFavorites = this.getFavorites.bind(this)
   }
 
   componentDidMount() {
@@ -82,6 +88,12 @@ class Userpage extends Component {
       newPic: '',
     }));
   }
+  toggleModal5() {
+    this.setState(prevState => ({
+      modal: !prevState.modal5,
+      allergies: this.state.allergies,
+    }));
+  }
   handleChange(e) {
     console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
@@ -121,6 +133,15 @@ class Userpage extends Component {
       },
       body: JSON.stringify({ newPassword: newP, oldPassword: oldP })
     }).then(response => response.ok).then(console.log('password success'))
+  }
+  addAllergy(allergy){
+
+  }
+  getFavorites(){
+
+  }
+  getCurrentIngredients(){
+
   }
   render() {
     return (
@@ -170,12 +191,47 @@ class Userpage extends Component {
                   <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
                 </ModalFooter>
               </Modal>
+            </div>
+            <div id='ingredients'>
+              <h5>User Ingredients</h5>
               <ul>
-              {this.state.ingredients.map((item) => (
-							<li>
-								{item}
-							</li>
-						))}
+                {this.state.ingredients.map((item) => (
+                <li>
+                  {item}
+                </li>
+              ))}
+              </ul>
+            </div>
+            <div id="allergies">
+              <h5>User Allergies</h5>
+              <ul>
+                {this.state.allergies.map((item) => (
+                <li>
+                  {item}
+                </li>
+              ))}
+                </ul>
+                <button className="button" onClick={this.toggleModal5}> Add Allergy </button>
+              <Modal isOpen={this.state.modal5} toggle={this.toggleModal5} size="sm">
+                <ModalHeader toggle={this.toggle}>Enter Allergy</ModalHeader>
+                <ModalBody>
+                  <input type="allergy" name="allergy" placeholder="allergy" size="22"
+                    onChange={this.handleChange} value={this.state.allergy} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.handleSubmit5}>Submit</Button>
+                  <Button color="secondary" onClick={this.toggleModal5}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+            </div>
+            <div id='favorites'>
+              <h5>Favorite Recipes</h5>
+              <ul>
+                {this.state.favorites.map((item) => (
+                <li>
+                  {item}
+                </li>
+              ))}
               </ul>
             </div>
           </div>
