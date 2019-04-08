@@ -16,10 +16,15 @@ class RecipeList extends React.Component {
 
     getingredients(){
         console.log(this.props.userId)
+        if(this.props.userId !== ''){
         fetch('/users/' + this.props.userId, {
             method: "GET"
         }).then(response=>response.json)
         .then(data=>{this.setState({ingredients: data.ingredients})})
+        .catch((error) =>{
+            console.log("no valid user is logged in")
+        })
+    }
     }
 
     componentDidMount() {
@@ -37,6 +42,9 @@ class RecipeList extends React.Component {
             }).then(data => {
                 this.setState({ recipes: data })
             }, error=> alert(error.toString()))
+            .catch((error) =>{
+                console.log("No recipes found");
+            });
               
         }
     }   
@@ -53,7 +61,7 @@ class RecipeList extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id='a'>
                 <h3>Recipe List</h3>
                 <ListGroup variant="flush">
                     {this.state.recipes.map((recipe) => (
@@ -68,15 +76,4 @@ class RecipeList extends React.Component {
     }
 }
 export default RecipeList
-/*
-<ul>
-                    {this.state.recipes.map((recipe) => (
-                        this.state.first = '/recipe',
-                        this.state.second = recipe.id,
-                        this.state.link = this.state.first + this.state.second,
-                        <li><Link to={this.statelink}>{recipe.name}</Link></li>
-                    ))}
-                </ul>
 
-
-< */
