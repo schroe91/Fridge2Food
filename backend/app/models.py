@@ -82,7 +82,20 @@ class User(UserMixin, db.Model):
    #return User.query.get(int(id))
 
    
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    content = db.Column(db.String(140))
 
+    def get_data(self):
+        com = {
+            'user': self.creator,
+            'comment': self.content,
+            'time': self.timestamp
+        }
+        return com
     
 
 class Recipe(db.Model):
@@ -108,6 +121,8 @@ class Recipe(db.Model):
     is_dinner = db.Column(db.Boolean, default=False)
     is_dessert = db.Column(db.Boolean, default=False)
 
+    comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+
     def to_dict(self):
         data = {
             'id': self.id,
@@ -122,11 +137,12 @@ class Recipe(db.Model):
             'protein': self.protein,
             'is_vegan': self.is_vegan,
             'is_vegetarian': self.is_vegetarian,
-            'is_glutenfree': self.is_glutenfree
-            'is_lunch': self.is_lunch
-            'is_breakfast': self.is_breakfast
-            'is_dessert': self.is_dessert
+            'is_glutenfree': self.is_glutenfree,
+            'is_lunch': self.is_lunch,
+            'is_breakfast': self.is_breakfast,
+            'is_dessert': self.is_dessert,
             'is_dinner': self.is_dinner
+            'comments': [c.get_data() for c in self.comments]
         }
         return data
 
