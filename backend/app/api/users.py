@@ -141,7 +141,8 @@ def add_user_ingredients(id):
     user = User.query.get_or_404(id)
     ingredient_id = request.get_json('id')
     print(ingredient_id)
-    user.ingredients.append(ingredient_id)
+    ing = Ingredient.query.get_or_404(ingredient_id)
+    user.ingredients.append(ing)
     db.session.commit()
     return jsonify(user.to_dict()), 201
 
