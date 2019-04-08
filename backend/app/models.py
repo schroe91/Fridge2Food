@@ -141,7 +141,7 @@ class Recipe(db.Model):
             'is_lunch': self.is_lunch,
             'is_breakfast': self.is_breakfast,
             'is_dessert': self.is_dessert,
-            'is_dinner': self.is_dinner
+            'is_dinner': self.is_dinner,
             'comments': [c.get_data() for c in self.comments]
         }
         return data
