@@ -22,7 +22,7 @@ class Substitution extends Component {
 						<button className="button" id="login"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
 					</div>
         </div>
-        <div>
+        <div id="subs">
           <h3>Common Ingredient Substitutions</h3>
           <h2>Eggs:</h2>
           <p>1 egg = ¼ cup applesauce</p>

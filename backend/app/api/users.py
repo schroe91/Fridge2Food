@@ -171,5 +171,5 @@ def get_auth_token():
     token = g.user.generate_auth_token(600)
     return jsonify({'token': token.decode('ascii'), 'duration': 600})
 
-@bp.route('/users/allergies', methods=['GET'])
-def get_allergies():
+#@bp.route('/users/allergies', methods=['GET'])
+#def get_allergies():
