@@ -5,7 +5,7 @@
 
 #pageStyle {
     display: flex;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 #interactions {
@@ -44,6 +44,8 @@ h2 {
 
 #rightSideBar {
     margin-left: auto;
+    padding-left: 50px;
+    padding-right: 10px;
 }
 
 #tosubs {

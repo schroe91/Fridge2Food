@@ -33,6 +33,7 @@ class Recipe extends Component {
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.submitComment = this.submitComment.bind(this);
     this.handleLike = this.handleLike.bind(this);
+    this.handleReply = this.handleReply.bind(this);
   }
 
   handleFavorite(ev) {
@@ -83,6 +84,10 @@ class Recipe extends Component {
     newState.value = "";
 
     this.setState(newState);
+  }
+
+  handleReply(ev) {
+
   }
 
   render() {
