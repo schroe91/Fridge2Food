@@ -32,7 +32,8 @@ class IngredientList extends React.Component {
 		const link = first + second + third;
 		//check if in database
 		if(!this.inDatabase()){
-			this.AddIngredienttoDatabase();//add to database
+			console.log("not in database");
+			this.AddIngredienttoDatabase(this.state.name);//add to database
 		}
 		fetch(link, {
 			mode: 'no-cors',
@@ -50,16 +51,21 @@ class IngredientList extends React.Component {
 				//return Promise.reject(new Error("Not added to User"));
 			}
 		})
+		.catch((err) =>{
+            console.log("no valid user is logged in")
+        })
+		
 	}
 
-	AddIngredienttoDatabase(){
+	AddIngredienttoDatabase(name){
+		console.log(name)
 		fetch('/api/ingredients', {
 			mode: 'no-cors',
 			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({id: this.state.name})
+			body: JSON.stringify({name: name})
 		}).then(response =>{
 			console.log(response) 
 			if(response.ok){
@@ -78,15 +84,14 @@ class IngredientList extends React.Component {
 		fetch(link, {
 			mode: 'no-cors',
 			method: "GET",
-			headers: {
-				'Content-Type': 'application/json'
-			},
 		}).then(response =>{ 
 			if(response.ok){
 				return true;
 			}else{
 				return false;
 			}
+		}).catch((error) => {
+			console.log(error)
 		})
 
 	}
