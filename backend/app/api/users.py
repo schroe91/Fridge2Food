@@ -173,3 +173,4 @@ def get_auth_token():
 
 @bp.route('/users/allergies', methods=['GET'])
 def get_allergies():
+    pass
