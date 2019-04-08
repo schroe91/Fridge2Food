@@ -168,7 +168,7 @@ class Recipe extends Component {
               <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
             </div>
             <div>
-              <button className="button" id="fork">Fork Recipe</button>
+              <button className="button" id="fork"><NavLink exact to="/ForkRecipe" activeClassName="active">Fork Recipe</NavLink></button>
             </div>
           </div>
         </div>

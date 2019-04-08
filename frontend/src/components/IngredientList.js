@@ -4,6 +4,7 @@ import './IngredientList.css'
 import IngredientChecklist from "./IngredientChecklist";
 import IngredientInput from "./IngredientInput";
 
+
 class IngredientList extends React.Component {
 	constructor() {
 		super();
@@ -11,45 +12,102 @@ class IngredientList extends React.Component {
 			list: [],
 			name: "",
 		}
-		this.AddIngredient = this.AddIngredient.bind(this);
+		this.AddIngredienttoUser = this.AddIngredienttoUser.bind(this);
+		this.AddIngredienttoDatabase = this.AddIngredienttoDatabase.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleDeleteAll = this.handleDeleteAll.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
-
+		this.inDatabase = this.inDatabase.bind(this);
 		this.delAll = React.createRef();
 	}
 
-	AddIngredient() {
-		const first = 'http://127.0.0.1:5000/api/users/';
+	AddIngredienttoUser() {
+		const first = '/api/users/';
 		const second = this.props.userId;
+		console.log(this.props.userId)
 		const third = '/ingredients'
 		const link = first + second + third;
+		//check if in database
+		if(!this.inDatabase()){
+			this.AddIngredienttoDatabase();//add to database
+		}
 		fetch(link, {
+			mode: 'no-cors',
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({id: 1})
-		}).then(response => response.ok)
+			body: JSON.stringify({id: this.state.name})
+		}).then(response =>{ 
+			console.log(this.state.name)
+			if(response.ok){
+					return response.json();
+			}else{
+				console.log("not added to user")
+				//return Promise.reject(new Error("Not added to User"));
+			}
+		})
+	}
+
+	AddIngredienttoDatabase(){
+		fetch('/api/ingredients', {
+			mode: 'no-cors',
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({id: this.state.name})
+		}).then(response =>{
+			console.log(response) 
+			if(response.ok){
+				console.log("added to database")
+				return true;
+			}else{
+				console.log("not added to database")
+				//return Promise.reject(new Error("Did not add to database"));
+			}
+		})
+
+	}
+
+	inDatabase(){
+		var link = '/api/ingredients/' + this.state.name;
+		fetch(link, {
+			mode: 'no-cors',
+			method: "GET",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		}).then(response =>{ 
+			if(response.ok){
+				return true;
+			}else{
+				return false;
+			}
+		})
+
 	}
 
 	deleteIngredient() {
-		const first = 'http://127.0.0.1:5000/api/users/';
+		const first = '/api/users/';
 		const second = this.props.userId;
-		const third = '/ingredients'
+		const third = '/ingredients/'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
 		fetch(link, {
 			method: "DELETE",
-			body: JSON.stringify(this.state.name)
+			headers:{
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(this.state.name),
 		}).then(response => response.ok)
 	}
 
 	deleteAll() {
-		const first = 'http://127.0.0.1:5000/api/users/';
+		const first = '/api/users/';
 		const second = this.props.userId;
 		const third = '/ingredients'
 		const link = first + second + third;
@@ -69,7 +127,7 @@ class IngredientList extends React.Component {
 			newState.list.unshift(ingredient);
 			newState.name = ingredient;
 			this.setState(newState);
-			this.AddIngredient();
+			this.AddIngredienttoUser();
 		}
 		this.props.setNumOfIngredients(this.state.list);
 		//Reset form
@@ -115,12 +173,12 @@ class IngredientList extends React.Component {
 				<div id="list">
 					<ul id="template">
 						{this.state.list.map((item) => (
-							<li>
+							<li key = {item}>
 								{item}
-								<button
+								<button 
 									style={delButton}
 									onClick={() => { this.handleDelete(item) }}>
-									<i class="fa fa-times"></i>
+									<i className="fa fa-times"></i>
 								</button>
 							</li>
 						))}

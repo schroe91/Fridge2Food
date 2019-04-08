@@ -9,7 +9,7 @@ app.app_context().push()
 r = Recipe(name='salted pork', creator_id=1, is_vegan=False)
 
 db.session.add(r)
-
+db.session.add(Ingredient(name='Chicken'))
 db.session.add(Ingredient(name='salt'))
 db.session.add(Ingredient(name='butter'))
 db.session.add(Ingredient(name='pork'))

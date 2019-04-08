@@ -15,6 +15,7 @@ class RecipeList extends React.Component {
     }
 
     getingredients(){
+        console.log(this.props.userId)
         fetch('/users/' + this.props.userId, {
             method: "GET"
         }).then(response=>response.json)
@@ -23,6 +24,9 @@ class RecipeList extends React.Component {
 
     componentDidMount() {
         this.getingredients();
+        if(this.props.search){
+            this.setState({recipes:this.props.id})
+        }else{
         fetch('/api/recipes').then(response =>{ 
             if(response.ok){
                 //this.setState({isAuth : true})
@@ -34,12 +38,17 @@ class RecipeList extends React.Component {
                 this.setState({ recipes: data })
             }, error=> alert(error.toString()))
               
-          
+        }
     }   
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.state.recipes !== prevState.recipes)
+        if((this.state.recipes !== prevState.recipes) || this.props.search){
+            this.props.setSearch(0);
+            this.setState({
+                recipes: this.props.recipes
+            })
             this.props.setNumOfRecipes(this.state.recipes); //Sends recipe array to Home.js (the parent)
+        }
     }
 
     render() {
@@ -51,8 +60,8 @@ class RecipeList extends React.Component {
                         this.state.first = '/recipe/',
                         this.state.second = recipe.id,
                         this.state.link = this.state.first + this.state.second,
-                        <a href={this.state.link} class="list-group-item">{recipe.name}</a>
-                    ))}
+                        <a href={this.state.link} key={this.state.link} className="list-group-item">{recipe.name}</a>
+                    ))}   
                 </ListGroup>
             </div>);
 

@@ -5,8 +5,8 @@ class SearchBar extends React.Component {
 		super(props);
 		this.state = {
 			value: '',
-			recipe: '',
-			id: 0
+			search: 0,
+			id: []
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -25,22 +25,25 @@ class SearchBar extends React.Component {
 	}
 
 	Search() {
-		fetch('/api/recipes?name=' + this.state.value)
+		this.state.value.replace(/ /g, "_")
+		//console.log(this.state.value)
+		//console.log('/api/recipes?name=' + this.state.value)
+		fetch('/api/recipes?name=' + this.state.value)	
 		.then(response =>{ 
 			if(response.ok){
-					//this.setState({isAuth : true})
-								return response.json();
+					console.log("Got a response")
+					this.setState({search: 1})
+					return response.json();
 			}else{
 					return Promise.reject(new Error("Not a recipe"));
 			}
-				}).then(data => {
-			this.setState({id: data.id})
-				}, error=> alert(error.toString()))
-					
-			if(this.state.id > 0){
-			window.open("/recipe/" + this.state.id);
-			}
-			//this.props.getRecipe(this.state.recipe)
+		}).then(data => {
+			//console.log(data)
+			this.setState({id: data})
+			this.props.getRecipes(this.state.id, this.state.search)
+			//console.log(this.state.id);
+		}, error=> alert(error.toString()))	
+		
 	}
 
 	render() {

@@ -1,7 +1,8 @@
 from flask import jsonify, request
 from app import db
-from app.models import Recipe, Ingredient
+from app.models import *
 from app.api import bp
+from flask_login import current_user
 
 def string_to_boolean(str):
     if str.lower() == "true":
@@ -13,6 +14,15 @@ def string_to_boolean(str):
 def get_recipe(id):
 #    searchResults = Recipe.query.get(id)
     return jsonify(Recipe.query.get_or_404(id).to_dict())
+
+@bp.route('/recipes/<int:id>/add_comment', methods=['POST'])
+def add_comment(id):
+    r = Recipe.query.get_or_404(id)
+    comment_content = request.json.get('comment')
+    c = Comment(creator=current_user.id, content=comment_content)
+    r.comments.append(c)
+    db.session.commit()
+    return ''
 
 @bp.route('/recipes', methods=['GET'])
 def get_all_recipes():

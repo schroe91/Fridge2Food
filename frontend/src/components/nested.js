@@ -58,6 +58,7 @@ class NestedLogin extends React.Component {
 	}
     }).then(data => {
   this.setState({id: data.id})
+  this.props.user(this.state.id)
     }, error=> alert(error.toString()))
       
   }

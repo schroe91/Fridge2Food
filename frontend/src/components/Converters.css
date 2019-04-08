@@ -66,3 +66,7 @@ select {
 .btn{
     margin-right: 25px;
 }
+.input-element{
+    height: 100px !important;
+    width: 400px;
+}
