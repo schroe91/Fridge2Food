@@ -24,7 +24,7 @@ class CreateRecipe extends Component {
     this.createRecipe = this.createRecipe.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
-
+  //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps){
     fetch('/api/create', {
       method: "POST",
@@ -112,16 +112,16 @@ toggleModal() {
         <form onSubmit={this.handleSubmit2} onChange={this.handleChange} >
         
         <div><label htmlFor="recipe">Recipe Name</label> 
-        <input type="text" name="recipe" id="recipe" value={recipe} /></div>
+        <input type="text" className="forminput5" name="recipe" id="recipe" value={recipe} /></div>
         <br></br>
         <div><label htmlFor="calories">Calories</label> 
-        <input type="text" name="calories" id="calories" value={calories} /></div>
+        <input type="text" className="forminput5" name="calories" id="calories" value={calories} /></div>
         <br></br>
         <div><label htmlFor="carbs">Carbs</label> 
-        <input type="text" name="carbs" id="carbs" value={carbs} /></div>
+        <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} /></div>
         <br></br>
         <div><label htmlFor="preptime">Prep Time</label> 
-        <input type="text" name="prep_time" id="prep_time" value={prep_time} /></div>
+        <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} /></div>
         <br></br>
         <label htmlFor="Ingredients">List of Ingredients</label> 
         
@@ -129,6 +129,7 @@ toggleModal() {
           <div className="ingredient">
             <input
               type="text"
+              className="forminput5"
               placeholder={`Ingredient ${idx + 1}`}
               value={ingredient.name}
               onChange={this.handleIngredientNameChange(idx)}
