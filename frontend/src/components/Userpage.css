@@ -60,3 +60,12 @@
     font-size: 12px;
     margin-left: auto;
 }
+
+#ingredients{
+    margin-top: auto;
+}
+
+#allergies .button{
+    margin-left: auto !important;
+    font-size: 12px;
+}
