@@ -122,10 +122,10 @@ class Recipe(db.Model):
             'protein': self.protein,
             'is_vegan': self.is_vegan,
             'is_vegetarian': self.is_vegetarian,
-            'is_glutenfree': self.is_glutenfree
-            'is_lunch': self.is_lunch
-            'is_breakfast': self.is_breakfast
-            'is_dessert': self.is_dessert
+            'is_glutenfree': self.is_glutenfree,
+            'is_lunch': self.is_lunch,
+            'is_breakfast': self.is_breakfast,
+            'is_dessert': self.is_dessert,
             'is_dinner': self.is_dinner
         }
         return data
