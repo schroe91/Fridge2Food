@@ -20,6 +20,8 @@ def get_all_ingredients():
 def add_ingredient():
     ingredient_name = request.json.get('name')
     print(ingredient_name)
+    if ingredient_name == None:
+        abort(400)
     ing = Ingredient.query.filter(Ingredient.name == ingredient_name)
     if ing.count() == 0:
         ing = Ingredient(name=ingredient_name)

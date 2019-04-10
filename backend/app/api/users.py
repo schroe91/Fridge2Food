@@ -39,6 +39,7 @@ def user_login():
         abort(400)
     user = User.query.filter_by(username=username).first()
     if user.check_password(password) is False:
+        print("Password check failed")
         abort(400)
     login_user(user)
     #db.session.add(user)

@@ -15,7 +15,7 @@ def get_recipe(id):
 #    searchResults = Recipe.query.get(id)
     return jsonify(Recipe.query.get_or_404(id).to_dict())
 
-@bp.route('/recipes/<int:id>/add_comment', methods=['POST'])
+@bp.route('/recipes/<int:id>/comments', methods=['POST'])
 def add_comment(id):
     r = Recipe.query.get_or_404(id)
     comment_content = request.json.get('comment')

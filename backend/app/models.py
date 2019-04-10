@@ -21,6 +21,13 @@ user_ingredient = db.Table(
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+user_favorite_recipe = db.Table(
+    'user_favorite_recipe',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -28,20 +35,25 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     #token = db.Column(db.String(32), index=True, unique=True)
     created_recipes = db.relationship('Recipe', backref='creator', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
     ingredients = db.relationship('Ingredient', secondary=user_ingredient,
                                   primaryjoin=(user_ingredient.c.user_id == id),
                                   backref = db.backref('user_ingredient', lazy='dynamic'),
                                   lazy='dynamic')
     avatar_url = db.Column(db.String(120), default = "/static/images/default.png")
     allergies = db.Column(db.String(140))
-    #favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
+    favorite_recipes = db.relationship('Recipe', secondary=user_favorite_recipe,
+                                       primaryjoin=(user_favorite_recipe.c.user_id == id),
+                                       backref = db.backref('user_favorite_recipe', lazy='dynamic'),
+                                       lazy='dynamic')
     def to_dict(self):
         data = {
             'id': self.id,
             'username': self.username,
             'email': self.email,
             'ingredients': [i.to_dict() for i in self.ingredients],
-            'avatar_url': self.avatar_url
+            'avatar_url': self.avatar_url,
+            'favorite_recipes': [i.id for i in self.favorite_recipes]
         }
         return data
     
@@ -84,7 +96,7 @@ class User(UserMixin, db.Model):
    
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    creator = db.Column(db.Integer)
+    creator = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     content = db.Column(db.String(140))
