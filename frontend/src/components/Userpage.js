@@ -3,6 +3,7 @@ import logo from '../logo.png';
 import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Userpage.css";
+import { NavLink } from 'react-router-dom';
 
 class Userpage extends Component {
   constructor(props) {
@@ -149,7 +150,7 @@ class Userpage extends Component {
         <div id="top-border">
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
-          <button className="button" id="backButton">Back</button>
+          <button className="button" id="backButton"><NavLink exact to="/" activeClassName="active">Back</NavLink></button>
         </div>
         <div id="userPage">
           <div id="profilePic">
