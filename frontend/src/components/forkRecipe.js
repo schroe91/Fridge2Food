@@ -25,7 +25,7 @@ class forkRecipe extends Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
   componentDidMount() {
-    fetch('/api/users/current')
+    fetch('/api/recipes/1')
       .then(response => response.json())
       .then(data => {
         this.setState({

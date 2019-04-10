@@ -18,10 +18,10 @@
     padding: 0 40px;
   }
   
-  .forminput5 {
-    display: block;
-    width: 50%;
-    font-size: 20px;
+  form input {
+    display: inline block;
+    /*width: 50%;*/
+    font-size: 18px;
     padding: 5px 10px;
     margin: 10px 0;
     border-radius: 5px;
