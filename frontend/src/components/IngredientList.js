@@ -60,12 +60,12 @@ class IngredientList extends React.Component {
 	AddIngredienttoDatabase(name){
 		console.log(name)
 		fetch('/api/ingredients', {
-			mode: 'no-cors',
-			method: "POST",
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({name: name})
+		    //mode: 'no-cors',
+		    method: "POST",
+		    headers: {
+			'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({name: name})
 		}).then(response =>{
 			console.log(response) 
 			if(response.ok){
