@@ -41,7 +41,6 @@ class User(UserMixin, db.Model):
                                   backref = db.backref('user_ingredient', lazy='dynamic'),
                                   lazy='dynamic')
     avatar_url = db.Column(db.String(120), default = "/static/images/default.png")
-    allergies = db.Column(db.String(140))
     favorite_recipes = db.relationship('Recipe', secondary=user_favorite_recipe,
                                        primaryjoin=(user_favorite_recipe.c.user_id == id),
                                        backref = db.backref('user_favorite_recipe', lazy='dynamic'),
