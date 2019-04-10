@@ -33,7 +33,7 @@ class User(UserMixin, db.Model):
                                   backref = db.backref('user_ingredient', lazy='dynamic'),
                                   lazy='dynamic')
     avatar_url = db.Column(db.String(120), default = "/static/images/default.png")
-    allergies = db.Column(db.String(140))
+    #allergies = db.Column(db.String(140))
     #favorite_recipes = db.relationship('Recipe', foreign_keys='recipe.id')
     def to_dict(self):
         data = {
