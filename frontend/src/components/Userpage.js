@@ -33,10 +33,10 @@ class Userpage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleModal2 = this.toggleModal2.bind(this);
-    this.toggleModal3 = this.toggleModal3.bind(this);
     this.toggleModal4 = this.toggleModal4.bind(this);
     this.toggleModal5 = this.toggleModal5.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
     this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
@@ -75,23 +75,15 @@ class Userpage extends Component {
       oldPassword: '',
     }));
   }
-  toggleModal3() {
-    this.setState(prevState => ({
-      modal: !prevState.modal3,
-      newUsername: '',
-      oldUsername: '',
-      password: '',
-    }));
-  }
   toggleModal4() {
     this.setState(prevState => ({
-      modal: !prevState.modal4,
+      modal4: !prevState.modal4,
       newPic: '',
     }));
   }
   toggleModal5() {
     this.setState(prevState => ({
-      modal: !prevState.modal5,
+      modal5: !prevState.modal5,
       allergies: this.state.allergies,
     }));
   }
@@ -115,8 +107,17 @@ class Userpage extends Component {
     this.setState({
       newPassword: '',
       oldPassword: '',
-    })
+    });
   }
+  handleSubmit4(ev){
+    ev.preventDefault();
+    const {newPic} = this.state;
+    this.changePic(newPic);
+    this.setState({
+      newPic: '',
+    });
+  }
+  
   changeUsername(newU, password) {
     fetch('/api/users/changename', {
       method: "POST",
@@ -134,6 +135,15 @@ class Userpage extends Component {
       },
       body: JSON.stringify({ newPassword: newP, oldPassword: oldP })
     }).then(response => response.ok).then(console.log('password success'))
+  }
+  changePic(newPic) {
+    fetch('/api/users/changepic', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username: newPic,})
+    }).then(response => response.ok).then(console.log('img success'))
   }
   addAllergy(allergy){
 
@@ -155,7 +165,18 @@ class Userpage extends Component {
         <div id="userPage">
           <div id="profilePic">
             <img src={profilepic} alt="" id="pic" />
-            <button className="button style">Edit Profile Picture</button>
+            <button className="button style" onClick={this.toggleModal4}>Edit Profile Picture</button>
+            <Modal isOpen={this.state.modal4} toggle={this.toggleModal4} size="sm">
+                <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
+                <ModalBody>
+                  <input type="text" name="newPic" placeholder="New Pic" size="22"
+                    onChange={this.handleChange} value={this.state.newPic} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.handleSubmit4}>Submit</Button>
+                  <Button color="secondary" onClick={this.toggleModal4}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
           </div>
           <div id="info">
             <h3 id="header">Account Info</h3>
@@ -216,7 +237,7 @@ class Userpage extends Component {
               <Modal isOpen={this.state.modal5} toggle={this.toggleModal5} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter Allergy</ModalHeader>
                 <ModalBody>
-                  <input type="allergy" name="allergy" placeholder="allergy" size="22"
+                  <input type="text" name="allergy" placeholder="allergy" size="22"
                     onChange={this.handleChange} value={this.state.allergy} />
                 </ModalBody>
                 <ModalFooter>
