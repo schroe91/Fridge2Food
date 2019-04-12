@@ -13,8 +13,9 @@ class NewIngredient extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   addnew(ingredient){
-    fetch('http://127.0.0.1:5000/api/ingredients', {
+    fetch('/api/ingredients', {
         method: "POST",
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },

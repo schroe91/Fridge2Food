@@ -11,6 +11,7 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
+			id: '',
 		}
 		this.AddIngredienttoUser = this.AddIngredienttoUser.bind(this);
 		this.AddIngredienttoDatabase = this.AddIngredienttoDatabase.bind(this);
@@ -20,7 +21,7 @@ class IngredientList extends React.Component {
 		this.handleDeleteAll = this.handleDeleteAll.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
-		this.inDatabase = this.inDatabase.bind(this);
+		//this.inDatabase = this.inDatabase.bind(this);
 		this.delAll = React.createRef();
 	}
 
@@ -31,17 +32,17 @@ class IngredientList extends React.Component {
 		const third = '/ingredients'
 		const link = first + second + third;
 		//check if in database
-		if(!this.inDatabase()){
-			console.log("not in database");
+		//if(!this.inDatabase()){
+		//	console.log("not in database");
 			this.AddIngredienttoDatabase(this.state.name);//add to database
-		}
+		//}
 		fetch(link, {
 			mode: 'no-cors',
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({id: this.state.name})
+			body: JSON.stringify({id: this.state.id})
 		}).then(response =>{ 
 			console.log(this.state.name)
 			if(response.ok){
@@ -65,27 +66,30 @@ class IngredientList extends React.Component {
 		    headers: {
 			'Content-Type': 'application/json'
 		    },
-		    body: JSON.stringify({name: name})
+			body: JSON.stringify({name: name})
 		}).then(response =>{
 			console.log(response) 
-			if(response.ok){
+			if(response.status === 201){
 				console.log("added to database")
-				return true;
+			}else if (response.status === 409){
+				console.log("already in database")
+				//return Promise.reject(new Error("Did not add to database"));
 			}else{
 				console.log("not added to database")
-				//return Promise.reject(new Error("Did not add to database"));
 			}
+			this.setState({id:response.id})
 		})
 
 	}
 
-	inDatabase(){
+	/*inDatabase(){
 		var link = '/api/ingredients/' + this.state.name;
 		fetch(link, {
 			mode: 'no-cors',
 			method: "GET",
 		}).then(response =>{ 
 			if(response.ok){
+				this.setState({id:response.id})
 				return true;
 			}else{
 				return false;
@@ -94,7 +98,7 @@ class IngredientList extends React.Component {
 			console.log(error)
 		})
 
-	}
+	}*/
 
 	deleteIngredient() {
 		const first = '/api/users/';
