@@ -24,6 +24,26 @@ def add_comment(id):
     db.session.commit()
     return ''
 
+@bp.route('/recipes', methods=['POST'])
+def add_recipe():
+    recipe = Recipe(name = request.json.get('name'),
+                    creator_id = current_user.id,
+                    prep_steps = request.json.get('prep_steps'),
+                    prep_time = request.json.get('prep_time'),
+                    calories = request.json.get('calories'),
+                    catbs = request.json.get('catbs'),
+                    fat = request.json.get('fat'),
+                    protein = request.json.get('protein'),
+                    is_vegan = request.json.get('is_vegan'),
+                    is_vegetarian = request.json.get('is_vegetarian'),
+                    is_glutenfree = request.json.get('is_glutenfree'))
+    for i in request.json.get('ingredients'):
+        recipe.ingredients.append(Ingredient.query.get(i))
+    db.session.add(r)
+    db.session.commit()
+    return r.to_dict()
+                    
+
 @bp.route('/recipes', methods=['GET'])
 def get_all_recipes():
     recipes = Recipe.query
