@@ -26,6 +26,7 @@ class Recipe extends Component {
       totalRating: 0,
       likeColor: "gray",
       totalLike: 0,
+      nav: '',
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -55,6 +56,11 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
+
+    const a = "/ForkRecipe/";
+    this.setState({nav: a + this.state.id});
+    console.log("nav " + this.state.nav);
+
     const first = '/api/recipes/';
     const second = this.state.id;
     const link = first + second;
@@ -168,7 +174,7 @@ class Recipe extends Component {
               <button className="button" id="tosubs"><NavLink exact to="/substitutions" activeClassName="active">Ingredient Substutitions</NavLink></button>
             </div>
             <div>
-              <button className="button" id="fork"><NavLink exact to="/ForkRecipe" activeClassName="active">Fork Recipe</NavLink></button>
+              <button className="button" id="fork"><NavLink exact to={this.state.nav} activeClassName="active">Fork Recipe</NavLink></button>
             </div>
           </div>
         </div>

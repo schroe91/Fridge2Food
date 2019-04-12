@@ -8,6 +8,7 @@ class forkRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.match.params.id,
       recipe: '',
       name: '',
       modal: false,
@@ -25,7 +26,15 @@ class forkRecipe extends Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
   componentDidMount() {
-    fetch('/api/recipes/1')
+    console.log(this.state.id);
+    
+    const first = '/api/recipes/';
+    const second = this.state.id;
+    const link = first + second;
+
+
+
+    fetch(link)
       .then(response => response.json())
       .then(data => {
         this.setState({

@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/user" exact strict component={Userpage} />
           <Route path="/substitutions" exact strict component={Substitution}/>
           <Route path="/createRecipe" exact strict component={CreateRecipe}/>
-          <Route path="/forkRecipe" exact strict component={forkRecipe}/>
+          <Route path="/forkRecipe/:id" exact strict component={forkRecipe}/>
           <Route path="/mostPopular" exact strict component={PopularRecipes}/>
         </Router>
       </div>
