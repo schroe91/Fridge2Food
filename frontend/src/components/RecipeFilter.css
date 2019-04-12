@@ -1,4 +1,26 @@
 #filters {
     display: flex;
-    margin-top: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#multiSelect {
+    padding-left: 25px;
+}
+
+#sortBy {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#selectSort {
+    height: 42px;
+}
+
+button.css-1r4vtzz {
+    height: 42px;
+}
+
+button#mealType {
+    height: 42px;
 }

@@ -56,6 +56,7 @@ class SearchBar extends React.Component {
 					placeholder="Search for recipe"
 					onChange={this.handleChange}
 					value={this.state.value}
+					style={{height: "42px"}}
 				/>
 			</form>
 		);

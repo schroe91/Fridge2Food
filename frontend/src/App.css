@@ -38,14 +38,12 @@ h2 {
 
 #ingredients-panel {
   width: 350px;
+  margin-right: auto;
+  margin-left: 15px;
 }
 
 #filter {
   display: flex;
-}
-
-#filter * {
-  padding-left: 10px;
 }
 
 #recipe-panel {
