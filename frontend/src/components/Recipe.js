@@ -19,7 +19,7 @@ class Recipe extends Component {
       date: '',
       prep_time: '',
       prep_steps: '',
-      comments: [],
+      commentsList: [{comment: "", replies: []}],
       favColor: "gray",
       totalFavorite: 0,
       rating: 0,
@@ -56,7 +56,6 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
-
     const a = "/ForkRecipe/";
     this.setState({nav: a + this.state.id});
     console.log("nav " + this.state.nav);
@@ -86,7 +85,7 @@ class Recipe extends Component {
   submitComment(ev) {
     ev.preventDefault();
     var newState = this.state;
-    newState.comments.unshift(this.state.value);
+    newState.commentList.unshift({comment: this.state.value, replies: []});
     newState.value = "";
 
     this.setState(newState);
@@ -154,9 +153,9 @@ class Recipe extends Component {
               />
             </form>
             <ListGroup variant="flush">
-              {this.state.comments.map((comment) => (
+              {this.state.commentsList.map((c) => (
                 <div class="list-group-item" id="comment">
-                  <li>{comment}</li>
+                  <li>{c.comment}</li>
                   <div id="commentButtons">
                     <button id="like" onClick={this.handleLike} style={{ color: this.state.likeColor }}>
                       <i class="fa fa-thumbs-up fa-lg" id="like" />
