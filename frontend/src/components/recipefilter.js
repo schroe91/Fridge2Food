@@ -21,8 +21,9 @@ class recipefilter extends Component {
     this.title2 = "Sort By";
     this.title3 = "Meal Type";
     this.handleClick = this.handleClick.bind(this);
-
+    this.handleChange = this.handleChange.bind(this);
   }
+
   filter_recipe() {
     fetch('http://127.0.0.1:5000/api/recipes', {
       method: "GET",
@@ -31,17 +32,17 @@ class recipefilter extends Component {
       }
 
     })
-
   }
+
   handleChange(event) {
     this.setState({ sortValue: event.target.value });
   }
+
   handleClick() {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
   }
-
 
   render() {
     return (
@@ -50,7 +51,7 @@ class recipefilter extends Component {
           <ReactMultiSelectCheckboxes
             options={filters}
             isSearchable={false}
-            onChange={this.handleChange}
+            onChange={this.handleClick}
           />
         </div>
         <div id="sortBy">
