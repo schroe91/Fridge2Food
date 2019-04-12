@@ -155,6 +155,15 @@ def delete_all_user_ingredients(user_id):
     db.session.commit()
     return '', 204
 
+@bp.route('/users/<int:user_id>/allergies', methods=['POST'])
+def add_allergy(user_id):
+    user = users.get_or_404(user_id)
+    ing_id = request.json.get('ingredient')
+    ing = Ingredient.query.get(ing_id)
+    user.allergies.append(ing)
+    db.session.commit()
+    return ''
+
 @bp.route('/users/<int:user_id>/ingredients/<int:ing_id>', methods=['DELETE'])
 def delete_user_ingredient(user_id, ing_id):
     user = User.query.get_or_404(user_id)

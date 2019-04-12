@@ -27,6 +27,11 @@ user_favorite_recipe = db.Table(
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+user_ingredient_allergy = db.Table(
+    'user_ingredient_allergy',
+    db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +50,10 @@ class User(UserMixin, db.Model):
                                        primaryjoin=(user_favorite_recipe.c.user_id == id),
                                        backref = db.backref('user_favorite_recipe', lazy='dynamic'),
                                        lazy='dynamic')
+    allergies = db.relationship('Ingredient', secondary=user_ingredient_allergy,
+                                  primaryjoin=(user_ingredient_allergy.c.user_id == id),
+                                  backref = db.backref('user_ingredient_allergy', lazy='dynamic'),
+                                  lazy='dynamic')
     def to_dict(self):
         data = {
             'id': self.id,
@@ -133,6 +142,7 @@ class Recipe(db.Model):
     #is_dessert = db.Column(db.Boolean, default=False)
 
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+    
 
     def to_dict(self):
         data = {
