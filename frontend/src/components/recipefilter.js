@@ -14,7 +14,7 @@ class recipefilter extends Component {
           ...options,
           [option]: false
         }),
-      )
+      ),
     }
     this.sortValue = 'Sort By';
     this.title1 = "Dietary Restrictions";
@@ -34,8 +34,8 @@ class recipefilter extends Component {
     })
   }
 
-  handleChange(event) {
-    this.setState({ sortValue: event.target.value });
+  handleChange(ev) {
+    //alert(ev.label); // Gets label of Sort By option
   }
 
   handleClick() {
@@ -55,11 +55,13 @@ class recipefilter extends Component {
           />
         </div>
         <div id="sortBy">
-          <select value={this.state.sortValue} onChange={this.handleChange} id="selectSort">
-            <option value="Cooking Time">Cooking Time</option>
-            <option value="Rating">Rating</option>
-            <option value="Calories">Calories</option>
-          </select>
+          <ReactMultiSelectCheckboxes
+            options={sortBy}
+            isSearchable={false}
+            onChange={this.handleChange}
+            isMulti={false}
+            placeholder="Sort By"
+          />
         </div>
         <DropdownButton id="mealType" title="Meal Type">
           <Dropdown.Item as="button" id="Breakfast">Breakfast</Dropdown.Item>
@@ -79,9 +81,23 @@ const filters = [
   { value: 3, label: "Vegan" },
   { value: 4, label: "Vegetarian" },
 ]
+
+const sortBy = [
+  { value: 1, label: "Calories" },
+  { value: 2, label: "Cooking Time" },
+  { value: 3, label: "Rating" },
+]
                 //<DropdownButton><DropdownButton id="diet" title="Dietary Restrictions" size="sm">
 /**<DropdownButton id="sort" title="Sort By" >
                 <Dropdown.Item as="button" eventKey='Cooking Time'>Cooking Time </Dropdown.Item>
                 <Dropdown.Item as="button" >Rating</Dropdown.Item>
                 <Dropdown.Item as="button" >Calories</Dropdown.Item>
                 </DropdownButton> */
+
+/**<div id="sortBy">
+          <select value={this.state.sortValue} onChange={this.handleChange} id="selectSort">
+            <option value="Cooking Time">Cooking Time</option>
+            <option value="Rating">Rating</option>
+            <option value="Calories">Calories</option>
+          </select>
+        </div> */
