@@ -26,7 +26,7 @@ class CreateRecipe extends Component {
   }
   //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
-    fetch('/api/create', {
+    fetch('/api/recipes', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

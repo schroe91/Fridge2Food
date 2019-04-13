@@ -31,7 +31,7 @@ def add_recipe():
                     prep_steps = request.json.get('prep_steps'),
                     prep_time = request.json.get('prep_time'),
                     calories = request.json.get('calories'),
-                    catbs = request.json.get('catbs'),
+                    carbs = request.json.get('carbs'),
                     fat = request.json.get('fat'),
                     protein = request.json.get('protein'),
                     is_vegan = request.json.get('is_vegan'),
