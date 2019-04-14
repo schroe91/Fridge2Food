@@ -76,7 +76,9 @@ def get_all_recipes():
         for recipe in recipes:
             if time < recipe.prep_time:
                 recipes = recipes.intersect(recipe_query) 
-    
+    if request.args.get('rating') != None:
+        rating_arr = request.args.get('rating').split(',')
+        
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
         ingredients = [Ingredient.query.get(id) for id in ing_arr]
