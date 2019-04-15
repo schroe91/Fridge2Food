@@ -28,7 +28,14 @@ class SearchBar extends React.Component {
 		this.state.value.replace(/ /g, "_")
 		//console.log(this.state.value)
 		//console.log('/api/recipes?name=' + this.state.value)
-		fetch('/api/recipes?name=' + this.state.value)	
+		var link = '/api/recipes?name=' + this.state.value;
+		if(this.props.filters && this.props.filters.length > 0){
+
+		}
+		if(this.props.meal){
+			link += '&meal=' + this.props.meal;
+		}
+		fetch(link)	
 		.then(response =>{ 
 			if(response.ok){
 					console.log("Got a response")

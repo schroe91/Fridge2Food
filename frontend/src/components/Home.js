@@ -72,7 +72,9 @@ class Home extends Component {
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">
-							<RecipeSearch getRecipes = {this.setRecipes.bind(this)}/>
+							<RecipeSearch getRecipes = {this.setRecipes.bind(this)}
+							filters = {this.state.filters}
+							meal = {this.state.mealType}/>
 							<div id="filter">
 								<RecipeFilter setFilters = {this.setFilters.bind(this)}
 								setSort = {this.setSort.bind(this)}
@@ -84,9 +86,7 @@ class Home extends Component {
 							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} 
 							setSearch = {this.setSearch.bind(this)}
 							userId = {this.state.userId}
-							filters = {this.state.filters}
 							sort = {this.state.sort}
-							meal = {this.state.mealType}
 							recipes = {this.state.recipes}
 							search = {this.state.search}
 							/>

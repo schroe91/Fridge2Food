@@ -14,12 +14,9 @@ class recipefilter extends Component {
         }),
       ),
     }
-    this.sortValue = 'Sort By';
-    this.title1 = "Dietary Restrictions";
-    this.title2 = "Sort By";
-    this.title3 = "Meal Type";
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSort = this.handleChangeSort.bind(this);
+    this.handleChangeMeal = this.handleChangeMeal.bind(this);
   }
 
   filter_recipe() {
@@ -32,11 +29,15 @@ class recipefilter extends Component {
     })
   }
 
-  handleChange(ev) {
-    //alert(ev.label); // Gets label of Sort By option
+  handleChangeSort(ev) {
+    this.props.setSort(ev);
+  }
+  handleChangeMeal(ev) {
+    this.props.setMeal(ev);
   }
 
-  handleClick() {
+  handleClick(index) {
+    alert(index)
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
@@ -56,7 +57,7 @@ class recipefilter extends Component {
           <ReactMultiSelectCheckboxes
             options={sortBy}
             isSearchable={false}
-            onChange={this.handleChange}
+            onChange={this.handleChangeSort}
             isMulti={false}
             placeholder="Sort By"
           />
@@ -65,7 +66,7 @@ class recipefilter extends Component {
         <ReactMultiSelectCheckboxes
           options={mealType}
           isSearchable={false}
-          onChange={this.handleChange}
+          onChange={this.handleChangMeal}
           isMulti={false}
           placeholder="Meal Type"
         />
