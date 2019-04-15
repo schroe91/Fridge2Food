@@ -1,6 +1,7 @@
 #layout {
     position: absolute;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 #pageStyle {
@@ -69,9 +70,10 @@ h2 {
 
 #comment {
     display: flex;
+    max-width: 100%;
 }
 
-#commentButtons {
+#likeButton {
     margin-left: auto;
 }
 
@@ -81,6 +83,6 @@ h2 {
     outline: none;
 }
 
-#reply {
-    margin-left: 20px;
+#replyList {
+    margin-left: 50px;
 }

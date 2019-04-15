@@ -37,7 +37,7 @@ class recipefilter extends Component {
   }
 
   handleClick(index) {
-    alert(index)
+    alert(this.state.value)
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
@@ -51,6 +51,7 @@ class recipefilter extends Component {
             options={filters}
             isSearchable={false}
             onChange={this.handleClick}
+            placeholderButtonLabel="Restrictions"
           />
         </div>
         <div id="sortBy">
@@ -59,7 +60,7 @@ class recipefilter extends Component {
             isSearchable={false}
             onChange={this.handleChangeSort}
             isMulti={false}
-            placeholder="Sort By"
+            placeholderButtonLabel="Sort By"
           />
         </div>
         <div id="MealType">
@@ -68,7 +69,7 @@ class recipefilter extends Component {
           isSearchable={false}
           onChange={this.handleChangMeal}
           isMulti={false}
-          placeholder="Meal Type"
+          placeholderButtonLabel="Meal Type"
         />
         </div>
       </div>
