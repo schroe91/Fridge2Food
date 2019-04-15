@@ -52,11 +52,12 @@ def add_recipe():
                     is_vegan = request.json.get('is_vegan'),
                     is_vegetarian = request.json.get('is_vegetarian'),
                     is_glutenfree = request.json.get('is_glutenfree'))
-    for i in request.json.get('ingredients'):
-        recipe.ingredients.append(Ingredient.query.get(i))
-    db.session.add(r)
+    if request.json.get('ingredients') != None:
+        for i in request.json.get('ingredients'):
+            recipe.ingredients.append(Ingredient.query.get(i))
+    db.session.add(recipe)
     db.session.commit()
-    return r.to_dict()
+    return jsonify(recipe.to_dict())
                     
 
 @bp.route('/recipes', methods=['GET'])

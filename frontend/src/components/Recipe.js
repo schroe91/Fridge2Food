@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Recipe.css";
 import StarRatings from 'react-star-ratings';
-import ListGroup from 'react-bootstrap/ListGroup'
 
 class Recipe extends Component {
   constructor(props) {
@@ -24,8 +23,6 @@ class Recipe extends Component {
       totalFavorite: 0,
       rating: 0,
       totalRating: 0,
-      likeColor: "gray",
-      totalLike: 0,
       nav: '',
     }
 
@@ -34,7 +31,8 @@ class Recipe extends Component {
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.submitComment = this.submitComment.bind(this);
     this.handleLike = this.handleLike.bind(this);
-    this.handleReply = this.handleReply.bind(this);
+    this.handleReplyChange = this.handleReplyChange.bind(this);
+    this.submitReply = this.submitReply.bind(this);
   }
 
   handleFavorite(ev) {
@@ -49,7 +47,7 @@ class Recipe extends Component {
   handleLike(ev) {
     var newState = this.state;
     const index = newState.commentsList.findIndex(obj => obj.comment === ev.comment);
-    if(ev.color === "blue") {
+    if (ev.color === "blue") {
       ev["color"] = "gray";
       ev["num"] -= 1;
       newState.commentsList[index] = ev;
@@ -65,7 +63,7 @@ class Recipe extends Component {
 
   componentDidMount() {
     const a = "/ForkRecipe/";
-    this.setState({nav: a + this.state.id});
+    this.setState({ nav: a + this.state.id });
     console.log("nav " + this.state.nav);
 
     const first = '/api/recipes/';
@@ -87,20 +85,29 @@ class Recipe extends Component {
   }
 
   handleCommentChange(ev) {
-    this.setState({value: ev.target.value});
+    this.setState({ value: ev.target.value });
   }
 
   submitComment(ev) {
     ev.preventDefault();
     var newState = this.state;
-    newState.commentsList.unshift({comment: this.state.value, replies: [], num: 0, color: "gray"});
+    newState.commentsList.unshift({ comment: this.state.value, replies: [], num: 0, color: "gray" });
     newState.value = "";
 
     this.setState(newState);
   }
 
-  handleReply(ev) {
+  handleReplyChange(ev) {
+    this.setState({ value2: ev.target.value });
+  }
 
+  submitReply(ev, c) {
+    ev.preventDefault();
+    var newState = this.state;
+    const index = newState.commentsList.findIndex(obj => obj.comment === c.comment);
+    newState.commentsList[index].replies.push(this.state.value2);
+    newState.value2 = "";
+    this.setState(newState);
   }
 
   render() {
@@ -160,20 +167,35 @@ class Recipe extends Component {
                 onChange={this.handleCommentChange}
               />
             </form>
-            <ListGroup variant="flush">
-              {this.state.commentsList.map((c) => (
+            {this.state.commentsList.map((c) => (
+              <div>
                 <div class="list-group-item" id="comment">
-                  <li>{c.comment}</li>
-                  <div id="commentButtons">
+                  <p>{c.comment}</p>
+                  <div id="likeButton">
                     <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
                       <i class="fa fa-thumbs-up fa-lg" id="like" />
                     </button>
                     <label>{"(" + c.num + ")"}</label>
-                    <button id="reply">Reply</button>
                   </div>
                 </div>
-              ))}
-            </ListGroup>
+                <div id="replyList">
+                    {c.replies.map((r) => (
+                      <p>{r}</p>
+                    ))}
+                </div>
+                <div id="reply">
+                  <form onSubmit={(e) => this.submitReply(e, c)} id="replyForm">
+                    <input
+                      type="text"
+                      name="replyInput"
+                      placeholder="Leave a reply"
+                      value={this.state.value2}
+                      onChange={this.handleReplyChange}
+                    />
+                  </form>
+                </div>
+              </div>
+            ))}
           </div>
           <div id="rightSideBar">
             <Converters />
