@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from "react-bootstrap/Dropdown";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import './RecipeFilter.css';
 
@@ -63,12 +61,15 @@ class recipefilter extends Component {
             placeholder="Sort By"
           />
         </div>
-        <DropdownButton id="mealType" title="Meal Type">
-          <Dropdown.Item as="button" id="Breakfast">Breakfast</Dropdown.Item>
-          <Dropdown.Item as="button" id="Lunch">Lunch</Dropdown.Item>
-          <Dropdown.Item as="button" id="Dinner">Dinner</Dropdown.Item>
-          <Dropdown.Item as="button" id="Dessert">Dessert</Dropdown.Item>
-        </DropdownButton>
+        <div id="MealType">
+        <ReactMultiSelectCheckboxes
+          options={mealType}
+          isSearchable={false}
+          onChange={this.handleChange}
+          isMulti={false}
+          placeholder="Meal Type"
+        />
+        </div>
       </div>
     );
   }
@@ -87,12 +88,31 @@ const sortBy = [
   { value: 2, label: "Cooking Time" },
   { value: 3, label: "Rating" },
 ]
+
+const mealType = [
+  { value: 1, label: "Breakfast" },
+  { value: 2, label: "Lunch" },
+  { value: 3, label: "Dinner" },
+  { value: 5, label: "Dessert" },
+]
+
+
+
                 //<DropdownButton><DropdownButton id="diet" title="Dietary Restrictions" size="sm">
 /**<DropdownButton id="sort" title="Sort By" >
                 <Dropdown.Item as="button" eventKey='Cooking Time'>Cooking Time </Dropdown.Item>
                 <Dropdown.Item as="button" >Rating</Dropdown.Item>
                 <Dropdown.Item as="button" >Calories</Dropdown.Item>
-                </DropdownButton> */
+                </DropdownButton> 
+                
+                </div>
+        <DropdownButton id="mealType" title="Meal Type">
+          <Dropdown.Item as="button" id="Breakfast">Breakfast</Dropdown.Item>
+          <Dropdown.Item as="button" id="Lunch">Lunch</Dropdown.Item>
+          <Dropdown.Item as="button" id="Dinner">Dinner</Dropdown.Item>
+          <Dropdown.Item as="button" id="Dessert">Dessert</Dropdown.Item>
+        </DropdownButton>
+      </div>*/
 
 /**<div id="sortBy">
           <select value={this.state.sortValue} onChange={this.handleChange} id="selectSort">
