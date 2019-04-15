@@ -19,7 +19,7 @@ class Recipe extends Component {
       date: '',
       prep_time: '',
       prep_steps: '',
-      commentsList: [{comment: "", replies: []}],
+      commentsList: [],
       favColor: "gray",
       totalFavorite: 0,
       rating: 0,
@@ -47,11 +47,19 @@ class Recipe extends Component {
   }
 
   handleLike(ev) {
-    if (this.state.likeColor === "gray") {
-      this.setState({ likeColor: "blue", totalLike: this.state.totalLike + 1 });
+    var newState = this.state;
+    const index = newState.commentsList.findIndex(obj => obj.comment == ev.comment);
+    if(ev.color === "blue") {
+      ev["color"] = "gray";
+      ev["num"] -= 1;
+      newState.commentsList[index] = ev;
+      this.setState(newState);
     }
     else {
-      this.setState({ likeColor: "gray", totalLike: this.state.totalLike - 1 });
+      ev["color"] = "blue";
+      ev["num"] += 1;
+      newState.commentsList[index] = ev;
+      this.setState(newState);
     }
   }
 
@@ -85,7 +93,7 @@ class Recipe extends Component {
   submitComment(ev) {
     ev.preventDefault();
     var newState = this.state;
-    newState.commentList.unshift({comment: this.state.value, replies: []});
+    newState.commentsList.unshift({comment: this.state.value, replies: [], num: 0, color: "gray"});
     newState.value = "";
 
     this.setState(newState);
@@ -157,10 +165,10 @@ class Recipe extends Component {
                 <div class="list-group-item" id="comment">
                   <li>{c.comment}</li>
                   <div id="commentButtons">
-                    <button id="like" onClick={this.handleLike} style={{ color: this.state.likeColor }}>
+                    <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
                       <i class="fa fa-thumbs-up fa-lg" id="like" />
                     </button>
-                    <label>{"(" + this.state.totalLike + ")"}</label>
+                    <label>{"(" + c.num + ")"}</label>
                     <button id="reply">Reply</button>
                   </div>
                 </div>
