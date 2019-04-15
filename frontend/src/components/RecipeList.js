@@ -12,6 +12,7 @@ class RecipeList extends React.Component {
             link: '',
             ingredients: [],
         };
+        this.sort = this.sort.bind(this)
     }
 
     getingredients(){
@@ -28,11 +29,41 @@ class RecipeList extends React.Component {
     }
 
     componentDidMount() {
+        var more = false;
         this.getingredients();
         if(this.props.search){
             this.setState({recipes:this.props.id})
         }else{
-        fetch('/api/recipes').then(response =>{ 
+            var link = '/api/recipes';
+            if(this.props.filters && this.props.filters.length > 0){
+                link += '?type=';
+                more = true;
+                this.state.filters.map((filters) => (
+                    link += filters + ',')
+                )
+            }
+            if(this.state.ingredients && this.state.ingredients.length > 0){
+                if(!more){
+                    link += '?ingredients';
+                    more = true;
+                }else{
+                    link += '&ingredients';
+                }
+                this.state.ingredients.map((ingredients) => (
+                    link += ingredients.id + ',' )
+                )
+                //map each ingredient id to link
+            }
+            if(this.props.meal){
+                if(!more){
+                    link += '?meal='
+                    more = true;
+                }else{
+                    link += '&meal='
+                }
+                link += this.props.meal;
+            }
+        fetch(link).then(response =>{ 
             if(response.ok){
                 //this.setState({isAuth : true})
                     return response.json();
@@ -41,6 +72,7 @@ class RecipeList extends React.Component {
             }
             }).then(data => {
                 this.setState({ recipes: data })
+                this.sort();
             }, error=> alert(error.toString()))
             .catch((error) =>{
                 console.log("No recipes found");
@@ -59,16 +91,25 @@ class RecipeList extends React.Component {
         }
     }
 
+    sort(){
+        if(this.props.sort === 'calories'){
+            this.state.recipes.sort(function(a,b){return a.calories -b.calories})
+        }else if(this.props.sort === 'cooking time'){
+            this.state.recipes.sort(function(a,b){return a.prep_time -b.prep_time})
+        }else if(this.props.sort === 'rating'){
+            this.state.recipes.sort(function(a,b){return b.rating - a.rating})
+        }else{
+            this.state.recipes.sort();
+        }
+    }
+
     render() {
         return (
             <div id='a'>
                 <h3>Recipe List</h3>
                 <ListGroup variant="flush">
                     {this.state.recipes.map((recipe) => (
-                        this.state.first = '/recipe/',
-                        this.state.second = recipe.id,
-                        this.state.link = this.state.first + this.state.second,
-                        <a href={this.state.link} key={this.state.link} className="list-group-item">{recipe.name}</a>
+                        <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
                     ))}   
                 </ListGroup>
             </div>);

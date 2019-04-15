@@ -86,6 +86,8 @@ class Home extends Component {
 							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} 
 							setSearch = {this.setSearch.bind(this)}
 							userId = {this.state.userId}
+							filters = {this.state.filters}
+							meal = {this.state.mealType}
 							sort = {this.state.sort}
 							recipes = {this.state.recipes}
 							search = {this.state.search}
