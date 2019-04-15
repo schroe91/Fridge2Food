@@ -44,7 +44,7 @@ class IngredientList extends React.Component {
 			},
 			body: JSON.stringify({id: this.state.id})
 		}).then(response =>{ 
-			console.log(this.state.name)
+			console.log(this.state.id)
 			if(response.ok){
 					return response.json();
 			}else{
@@ -68,7 +68,7 @@ class IngredientList extends React.Component {
 		    },
 			body: JSON.stringify({name: name})
 		}).then(response =>{
-			console.log(response) 
+			console.log("database:" , response)  
 			if(response.status === 201){
 				console.log("added to database")
 			}else if (response.status === 409){
@@ -78,6 +78,7 @@ class IngredientList extends React.Component {
 				console.log("not added to database")
 			}
 			this.setState({id:response.id})
+			console.log(this.state.id)
 		})
 
 	}
