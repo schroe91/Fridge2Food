@@ -33,6 +33,12 @@ user_ingredient_allergy = db.Table(
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+comment_comment = db.Table(
+    'comment_comment',
+    db.Column('comcom_id', db.Integer, primary_key=True),
+    db.Column('comment_id', db.Integer, db.ForeignKey('comment.id'))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -103,17 +109,20 @@ class User(UserMixin, db.Model):
 
    
 class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     creator = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     content = db.Column(db.String(140))
+    com_comments = db.relationship('Comment', secondary=comment_comment, primaryjoin=id == comment_comment.c.comcom_id, backref='comcom')
 
     def get_data(self):
         com = {
+            "comment id": self.id,
             'user': self.creator,
             'comment': self.content,
-            'time': self.timestamp
+            'time': self.timestamp,
+            'comments': [c.get_data() for c in self.com_comments]
         }
         return com
     
