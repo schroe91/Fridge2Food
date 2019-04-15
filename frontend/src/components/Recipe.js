@@ -48,7 +48,7 @@ class Recipe extends Component {
 
   handleLike(ev) {
     var newState = this.state;
-    const index = newState.commentsList.findIndex(obj => obj.comment == ev.comment);
+    const index = newState.commentsList.findIndex(obj => obj.comment === ev.comment);
     if(ev.color === "blue") {
       ev["color"] = "gray";
       ev["num"] -= 1;

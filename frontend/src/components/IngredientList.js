@@ -77,10 +77,8 @@ class IngredientList extends React.Component {
 			}else{
 				console.log("not added to database")
 			}
-			this.setState({id:response.id})
-			console.log(this.state.id)
 		})
-
+	
 	}
 
 	/*inDatabase(){
