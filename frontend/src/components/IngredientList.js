@@ -21,7 +21,6 @@ class IngredientList extends React.Component {
 		this.handleDeleteAll = this.handleDeleteAll.bind(this);
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
-		//this.inDatabase = this.inDatabase.bind(this);
 		this.delAll = React.createRef();
 	}
 
@@ -31,11 +30,7 @@ class IngredientList extends React.Component {
 		console.log(this.props.userId)
 		const third = '/ingredients'
 		const link = first + second + third;
-		//check if in database
-		//if(!this.inDatabase()){
-		//	console.log("not in database");
-			this.AddIngredienttoDatabase(this.state.name);//add to database
-		//}
+		this.AddIngredienttoDatabase(this.state.name);//add to database
 		fetch(link, {
 			mode: 'no-cors',
 			method: "POST",
@@ -45,11 +40,11 @@ class IngredientList extends React.Component {
 			body: JSON.stringify({id: this.state.id})
 		}).then(response =>{ 
 			console.log(this.state.id)
+			console.log(response)
 			if(response.ok){
-					return response.json();
+				return response.json();
 			}else{
 				console.log("not added to user")
-				//return Promise.reject(new Error("Not added to User"));
 			}
 		})
 		.catch((err) =>{
@@ -71,33 +66,19 @@ class IngredientList extends React.Component {
 			console.log("database:" , response)  
 			if(response.status === 201){
 				console.log("added to database")
+				return response.json()
 			}else if (response.status === 409){
 				console.log("already in database")
-				//return Promise.reject(new Error("Did not add to database"));
+				return response.json()
 			}else{
 				console.log("not added to database")
 			}
+		}).then(data => {
+			this.setState({id:data.id})
 		})
+		
 	
 	}
-
-	/*inDatabase(){
-		var link = '/api/ingredients/' + this.state.name;
-		fetch(link, {
-			mode: 'no-cors',
-			method: "GET",
-		}).then(response =>{ 
-			if(response.ok){
-				this.setState({id:response.id})
-				return true;
-			}else{
-				return false;
-			}
-		}).catch((error) => {
-			console.log(error)
-		})
-
-	}*/
 
 	deleteIngredient() {
 		const first = '/api/users/';

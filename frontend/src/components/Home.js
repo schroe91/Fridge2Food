@@ -24,6 +24,7 @@ class Home extends Component {
 			search: 0
 		}
 		this.setId = this.setId.bind(this) 
+		this.getUserId = this.getUserId.bind(this)
 	}
 
 	//Callback function to set numOfRecipes.
@@ -56,6 +57,26 @@ class Home extends Component {
 		this.setState({search: search})
 	}
 
+	getUserId(){
+		fetch('/api/users/current',{
+			method: 'GET',
+		}).then(response => {
+			console.log(response)
+			if(response.ok){
+				return response.json()
+			}
+		}).then(data => {
+			console.log(data)
+			console.log(data.id)
+			this.setState({userId:data.id})
+		})
+	}
+
+	componentDidMount(){
+		this.getUserId();
+		//fetch user current to get id
+	}
+
 	render() {
 		return (
 			<div id="layout" style={style}>
@@ -63,7 +84,8 @@ class Home extends Component {
 					<img src={logo} alt="" id="logo" />
 					<h2 id="title"><b>Fridge2Food</b></h2>
 					<div id="login">
-						<NestedLogin user={this.setId}/>
+						<NestedLogin user={this.setId}
+						userId = {this.props.userId}/>
 					</div>
 				</div>
 				<div id="info-panel">
