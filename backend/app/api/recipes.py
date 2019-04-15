@@ -31,7 +31,7 @@ def add_recipe():
                     prep_steps = request.json.get('prep_steps'),
                     prep_time = request.json.get('prep_time'),
                     calories = request.json.get('calories'),
-                    catbs = request.json.get('catbs'),
+                    carbs = request.json.get('carbs'),
                     fat = request.json.get('fat'),
                     protein = request.json.get('protein'),
                     is_vegan = request.json.get('is_vegan'),
@@ -76,7 +76,9 @@ def get_all_recipes():
         for recipe in recipes:
             if time < recipe.prep_time:
                 recipes = recipes.intersect(recipe_query) 
-    
+    if request.args.get('rating') != None:
+        rating_arr = request.args.get('rating').split(',')
+        
     if request.args.get('ingredients') != None:
         ing_arr = request.args.get('ingredients').split(",")
         ingredients = [Ingredient.query.get(id) for id in ing_arr]
