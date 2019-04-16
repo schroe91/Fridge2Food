@@ -64,11 +64,15 @@ class Home extends Component {
 			console.log(response)
 			if(response.ok){
 				return response.json()
+			}else{
+
+				console.log("not logged in")
 			}
 		}).then(data => {
-			console.log(data)
-			console.log(data.id)
-			this.setState({userId:data.id})
+			if(data){
+				console.log(data.id)
+				this.setState({userId:data.id})
+			}
 		})
 	}
 
