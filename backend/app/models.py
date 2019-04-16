@@ -118,7 +118,7 @@ class Comment(db.Model):
 
     def get_data(self):
         com = {
-            "comment id": self.id,
+            "comment_id": self.id,
             'user': self.creator,
             'comment': self.content,
             'time': self.timestamp,
