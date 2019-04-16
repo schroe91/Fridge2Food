@@ -79,12 +79,6 @@ class Recipe extends Component {
       }));
 
     //Get current username
-    /*alert(this.state.id)
-    const link2 = "/api/users/" + this.state.id;
-    fetch(link2)
-      .then(response => response.json())
-      .then(data => this.setState({username: data.username}));*/
-    //TODO Fetch user favorite and rating and total favorites and rating from backend
     fetch("/api/users/current")
       .then(response => response.json())
       .then(data => this.setState({id: data.id, username: data.username}))
@@ -124,7 +118,7 @@ class Recipe extends Component {
   submitReply(ev, c) {
     ev.preventDefault();
     var newState = this.state;
-    const index = newState.dbComments.findIndex(obj => obj.comment == c.comment);
+    const index = newState.dbComments.findIndex(obj => obj.comment === c.comment);
     //newState.commentsList[index].replies.push(this.state.value2);
 
     alert(index)

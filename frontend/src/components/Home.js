@@ -56,6 +56,13 @@ class Home extends Component {
 		this.setState({search: search})
 	}
 
+	componentDidMount() {
+		//Get current username
+    fetch("/api/users/current")
+      .then(response => response.json())
+      .then(data => this.setState({userId: data.id}))
+	}
+
 	render() {
 		return (
 			<div id="layout" style={style}>
@@ -63,7 +70,7 @@ class Home extends Component {
 					<img src={logo} alt="" id="logo" />
 					<h2 id="title"><b>Fridge2Food</b></h2>
 					<div id="login">
-						<NestedLogin user={this.setId}/>
+						<NestedLogin/>
 					</div>
 				</div>
 				<div id="info-panel">

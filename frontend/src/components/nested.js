@@ -56,10 +56,10 @@ class NestedLogin extends React.Component {
 	}else{
 	    return Promise.reject(new Error("Not a valid username"));
 	}
-    }).then(data => {
+    })/*.then(data => {
   this.setState({id: data.id})
   this.props.user(this.state.id)
-    }, error=> alert(error.toString()))
+    }, error=> alert(error.toString()))*/
       
   }
 

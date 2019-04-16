@@ -30,13 +30,13 @@ class Userpage extends Component {
       allergy: '',
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.toggleModal2 = this.toggleModal2.bind(this);
-    this.toggleModal4 = this.toggleModal4.bind(this);
-    this.toggleModal5 = this.toggleModal5.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
-    this.handleSubmit4 = this.handleSubmit4.bind(this);
+    this.handleChangeUsername = this.handleChangeUsername.bind(this);
+    this.usernameModal = this.usernameModal.bind(this);
+    this.passwordModal = this.passwordModal.bind(this);
+    this.pictureModal = this.pictureModal.bind(this);
+    this.allergyModal = this.allergyModal.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
     this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
@@ -60,7 +60,7 @@ class Userpage extends Component {
       })
   }
 
-  toggleModal() {
+  usernameModal() {
     this.setState(prevState => ({
       modal: !prevState.modal,
       newUsername: '',
@@ -68,20 +68,20 @@ class Userpage extends Component {
       password: '',
     }));
   }
-  toggleModal2() {
+  passwordModal() {
     this.setState(prevState => ({
       modal2: !prevState.modal2,
       newPassword: '',
       oldPassword: '',
     }));
   }
-  toggleModal4() {
+  pictureModal() {
     this.setState(prevState => ({
       modal4: !prevState.modal4,
       newPic: '',
     }));
   }
-  toggleModal5() {
+  allergyModal() {
     this.setState(prevState => ({
       modal5: !prevState.modal5,
       allergies: this.state.allergies,
@@ -91,16 +91,20 @@ class Userpage extends Component {
     console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
   }
-  handleSubmit(ev) {
+
+  handleChangeUsername(ev) {
     ev.preventDefault();
     const { newUsername, password, } = this.state;
     this.changeUsername(newUsername, password);
     this.setState({
       newUsername: '',
       password: '',
+      name: newUsername
     });
+    this.usernameModal();
   }
-  handleSubmit2(ev) {
+
+  handleChangePassword(ev) {
     ev.preventDefault();
     const { newPassword, oldPassword } = this.state;
     this.changePassword(oldPassword, newPassword);
@@ -109,7 +113,8 @@ class Userpage extends Component {
       oldPassword: '',
     });
   }
-  handleSubmit4(ev){
+
+  handleChangePicture(ev){
     ev.preventDefault();
     const {newPic} = this.state;
     this.changePic(newPic);
@@ -127,6 +132,7 @@ class Userpage extends Component {
       body: JSON.stringify({ username: newU, password: password })
     }).then(response => response.ok).then(console.log('username success'))
   }
+
   changePassword(newP, oldP) {
     fetch('/api/users/newpassword', {
       method: "POST",
@@ -136,6 +142,7 @@ class Userpage extends Component {
       body: JSON.stringify({ newPassword: newP, oldPassword: oldP })
     }).then(response => response.ok).then(console.log('password success'))
   }
+
   changePic(newPic) {
     fetch('/api/users/changepic', {
       method: "POST",
@@ -145,15 +152,19 @@ class Userpage extends Component {
       body: JSON.stringify({ username: newPic,})
     }).then(response => response.ok).then(console.log('img success'))
   }
+
   addAllergy(allergy){
 
   }
+
   getFavorites(){
 
   }
+
   getCurrentIngredients(){
 
   }
+
   render() {
     return (
       <div id="layout" style={style}>
@@ -165,16 +176,16 @@ class Userpage extends Component {
         <div id="userPage">
           <div id="profilePic">
             <img src={profilepic} alt="" id="pic" />
-            <button className="button style" onClick={this.toggleModal4}>Edit Profile Picture</button>
-            <Modal isOpen={this.state.modal4} toggle={this.toggleModal4} size="sm">
+            <button className="button style" onClick={this.pictureModal}>Edit Profile Picture</button>
+            <Modal isOpen={this.state.modal4} toggle={this.pictureModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
                 <ModalBody>
                   <input type="text" name="newPic" placeholder="New Pic" size="22"
                     onChange={this.handleChange} value={this.state.newPic} />
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={this.handleSubmit4}>Submit</Button>
-                  <Button color="secondary" onClick={this.toggleModal4}>Cancel</Button>
+                  <Button color="primary" onClick={this.handleChangePicture}>Submit</Button>
+                  <Button color="secondary" onClick={this.pictureModal}>Cancel</Button>
                 </ModalFooter>
               </Modal>
           </div>
@@ -182,8 +193,8 @@ class Userpage extends Component {
             <h3 id="header">Account Info</h3>
             <div id="username">
               <h5>Username: {this.state.name}</h5>
-              <button className="button" onClick={this.toggleModal}> Change Username </button>
-              <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
+              <button className="button" onClick={this.usernameModal}> Change Username </button>
+              <Modal isOpen={this.state.modal} toggle={this.usernameModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter New Username</ModalHeader>
                 <ModalBody>
                   <input type="text" name="newUsername" placeholder="New Username" size="22"
@@ -192,15 +203,15 @@ class Userpage extends Component {
                     onChange={this.handleChange} value={this.state.password} />
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={this.handleSubmit}>Submit</Button>
-                  <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                  <Button color="primary" onClick={this.handleChangeUsername}>Submit</Button>
+                  <Button color="secondary" onClick={this.usernameModal}>Cancel</Button>
                 </ModalFooter>
               </Modal>
             </div>
             <div id="email">
               <h5>Email: {this.state.email}</h5>
-              <button className="button" onClick={this.toggleModal2}> Change Password </button>
-              <Modal isOpen={this.state.modal2} toggle={this.toggleModal2} size="sm">
+              <button className="button" onClick={this.passwordModal}> Change Password </button>
+              <Modal isOpen={this.state.modal2} toggle={this.passwordModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter New Password</ModalHeader>
                 <ModalBody>
                   <input type="password" name="oldPassword" placeholder="Old Password" size="22"
@@ -209,8 +220,8 @@ class Userpage extends Component {
                     onChange={this.handleChange} value={this.state.newPassword} />
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={this.handleSubmit2}>Submit</Button>
-                  <Button color="secondary" onClick={this.toggleModal2}>Cancel</Button>
+                  <Button color="primary" onClick={this.handleChangePassword}>Submit</Button>
+                  <Button color="secondary" onClick={this.passwordModal}>Cancel</Button>
                 </ModalFooter>
               </Modal>
             </div>
@@ -233,16 +244,16 @@ class Userpage extends Component {
                 </li>
               ))}
                 </ul>
-                <button className="button" onClick={this.toggleModal5}> Add Allergy </button>
-              <Modal isOpen={this.state.modal5} toggle={this.toggleModal5} size="sm">
+                <button className="button" onClick={this.allergyModal}> Add Allergy </button>
+              <Modal isOpen={this.state.modal5} toggle={this.allergyModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter Allergy</ModalHeader>
                 <ModalBody>
                   <input type="text" name="allergy" placeholder="allergy" size="22"
                     onChange={this.handleChange} value={this.state.allergy} />
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={this.handleSubmit5}>Submit</Button>
-                  <Button color="secondary" onClick={this.toggleModal5}>Cancel</Button>
+                  <Button color="primary" onClick={this.handleChangeUsername5}>Submit</Button>
+                  <Button color="secondary" onClick={this.allergyModal}>Cancel</Button>
                 </ModalFooter>
               </Modal>
             </div>
