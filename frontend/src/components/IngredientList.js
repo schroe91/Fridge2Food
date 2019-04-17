@@ -27,8 +27,8 @@ class IngredientList extends React.Component {
 
 	AddIngredienttoUser() {
 		const first = '/api/users/';
-		const second = this.props.userId;
-		console.log(this.props.userId)
+	    const second = 'current';
+		console.log('current')
 		const third = '/ingredients'
 		const link = first + second + third;
 		//check if in database
@@ -101,7 +101,7 @@ class IngredientList extends React.Component {
 
 	deleteIngredient() {
 		const first = '/api/users/';
-		const second = this.props.userId;
+		const second = 'current';
 		const third = '/ingredients/'
 		const fourth = this.state.name;
 		const link = first + second + third + fourth;
@@ -116,7 +116,7 @@ class IngredientList extends React.Component {
 
 	deleteAll() {
 		const first = '/api/users/';
-		const second = this.props.userId;
+		const second = 'current';
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
