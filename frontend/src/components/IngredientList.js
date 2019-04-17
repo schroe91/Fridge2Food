@@ -13,6 +13,7 @@ class IngredientList extends React.Component {
 			name: "",
 			ingredientId: '',
 		}
+	    
 		this.AddIngredienttoUser = this.AddIngredienttoUser.bind(this);
 		this.AddIngredienttoDatabase = this.AddIngredienttoDatabase.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -22,36 +23,47 @@ class IngredientList extends React.Component {
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
 		//this.inDatabase = this.inDatabase.bind(this);
-		this.delAll = React.createRef();
+	    this.delAll = React.createRef();
+	    this.GetCurrentIngredients();
 	}
 
+    GetCurrentIngredients(){
+	fetch('/api/users/current', {
+	    method: "GET"
+	}).then(response =>{
+	    if(response.ok){
+		return response.json();
+	    }
+	}).then(data =>{
+	    for(var i = 0; i<data.ingredients.length; i++){
+		this.handleSubmit(data.ingredients[i].name);
+	    }
+	})
+    }
 	AddIngredienttoUser() {
-		const first = '/api/users/';
+	    const first = '/api/users/';
 	    const second = 'current';
-		console.log('current')
-		const third = '/ingredients'
-		const link = first + second + third;
-		//check if in database
-		//if(!this.inDatabase()){
-		//	console.log("not in database");
-			this.AddIngredienttoDatabase(this.state.name);//add to database
-		//}
-		fetch(link, {
-			mode: 'no-cors',
-			method: "POST",
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({id: this.state.ingredientId})
-		}).then(response =>{ 
-			console.log(this.state.ingredientId)
-			if(response.ok){
-					return response.json();
-			}else{
-				console.log("not added to user")
-				//return Promise.reject(new Error("Not added to User"));
-			}
-		})
+	    console.log('current')
+	    const third = '/ingredients'
+	    const link = first + second + third;
+	    //check if in database
+	    //if(!this.inDatabase()){
+	    //	console.log("not in database");
+	    this.AddIngredienttoDatabase(this.state.name);//add to database
+	    //}
+	    fetch(link, {
+		method: "POST",
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({ name: this.state.name })
+	    }).then(response =>{ 
+		console.log(this.state.ingredientId)
+		if(response.ok){
+		    return response.json();
+		}else{
+		    console.log("not added to user")
+		    //return Promise.reject(new Error("Not added to User"));
+		}
+	    })
 		.catch((err) =>{
             console.log("no valid user is logged in")
         })
@@ -135,7 +147,7 @@ class IngredientList extends React.Component {
 			newState.list.unshift(ingredient);
 			newState.name = ingredient;
 			this.setState(newState);
-			this.AddIngredienttoUser();
+			this.AddIngredienttoUser(ingredient);
 		}
 		this.props.setNumOfIngredients(this.state.list);
 		//Reset form

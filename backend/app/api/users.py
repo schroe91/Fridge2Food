@@ -133,10 +133,6 @@ def reset_password(token):
 def get_current_user():
     return jsonify(current_user.to_dict())
 
-@bp.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
-    return jsonify(User.query.get_or_404(id).to_dict())
-
 @bp.route('/users/<id>/ingredients', methods=['POST'])
 def add_user_ingredients(id):
     user = None
@@ -144,12 +140,28 @@ def add_user_ingredients(id):
         user = current_user
     else:
         user = User.query.get_or_404(id)
-    ingredient_id = request.get_json('id')
-    print(ingredient_id)
-    ing = Ingredient.query.get_or_404(ingredient_id)
+
+    ing = None
+    ingredient_id = request.json.get('id')
+    if ingredient_id != None:
+        ing = Ingredient.query.get_or_404(ingredient_id)
+
+    ingredient_name = request.json.get('name')
+    if ingredient_name != None:
+        ing = Ingredient.query.filter_by(name=ingredient_name).first()
+
+    if ing == None:
+        abort(400)
+        
     user.ingredients.append(ing)
     db.session.commit()
     return jsonify(user.to_dict()), 201
+
+
+@bp.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+    return jsonify(User.query.get_or_404(id).to_dict())
+
 
 @bp.route('/users/<id>/ingredients', methods=['DELETEALL'])
 def delete_all_user_ingredients(id):

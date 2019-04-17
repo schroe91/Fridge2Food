@@ -57,7 +57,10 @@ class NestedLogin extends React.Component {
       } else {
         return Promise.reject(new Error("Not a valid username"));
       }
-    }).then(data => {this.setState({id: data.id})}, error=> alert(error.toString()))
+    }).then(data => {
+	this.setState({id: data.id});
+	window.location.reload();
+    }, error=> alert(error.toString()))
 
   }
 
@@ -69,7 +72,8 @@ class NestedLogin extends React.Component {
           'Content-Type': 'application/json'
         },
       }).then(response => response.ok).then(this.setState({ isAuth: false }))
-      alert("You have been logged out");
+	alert("You have been logged out");
+	window.location.reload();
     } else
       alert("You are not currently logged in");
   }
