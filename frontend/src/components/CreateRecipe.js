@@ -18,11 +18,13 @@ class CreateRecipe extends Component {
       prep_time: '',
       prep_steps: '',
       recipeIMG_url: '',
+      ingredientsid: [{id: ""}],
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.createRecipe = this.createRecipe.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.addnew = this.addnew.bind(this);
   }
   //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
@@ -65,13 +67,39 @@ class CreateRecipe extends Component {
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   };
-
+  
+  addnew(ingredient){
+    console.log("addnew =" + ingredient)
+    fetch('/api/ingredients', {
+        method: "POST",
+        //mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: ingredient})
+    }).then( response => {
+      if(response.status == 200 || response.status==409){
+        return response.json();
+      }
+    }).then(data =>{
+      console.log("id = " + data.id);
+      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
+    })
+  };
   handleSubmit2 = (e) => {
     e.preventDefault();
     const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
-    this.createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps);
-
+    const listItems = ingredients.map((name) =>
+        //console.log(name)
+        this.addnew(name.name)
+    );
+    const {ingredientsid} = this.state;
+ 
+    console.log("ing id = " +ingredientsid);
+    this.createRecipe(recipe, ingredientsid, calories, carbs, date, prep_time, prep_steps);
+    
   };
+  
   addImage(recipeIMG_url) {
     fetch('/api/recipeIMG', {
       method: "POST",
@@ -81,7 +109,9 @@ class CreateRecipe extends Component {
       body: JSON.stringify({ url: recipeIMG_url })
     }).then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
   };
-
+  getID(ingredients){
+      
+  }
 
   handleSubmit3(ev) {
     ev.preventDefault();
