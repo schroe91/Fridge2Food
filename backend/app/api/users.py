@@ -163,12 +163,6 @@ def delete_all_user_ingredients(id):
     db.session.commit() 
     return '', 204
 
-<<<<<<< HEAD
-@bp.route('/users/<int:user_id>/allergies', methods=['POST'])
-def add_allergy(user_id):
-    user = User.get_or_404(user_id)
-    ing_id = request.json.get('allergy')
-=======
 @bp.route('/users/<id>/allergies', methods=['POST'])
 def add_allergy(id):
     user = None
@@ -178,7 +172,6 @@ def add_allergy(id):
         user = User.query.get_or_404(id)
     
     ing_id = request.json.get('ingredient')
->>>>>>> ddfb8231c7531eb620303ae811828f52db794993
     ing = Ingredient.query.get(ing_id)
     user.allergies.append(ing)
     db.session.commit()

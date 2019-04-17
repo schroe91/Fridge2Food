@@ -171,23 +171,7 @@ class Userpage extends Component {
       body: JSON.stringify({ username: newPic,})
     }).then(response => response.ok).then(console.log('img success'))
   }
-<<<<<<< HEAD
   
-=======
-
-  addAllergy(allergy){
-
-  }
-
-  getFavorites(){
-
-  }
-
-  getCurrentIngredients(){
-
-  }
-
->>>>>>> 5aa7ff6b8447370340a246d4b9bb63f1faa3e9d2
   render() {
     return (
       <div id="layout" style={style}>
