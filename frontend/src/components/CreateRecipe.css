@@ -1,4 +1,9 @@
-#createRecipe *{
+#createRecipe {
+    width: 50%;
+    margin-left: 10px;
+}
+
+#createRecipe * {
     box-sizing: border-box;
 }
   
@@ -9,9 +14,9 @@ body {
 }
   
 #newLabel {
-    font-size: 18px;
     margin-top: 20px;
     margin-bottom: 5px;
+    border-bottom: 2px solid #808080;
 }
   
 #recipeForm {
@@ -66,8 +71,12 @@ button.small:hover#removeIng {
     background-color: #999;
 }
   
-  .input-element{
+.input-element{
     height: 100px !important;
     width: 400px;
 }
-  
+
+#recipeDiv {
+    margin-top: auto;
+    margin-bottom: auto;
+}

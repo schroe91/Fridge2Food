@@ -110,20 +110,28 @@ class CreateRecipe extends Component {
           </div>
         </div>
         <div id="createRecipe">
-          <h2 id="newLabel">Create New Recipe</h2>
+          <h4 id="newLabel">Create New Recipe</h4>
 
           <form onSubmit={this.handleSubmit2} onChange={this.handleChange} id="recipeForm">
-            <div><label htmlFor="recipe">Recipe Name</label>
-              <input type="text" className="forminput5" name="recipe" id="recipe" value={recipe} /></div>
+            <div id="recipeDiv">
+              <label htmlFor="recipe">Recipe Name</label>
+              <input type="text" className="forminput5" name="recipe" id="recipe" value={recipe} />
+            </div>
             <br></br>
-            <div><label htmlFor="calories">Calories</label>
-              <input type="text" className="forminput5" name="calories" id="calories" value={calories} /></div>
+            <div>
+              <label htmlFor="calories">Calories</label>
+              <input type="text" className="forminput5" name="calories" id="calories" value={calories} />
+            </div>
             <br></br>
-            <div><label htmlFor="carbs">Carbs</label>
-              <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} /></div>
+            <div>
+              <label htmlFor="carbs">Carbs</label>
+              <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} />
+            </div>
             <br></br>
-            <div><label htmlFor="preptime">Prep Time</label>
-              <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} /></div>
+            <div>
+              <label htmlFor="preptime">Prep Time</label>
+              <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} />
+            </div>
             <br></br>
             <label htmlFor="Ingredients">List of Ingredients</label>
             {this.state.ingredients.map((ingredient, idx) => (
@@ -153,9 +161,12 @@ class CreateRecipe extends Component {
               Add Ingredient
         </button>
             <br></br>
-            <div><label htmlFor="prep_steps">Instructions:</label>
+            <div>
+              <label htmlFor="prep_steps">Instructions:</label>
             </div>
-            <div><textarea name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps}></textarea></div>
+            <div>
+              <textarea name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps} />
+            </div>
             <div>
               <input type="submit" value="Submit" />
             </div>
