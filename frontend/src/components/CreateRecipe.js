@@ -24,7 +24,7 @@ class CreateRecipe extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.createRecipe = this.createRecipe.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.addnew = this.addnew.bind(this);
   }
   //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
@@ -68,7 +68,7 @@ class CreateRecipe extends Component {
     this.setState({ [e.target.name]: e.target.value })
   };
   
-  /*addnew(ingredient){
+  addnew(ingredient){
     console.log("addnew =" + ingredient)
     fetch('/api/ingredients', {
         method: "POST",
@@ -85,25 +85,9 @@ class CreateRecipe extends Component {
       console.log("id = " + data.id);
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
     })
-  };*/
+  };
   handleSubmit2 = (e) => {
     e.preventDefault();
-    console.log("addnew =" + this.ingredients)
-    fetch('/api/ingredients', {
-        method: "POST",
-        //mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: this.ingredients})
-    }).then( response => {
-      if(response.status == 200 || response.status==409){
-        return response.json();
-      }
-    }).then(data =>{
-      console.log("id = " + data.id);
-      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
-    })
     const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
     const listItems = ingredients.map((name) =>
         //console.log(name)
