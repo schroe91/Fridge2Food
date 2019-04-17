@@ -39,20 +39,21 @@ class Userpage extends Component {
     this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
-    this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
-    this.getFavorites = this.getFavorites.bind(this)
   }
 
   componentDidMount() {
     fetch('/api/users/current')
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         this.setState({
           name: data.username,
           email: data.email,
           avatar_url: data.avatar_url,
           id: data.id,
-          ingredients: data.ingredients
+          ingredients: data.ingredients,
+         // allergies: data.allergies,
+          favorites: data.favorites
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
@@ -88,7 +89,7 @@ class Userpage extends Component {
     }));
   }
   handleChange(e) {
-    console.log(this.state.id);
+    //console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
   }
   handleSubmit(ev) {
@@ -117,7 +118,25 @@ class Userpage extends Component {
       newPic: '',
     });
   }
-  
+  handleSubmit5(ev){
+    ev.preventDefault();
+    const {allergy} = this.state;
+    this.addAllergy(allergy);
+    this.setState({
+      allergy: '',
+    })
+  }
+  addAllergy(allergy){
+    var link = 'api/users/' + this.state.id + '/allergies'
+    fetch(link,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({allergy: allergy})
+    }).then(response => response.ok).then(console.log('allergy added'))
+  }
+
   changeUsername(newU, password) {
     fetch('/api/users/changename', {
       method: "POST",
@@ -145,15 +164,7 @@ class Userpage extends Component {
       body: JSON.stringify({ username: newPic,})
     }).then(response => response.ok).then(console.log('img success'))
   }
-  addAllergy(allergy){
-
-  }
-  getFavorites(){
-
-  }
-  getCurrentIngredients(){
-
-  }
+  
   render() {
     return (
       <div id="layout" style={style}>
