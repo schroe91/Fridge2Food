@@ -111,28 +111,25 @@ class IngredientList extends React.Component {
 
 	}*/
 
-	deleteIngredient() {
+	deleteIngredient(name) {
 		const first = '/api/users/';
 		const second = 'current';
 		const third = '/ingredients/'
-		const fourth = this.state.name;
-		const link = first + second + third + fourth;
+		//const fourth = this.state.name;
+		const link = first + second + third;
 		fetch(link, {
-			method: "DELETE",
-			headers:{
-				'Access-Control-Allow-Origin': '*',
-			},
-			body: JSON.stringify(this.state.name),
+		    method: "DELETE",
+		    headers:{
+			'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({name: name}),
 		}).then(response => response.ok)
 	}
 
 	deleteAll() {
-		const first = '/api/users/';
-		const second = 'current';
-		const third = '/ingredients'
-		const link = first + second + third;
+		const link = '/api/users/current/ingredients/all';
 		fetch(link, {
-			method: "DELETEALL",
+			method: "DELETE",
 		}).then(response => response.ok)
 	}
 
@@ -165,7 +162,7 @@ class IngredientList extends React.Component {
 			newState.list.splice(i, 1);
 			this.setState({name:this.state.value})
 			this.setState(newState);
-			this.deleteIngredient();
+			this.deleteIngredient(item);
 			this.props.setNumOfIngredients(this.state.list); //Passes value to NumOfIngredients.js
 		}
 	}
