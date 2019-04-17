@@ -49,6 +49,7 @@ class NestedLogin extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username: username, password: password })
+<<<<<<< HEAD
     }).then(response =>{ 
 	if(response.ok){
 	    this.setState({isAuth : true});
@@ -61,6 +62,20 @@ class NestedLogin extends React.Component {
   this.props.user(this.state.id)
     }, error=> alert(error.toString()))
       
+=======
+    }).then(response => {
+      if (response.ok) {
+        this.setState({ isAuth: true });
+        return response.json();
+      } else {
+        return Promise.reject(new Error("Not a valid username"));
+      }
+    }).then(data => {
+	this.setState({id: data.id});
+	window.location.reload();
+    }, error=> alert(error.toString()))
+
+>>>>>>> a21a77bf9e4f929c0c3a5af2ed7b80bd754a3ccd
   }
 
   logout(ev) {
@@ -71,7 +86,8 @@ class NestedLogin extends React.Component {
           'Content-Type': 'application/json'
         },
       }).then(response => response.ok).then(this.setState({ isAuth: false }))
-      alert("You have been logged out");
+	alert("You have been logged out");
+	window.location.reload();
     } else
       alert("You are not currently logged in");
   }
@@ -196,6 +212,7 @@ class NestedLogin extends React.Component {
   }
 }
 export default NestedLogin;
+<<<<<<< HEAD
 
 /**<Popup
       trigger={<button className="button" onClick={this.logout}> Logout </button>}
@@ -206,3 +223,5 @@ export default NestedLogin;
         You have logged out
       </div>
       </Popup> */
+=======
+>>>>>>> a21a77bf9e4f929c0c3a5af2ed7b80bd754a3ccd

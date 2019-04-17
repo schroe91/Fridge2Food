@@ -237,7 +237,7 @@ class Userpage extends Component {
               <ul>
                 {this.state.ingredients.map((item) => (
                 <li>
-                  {item}
+                  {item.name}
                 </li>
               ))}
               </ul>
@@ -247,7 +247,7 @@ class Userpage extends Component {
               <ul>
                 {this.state.allergies.map((item) => (
                 <li>
-                  {item}
+                  {item.name}
                 </li>
               ))}
                 </ul>

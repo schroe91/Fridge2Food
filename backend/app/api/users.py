@@ -133,10 +133,6 @@ def reset_password(token):
 def get_current_user():
     return jsonify(current_user.to_dict())
 
-@bp.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
-    return jsonify(User.query.get_or_404(id).to_dict())
-
 @bp.route('/users/<id>/ingredients', methods=['POST'])
 def add_user_ingredients(id):
     user = None
@@ -144,14 +140,32 @@ def add_user_ingredients(id):
         user = current_user
     else:
         user = User.query.get_or_404(id)
-    ingredient_id = request.get_json('id')
-    print(ingredient_id)
-    ing = Ingredient.query.get_or_404(ingredient_id)
-    user.ingredients.append(ing)
-    db.session.commit()
+
+    ing = None
+    ingredient_id = request.json.get('id')
+    if ingredient_id != None:
+        ing = Ingredient.query.get_or_404(ingredient_id)
+
+    ingredient_name = request.json.get('name')
+    if ingredient_name != None:
+        ing = Ingredient.query.filter_by(name=ingredient_name).first()
+
+    if ing == None:
+        abort(400)
+    if ing not in user.ingredients:
+        user.ingredients.append(ing)
+        db.session.commit()
+        print("Adding ingredient")
+        
     return jsonify(user.to_dict()), 201
 
-@bp.route('/users/<id>/ingredients', methods=['DELETEALL'])
+
+@bp.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+    return jsonify(User.query.get_or_404(id).to_dict())
+
+
+@bp.route('/users/<id>/ingredients/all', methods=['DELETE'])
 def delete_all_user_ingredients(id):
     user = None
     if id.lower() == "current":
@@ -177,6 +191,25 @@ def add_allergy(id):
     db.session.commit()
     return ''
 
+@bp.route('/users/<id>/ingredients/', methods=['DELETE'])
+def delete_user_ingredient_by_name(id):
+    user = None
+    if id.lower() == "current":
+        user = current_user
+    else:
+        user = User.query.get_or_404(id)
+    
+    name = request.json.get('name')
+    print("Deleting: "+name)
+    ing = Ingredient.query.filter_by(name=name).first()
+    if ing not in user.ingredients:
+        print("Ingredient not in user")
+        return '', 404
+    user.ingredients.remove(ing)
+    db.session.commit()
+    return '', 204
+
+
 @bp.route('/users/<id>/ingredients/<int:ing_id>', methods=['DELETE'])
 def delete_user_ingredient(id, ing_id):
     user = None
@@ -184,7 +217,7 @@ def delete_user_ingredient(id, ing_id):
         user = current_user
     else:
         user = User.query.get_or_404(id)
-        ing = Ingredient.query.get_or_404(ing_id)
+    ing = Ingredient.query.get_or_404(ing_id)
     if ing not in user.ingredients:
         return '', 404
     user.ingredients.remove(ing)

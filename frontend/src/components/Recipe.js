@@ -20,7 +20,6 @@ class Recipe extends Component {
       prep_time: '',
       prep_steps: '',
       commentsList: [],
-      dbComments: [],
       favColor: "gray",
       totalFavorite: 0,
       rating: 0,
@@ -36,6 +35,7 @@ class Recipe extends Component {
     this.handleLike = this.handleLike.bind(this);
     this.handleReplyChange = this.handleReplyChange.bind(this);
     this.submitReply = this.submitReply.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   handleFavorite(ev) {
@@ -77,12 +77,11 @@ class Recipe extends Component {
       .then(data => this.setState({
         ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
         date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps, 
-        dbComments: data.comments, recipeId: data.id
+        commentsList: data.comments, recipeId: data.id
       }));
 
     //Get current username
     fetch("/api/users/current")
-      .then(response => response.json())
       .then(data => this.setState({id: data.id, username: data.username}))
   }
 
@@ -97,7 +96,7 @@ class Recipe extends Component {
   submitComment(ev) {
     ev.preventDefault();
     var newState = this.state;
-    newState.commentsList.unshift({ comment: this.state.value, replies: [], num: 0, color: "gray" });
+    newState.commentsList.unshift({ comment: this.state.value, replies: []});
     
     //Submit to backend
     const link = "/api/recipes/" + this.state.recipeId + "/comments";
@@ -120,12 +119,11 @@ class Recipe extends Component {
   submitReply(ev, c) {
     ev.preventDefault();
     var newState = this.state;
-    const index = newState.dbComments.findIndex(obj => obj.comment === c.comment);
-    //newState.commentsList[index].replies.push(this.state.value2);
+    const index = newState.commentsList.findIndex(obj => obj.comment === c.comment);
+    newState.commentsList[index].comments.push(this.state.value2);
 
-    alert(index)
     //Submit to backend
-    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.dbComments[index].comment_id;
+    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.commentsList[index].comment_id;
     fetch(link, {
       method: "POST",
       headers: {
@@ -137,6 +135,21 @@ class Recipe extends Component {
     
     newState.value2 = "";
     this.setState(newState);
+  }
+
+  getUser(userId) {
+    var user = "";
+
+    const link = "/api/users/" + userId;
+    fetch(link, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(response => response.json())
+    .then(data => {user = data.username});
+
+    return user;
   }
 
   render() {
@@ -199,18 +212,13 @@ class Recipe extends Component {
             {this.state.commentsList.map((c) => (
               <div>
                 <div className="list-group-item" id="comment">
-                  <p>{this.state.username + " says: " + c.comment}</p>
-                  <div id="likeButton">
-                    <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
-                      <i className="fa fa-thumbs-up fa-lg" id="like" />
-                    </button>
-                    <label>{"(" + c.num + ")"}</label>
-                  </div>
+                  <p>{this.getUser(c.user) + " says: " + c.comment}</p>
+                  
                 </div>
                 <div id="replyList">
-                    {c.replies.map((r) => (
-                      <p>{r}</p>
-                    ))}
+                  {c.comments.map((reply) => (
+                    <p>{this.getUser(reply.user) + " says: " + reply.comment}</p>
+                  ))}
                 </div>
                 <div id="reply">
                   <form onSubmit={(e) => this.submitReply(e, c)} id="replyForm">
@@ -242,3 +250,9 @@ class Recipe extends Component {
 
 }
 export default Recipe;
+/**<div id="likeButton">
+                    <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
+                      <i className="fa fa-thumbs-up fa-lg" id="like" />
+                    </button>
+                    <label>{"(" + c.num + ")"}</label>
+                  </div> */
