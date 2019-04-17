@@ -11,7 +11,7 @@ class IngredientList extends React.Component {
 		this.state = {
 			list: [],
 			name: "",
-			id: '',
+			ingredientId: '',
 		}
 		this.AddIngredienttoUser = this.AddIngredienttoUser.bind(this);
 		this.AddIngredienttoDatabase = this.AddIngredienttoDatabase.bind(this);
@@ -45,10 +45,9 @@ class IngredientList extends React.Component {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({id: this.state.id})
+			body: JSON.stringify({id: this.state.ingredientId})
 		}).then(response =>{ 
-			console.log(this.state.id)
-			console.log(response)
+			console.log(this.state.ingredientId)
 			if(response.ok){
 				return response.json();
 			}else{

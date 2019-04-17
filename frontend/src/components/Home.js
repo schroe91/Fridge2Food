@@ -57,29 +57,10 @@ class Home extends Component {
 		this.setState({search: search})
 	}
 
-	/*getUserId(){
-		fetch('/api/users/current',{
-			method: 'GET',
-		}).then(response => {
-			console.log(response)
-			if(response.ok){
-				console.log("logged in")
-				return response.json()
-			}else{
-
-				console.log("not logged in")
-			}
-		}).then(data => {
-			if(data){
-				console.log(data.id)
-				this.setState({userId:data.id})
-			}
-		})
-	}*/
-
-	componentDidMount(){
-		//this.getUserId();
-		//fetch user current to get id
+	componentDidMount() {
+		//Get current username
+    fetch("/api/users/current")
+      .then(data => this.setState({userId: data.id}))
 	}
 
 	render() {
@@ -90,6 +71,7 @@ class Home extends Component {
 					<h2 id="title"><b>Fridge2Food</b></h2>
 					<div id="login">
 						<NestedLogin user={this.setId}
+						userId = {this.props.userId}
 						/>
 					</div>
 				</div>

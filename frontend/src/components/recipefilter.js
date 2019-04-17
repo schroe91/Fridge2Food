@@ -37,7 +37,7 @@ class recipefilter extends Component {
   }
 
   handleClick(index) {
-    alert(this.state.value)
+    // alert(this.state.value)
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
