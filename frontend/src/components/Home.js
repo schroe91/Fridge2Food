@@ -59,7 +59,6 @@ class Home extends Component {
 	componentDidMount() {
 		//Get current username
     fetch("/api/users/current")
-      .then(response => response.json())
       .then(data => this.setState({userId: data.id}))
 	}
 

@@ -26,6 +26,7 @@ class Recipe extends Component {
       rating: 0,
       totalRating: 0,
       nav: '',
+      recipeId: 0,
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -75,7 +76,8 @@ class Recipe extends Component {
       .then(response => response.json())
       .then(data => this.setState({
         ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
-        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps, dbComments: data.comments
+        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps, 
+        dbComments: data.comments, recipeId: data.id
       }));
 
     //Get current username
@@ -98,7 +100,7 @@ class Recipe extends Component {
     newState.commentsList.unshift({ comment: this.state.value, replies: [], num: 0, color: "gray" });
     
     //Submit to backend
-    const link = "/api/recipes/" + this.state.id + "/comments";
+    const link = "/api/recipes/" + this.state.recipeId + "/comments";
     fetch(link, {
       method: "POST",
       headers: {
@@ -123,7 +125,7 @@ class Recipe extends Component {
 
     alert(index)
     //Submit to backend
-    const link = "/api/recipes/" + this.state.id + "/comments/" + this.state.dbComments[index].comment_id;
+    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.dbComments[index].comment_id;
     fetch(link, {
       method: "POST",
       headers: {
@@ -157,7 +159,7 @@ class Recipe extends Component {
                 id="favorite"
                 style={{ color: this.state.favColor }}
               >
-                <i class="fa fa-heart fa-2x" id="favorite"></i>
+                <i className="fa fa-heart fa-2x" id="favorite"></i>
               </button>
               <label id="totalFav">{"(" + this.state.totalFavorite + ")"}</label>
               <label id="rateLabel">Rate!</label>
@@ -196,11 +198,11 @@ class Recipe extends Component {
             </form>
             {this.state.commentsList.map((c) => (
               <div>
-                <div class="list-group-item" id="comment">
+                <div className="list-group-item" id="comment">
                   <p>{this.state.username + " says: " + c.comment}</p>
                   <div id="likeButton">
                     <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
-                      <i class="fa fa-thumbs-up fa-lg" id="like" />
+                      <i className="fa fa-thumbs-up fa-lg" id="like" />
                     </button>
                     <label>{"(" + c.num + ")"}</label>
                   </div>
