@@ -11,6 +11,7 @@ class Recipe extends Component {
     super(props);
     this.state = {
       id: this.props.match.params.recipe,
+      username: '',
       name: '',
       ingredients: [],
       calories: '',
@@ -19,11 +20,13 @@ class Recipe extends Component {
       prep_time: '',
       prep_steps: '',
       commentsList: [],
+      dbComments: [],
       favColor: "gray",
       totalFavorite: 0,
       rating: 0,
       totalRating: 0,
       nav: '',
+      recipeId: 0,
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -73,11 +76,14 @@ class Recipe extends Component {
       .then(response => response.json())
       .then(data => this.setState({
         ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
-        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps
-      }))
+        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps, 
+        dbComments: data.comments, recipeId: data.id
+      }));
 
-    //TODO Fetch user favorite and rating and total favorites and rating from backend
-
+    //Get current username
+    fetch("/api/users/current")
+      .then(response => response.json())
+      .then(data => this.setState({id: data.id, username: data.username}))
   }
 
   handleRating(newRating) {
@@ -92,8 +98,18 @@ class Recipe extends Component {
     ev.preventDefault();
     var newState = this.state;
     newState.commentsList.unshift({ comment: this.state.value, replies: [], num: 0, color: "gray" });
-    newState.value = "";
+    
+    //Submit to backend
+    const link = "/api/recipes/" + this.state.recipeId + "/comments";
+    fetch(link, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({comment: this.state.value})
+    })
 
+    newState.value = "";
     this.setState(newState);
   }
 
@@ -104,8 +120,21 @@ class Recipe extends Component {
   submitReply(ev, c) {
     ev.preventDefault();
     var newState = this.state;
-    const index = newState.commentsList.findIndex(obj => obj.comment === c.comment);
-    newState.commentsList[index].replies.push(this.state.value2);
+    const index = newState.dbComments.findIndex(obj => obj.comment === c.comment);
+    //newState.commentsList[index].replies.push(this.state.value2);
+
+    alert(index)
+    //Submit to backend
+    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.dbComments[index].comment_id;
+    fetch(link, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({comment: this.state.value2})
+    })
+      .then(response => response.json());
+    
     newState.value2 = "";
     this.setState(newState);
   }
@@ -130,7 +159,7 @@ class Recipe extends Component {
                 id="favorite"
                 style={{ color: this.state.favColor }}
               >
-                <i class="fa fa-heart fa-2x" id="favorite"></i>
+                <i className="fa fa-heart fa-2x" id="favorite"></i>
               </button>
               <label id="totalFav">{"(" + this.state.totalFavorite + ")"}</label>
               <label id="rateLabel">Rate!</label>
@@ -169,11 +198,11 @@ class Recipe extends Component {
             </form>
             {this.state.commentsList.map((c) => (
               <div>
-                <div class="list-group-item" id="comment">
-                  <p>{c.comment}</p>
+                <div className="list-group-item" id="comment">
+                  <p>{this.state.username + " says: " + c.comment}</p>
                   <div id="likeButton">
                     <button id="like" onClick={() => this.handleLike(c)} style={{ color: c.color }}>
-                      <i class="fa fa-thumbs-up fa-lg" id="like" />
+                      <i className="fa fa-thumbs-up fa-lg" id="like" />
                     </button>
                     <label>{"(" + c.num + ")"}</label>
                   </div>

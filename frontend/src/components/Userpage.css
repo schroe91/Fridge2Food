@@ -31,7 +31,7 @@
     margin-right: auto;
 }
 
-#username {
+#username, #email, #ingredients, #allergies, #favorites {
     padding-top: 30px;
     display: flex;
 }
@@ -41,17 +41,7 @@
     margin-left: auto;
 }
 
-#username * {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-#email {
-    padding-top: 30px;
-    display: flex;
-}
-
-#email * {
+#username *, #email *, #ingredients *, #allergies *, #favorites * {
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -59,10 +49,6 @@
 #email .button {
     font-size: 12px;
     margin-left: auto;
-}
-
-#ingredients{
-    margin-top: auto;
 }
 
 #allergies .button{

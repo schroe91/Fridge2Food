@@ -39,6 +39,12 @@ comment_comment = db.Table(
     db.Column('comment_id', db.Integer, db.ForeignKey('comment.id'))
 )
 
+recipe_rating = db.Table(
+    'recipe_rating',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('rating', db.Integer, db.ForeignKey('rating.id'))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -67,7 +73,8 @@ class User(UserMixin, db.Model):
             'email': self.email,
             'ingredients': [i.to_dict() for i in self.ingredients],
             'avatar_url': self.avatar_url,
-            'favorite_recipes': [i.id for i in self.favorite_recipes]
+            'favorite_recipes': [i.id for i in self.favorite_recipes],
+            'allergies': [i.to_dict() for i in self.allergies]
         }
         return data
     
@@ -107,6 +114,12 @@ class User(UserMixin, db.Model):
    # def load_user(id):
    #return User.query.get(int(id))
 
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    recipe = db.Column(db.Integer, db.ForeignKey('recipe.id'))
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    rating = db.Column(db.Integer)
+
    
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -118,7 +131,7 @@ class Comment(db.Model):
 
     def get_data(self):
         com = {
-            "comment id": self.id,
+            "comment_id": self.id,
             'user': self.creator,
             'comment': self.content,
             'time': self.timestamp,
@@ -151,9 +164,12 @@ class Recipe(db.Model):
     #is_dessert = db.Column(db.Boolean, default=False)
 
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
-    
+    ratings = db.relationship('Rating', secondary=recipe_rating,
+                              primaryjoin=(recipe_rating.c.recipe_id == id),
+                              backref = db.backref('recipe_rating', lazy='dynamic'),
+                              lazy='dynamic')
 
-    def to_dict(self):
+    def to_dict(self, user=None):
         data = {
             'id': self.id,
             'name': self.name,
@@ -172,8 +188,17 @@ class Recipe(db.Model):
             #'is_breakfast': self.is_breakfast,
             #'is_dessert': self.is_dessert,
             #'is_dinner': self.is_dinner,
+            
             'comments': [c.get_data() for c in self.comments]
         }
+        if self.ratings.count() == 0:
+            data['rating'] = 0
+        else:
+            data['rating'] = sum([float(r.rating) for rating in self.ratings])/self.ratings.count()
+        if user != None:
+            user_rating = self.ratings.query.filter_by(user==user).first()
+            if user_rating != None:
+                data['user_rating'] = user_rating.rating
         return data
 
 class Ingredient(db.Model):

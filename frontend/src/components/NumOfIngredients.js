@@ -29,7 +29,7 @@ class NumOfIngredients extends React.Component {
 				</ListGroupItem>
 				<div>
 					<div style={listStyle}>
-						<IngredientList setNumOfIngredients={this.updateNum} userId = {this.props.user} />
+						<IngredientList setNumOfIngredients={this.updateNum} userId={this.props.user} />
 					</div>
 				</div>
 				<NewIngredients />
