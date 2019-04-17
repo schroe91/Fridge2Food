@@ -74,7 +74,7 @@ class User(UserMixin, db.Model):
             'ingredients': [i.to_dict() for i in self.ingredients],
             'avatar_url': self.avatar_url,
             'favorite_recipes': [i.id for i in self.favorite_recipes],
-            'allergies': [i.id for i in self.allergies]
+            'allergies': [i.to_dict() for i in self.allergies]
         }
         return data
     
