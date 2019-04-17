@@ -22,15 +22,23 @@ class IngredientList extends React.Component {
 		this.deleteIngredient = this.deleteIngredient.bind(this);
 		this.deleteAll = this.deleteAll.bind(this);
 		this.delAll = React.createRef();
+		this.addIngredients = this.addIngredients.bind(this);
 	}
 
-	AddIngredienttoUser() {
+	async addIngredients() {
+		await this.AddIngredienttoDatabase();
+		console.log("after database: " + this.state.id)
+		await this.AddIngredienttoUser();
+	}
+	
+
+	AddIngredienttoUser(){
+		console.log("id:  " + this.state.id)
+		console.log("userId: " + this.props.userId)
 		const first = '/api/users/';
 		const second = this.props.userId;
-		console.log(this.props.userId)
 		const third = '/ingredients'
 		const link = first + second + third;
-		this.AddIngredienttoDatabase(this.state.name);//add to database
 		fetch(link, {
 			mode: 'no-cors',
 			method: "POST",
@@ -53,45 +61,45 @@ class IngredientList extends React.Component {
 		
 	}
 
-	AddIngredienttoDatabase(name){
-		console.log(name)
+	AddIngredienttoDatabase(){
 		fetch('/api/ingredients', {
 		    //mode: 'no-cors',
 		    method: "POST",
 		    headers: {
 			'Content-Type': 'application/json'
 		    },
-			body: JSON.stringify({name: name})
+			body: JSON.stringify({name: this.state.name})
 		}).then(response =>{
 			console.log("database:" , response)  
 			if(response.status === 201){
 				console.log("added to database")
-				return response.json()
+				return response.json();
 			}else if (response.status === 409){
 				console.log("already in database")
-				return response.json()
+				return response.json();
 			}else{
 				console.log("not added to database")
 			}
 		}).then(data => {
 			this.setState({id:data.id})
+			console.log("added: " + this.state.id)
 		})
-		
-	
+			
 	}
 
 	deleteIngredient() {
+		this.AddIngredienttoDatabase(this.state.name)
 		const first = '/api/users/';
 		const second = this.props.userId;
 		const third = '/ingredients/'
-		const fourth = this.state.name;
+		const fourth = this.state.id;
 		const link = first + second + third + fourth;
 		fetch(link, {
 			method: "DELETE",
 			headers:{
 				'Access-Control-Allow-Origin': '*',
 			},
-			body: JSON.stringify(this.state.name),
+			body: JSON.stringify(this.state.id),
 		}).then(response => response.ok)
 	}
 
@@ -101,7 +109,7 @@ class IngredientList extends React.Component {
 		const third = '/ingredients'
 		const link = first + second + third;
 		fetch(link, {
-			method: "DELETEALL",
+			method: "DELETEALL", 
 		}).then(response => response.ok)
 	}
 
@@ -116,7 +124,7 @@ class IngredientList extends React.Component {
 			newState.list.unshift(ingredient);
 			newState.name = ingredient;
 			this.setState(newState);
-			this.AddIngredienttoUser();
+			this.addIngredients();
 		}
 		this.props.setNumOfIngredients(this.state.list);
 		//Reset form

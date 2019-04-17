@@ -21,12 +21,12 @@ class Userpage extends Component {
       password: '',
       oldPassword: '',
       newPassword: '',
-      favorites: [],
+      favorites: ["none"],
       newPic: '',
       id: '',
       avatar_url: profilepic,
       ingredients: [],
-      allergies: [],
+      allergies: ["none"],
       allergy: '',
     }
     this.handleChange = this.handleChange.bind(this);
@@ -53,7 +53,7 @@ class Userpage extends Component {
           id: data.id,
           ingredients: data.ingredients,
          // allergies: data.allergies,
-          favorites: data.favorites
+         // favorites: data.favorites
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
