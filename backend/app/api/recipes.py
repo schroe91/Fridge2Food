@@ -13,7 +13,10 @@ def string_to_boolean(str):
 @bp.route('/recipes/<int:id>', methods=['GET'])
 def get_recipe(id):
 #    searchResults = Recipe.query.get(id)
-    return jsonify(Recipe.query.get_or_404(id).to_dict())
+    user = current_user
+    if user.get_id() == None:
+        user = None
+    return jsonify(Recipe.query.get_or_404(id).to_dict(user))
 
 @bp.route('/recipes/<int:id>/comments', methods=['POST'])
 def add_comment(id):
@@ -21,6 +24,27 @@ def add_comment(id):
     comment_content = request.json.get('comment')
     c = Comment(creator=current_user.id, content=comment_content)
     r.comments.append(c)
+    db.session.commit()
+    return ''
+
+@bp.route('/recipes/<int:id>/ratings', methods=['POST'])
+def add_rating(id):
+    rating_num = request.json.get('rating')
+    if rating_num is None:
+        abort(400)
+    if rating_num > 5:
+        rating_num = 5
+    if rating_num < 1:
+        rating_num = 1
+    
+    recipe = Recipe.query.get_or_404(id)
+    rating = Rating.query.filter_by(user==current_user).first()
+    if rating == None:
+        rating = Rating(user=current_user, recipe=recipe, rating=rating_num)
+        db.session.add(rating)
+    else:
+        rating.rating = rating_num
+    recipe.ratings.add(rating)
     db.session.commit()
     return ''
 
