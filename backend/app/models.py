@@ -192,11 +192,13 @@ class Recipe(db.Model):
             
             'comments': [c.get_data() for c in self.comments]
         }
-        if self.ratings.count() == 0:
+        rating_count = Rating.query.filter_by(recipe=self.id).count()
+        if rating_count == 0:
             data['rating'] = 0
         else:
-            data['rating'] = sum([float(r.rating) for rating in self.ratings])/self.ratings.count()
-        if user != None:
+            data['rating'] = sum([r.rating for r in Rating.query.all() if r.recipe==self.id]) / float(rating_count)
+            data['rating_count'] = rating_count
+        if user != None and user.is_authenticated:
             user_rating = self.ratings.filter_by(user=user.id).first()
             if user_rating != None:
                 data['user_rating'] = user_rating.rating

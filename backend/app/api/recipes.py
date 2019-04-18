@@ -1,8 +1,9 @@
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from app import db
 from app.models import *
 from app.api import bp
 from flask_login import current_user
+from app.functions import login_required
 
 def string_to_boolean(str):
     if str.lower() == "true":
@@ -28,6 +29,7 @@ def add_comment(id):
     return ''
 
 @bp.route('/recipes/<int:id>/ratings', methods=['POST'])
+@login_required
 def add_rating(id):
     rating_num = request.json.get('rating')
     if rating_num is None:
@@ -38,15 +40,15 @@ def add_rating(id):
         rating_num = 1
     
     recipe = Recipe.query.get_or_404(id)
-    rating = Rating.query.filter_by(user==current_user).first()
+    rating = Rating.query.filter_by(user=current_user.id, recipe=recipe.id).first()
     if rating == None:
-        rating = Rating(user=current_user, recipe=recipe, rating=rating_num)
+        rating = Rating(user=current_user.id, recipe=recipe.id, rating=rating_num)
         db.session.add(rating)
     else:
         rating.rating = rating_num
-    recipe.ratings.add(rating)
+    #recipe.ratings.append(rating)
     db.session.commit()
-    return ''
+    return jsonify(recipe.to_dict(user=current_user))
 
 @bp.route('/recipes/<int:id>/comments/<int:comment_id>', methods=['POST'])
 def commentception(id, comment_id):
@@ -132,7 +134,7 @@ def get_all_recipes():
                 new_recipes.append(recipe)
         recipes = new_recipes
         print(request.args.get('ingredients')) 
-    return jsonify([r.to_dict() for r in recipes])
+    return jsonify([r.to_dict(current_user) for r in recipes])
     
 
 

@@ -86,7 +86,9 @@ class Recipe extends Component {
 	      prep_time: data.prep_time,
 	      prep_steps: data.prep_steps, 
               commentsList: data.comments,
-	      recipeId: data.id
+	      recipeId: data.id,
+	      rating: data.user_rating,
+	      totalRating: data.rating
 	  });
 	  console.log(data.comments);
       };
@@ -98,9 +100,28 @@ class Recipe extends Component {
       .then(data => this.setState({id: data.id, username: data.username}))
   }
 
-  handleRating(newRating) {
-    this.setState({ rating: newRating });
-  }
+    handleRating(newRating) {
+	const oldRating = this.state.rating;
+      this.setState({ rating: newRating });
+      const request = async() => {
+	  const response = await fetch("/api/recipes/"+this.state.recipeId+"/ratings",{
+	      method: "POST",
+	      headers: {
+		  'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify({rating: newRating})
+	  });
+	  //console.log(this.state.rating)
+	  if(!response.ok){
+	      const data = await response.json();
+	      this.setState({
+		  rating: oldRating,
+		  totalRating: data.rating
+	      });
+	  }
+      }
+	request()
+    }
 
   handleCommentChange(ev) {
     this.setState({ value: ev.target.value });
