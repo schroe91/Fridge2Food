@@ -24,6 +24,7 @@ class Home extends Component {
 			search: 0
 		}
 		this.setId = this.setId.bind(this) 
+		//this.getUserId = this.getUserId.bind(this)
 	}
 
 	//Callback function to set numOfRecipes.
@@ -69,7 +70,9 @@ class Home extends Component {
 					<img src={logo} alt="" id="logo" />
 					<h2 id="title"><b>Fridge2Food</b></h2>
 					<div id="login">
-						<NestedLogin/>
+						<NestedLogin user={this.setId}
+						userId = {this.props.userId}
+						/>
 					</div>
 				</div>
 				<div id="info-panel">

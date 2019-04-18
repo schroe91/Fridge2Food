@@ -78,7 +78,7 @@ class CreateRecipe extends Component {
         },
         body: JSON.stringify({name: ingredient})
     }).then( response => {
-      if(response.status == 200 || response.status==409){
+      if(response.status === 200 || response.status===409){
         return response.json();
       }
     }).then(data =>{

@@ -4,7 +4,9 @@ import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Userpage.css";
 import { NavLink } from 'react-router-dom';
-import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
+import IngredientDisplay from "./IngredientDisplay.js";
+import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js";
+import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
 class Userpage extends Component {
   constructor(props) {
@@ -50,12 +52,15 @@ class Userpage extends Component {
     fetch('/api/users/current')
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         this.setState({
           name: data.username,
           email: data.email,
           avatar_url: data.avatar_url,
           id: data.id,
-          ingredients: data.ingredients
+          ingredients: data.ingredients,
+          allergies: data.allergies,
+          favorites: data.favorites
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
@@ -94,7 +99,7 @@ class Userpage extends Component {
   }
 
   handleChange(e) {
-    console.log(this.state.id);
+    //console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -160,7 +165,7 @@ class Userpage extends Component {
   }
 
   addAllergy(allergy) {
-    this.setState({tempAllergies: allergy});
+    this.setState({ tempAllergies: allergy });
   }
 
   getFavorites() {
@@ -172,7 +177,7 @@ class Userpage extends Component {
   }
 
   cancelAllergies() {
-    this.setState({allergies: []});
+    this.setState({ allergies: [] });
     this.allergyModal();
   }
 
@@ -182,7 +187,14 @@ class Userpage extends Component {
     this.setState(newState);
 
     //Add to backend
-    
+    /*var link = 'api/users/' + this.state.id + '/allergies'
+    fetch(link,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({allergy: allergy})
+    }).then(response => response.ok).then(console.log('allergy added'))*/
 
     this.allergyModal();
   }
@@ -248,24 +260,19 @@ class Userpage extends Component {
               </Modal>
             </div>
             <div id='ingredients'>
-              <h5>User Ingredients</h5>
-              <ul>
-                {this.state.ingredients.map((item) => (
-                  <li>
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
+              <IngredientDisplay ingredients={this.state.ingredients} />
             </div>
             <div id="allergies">
-              <h5>User Allergies</h5>
-              <ul>
-                {this.state.allergies.map((item, index) => (
-                  <li key={index}>
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
+              <div style={{display: "block"}}>
+                <h5>Allergies</h5>
+                <ul>
+                  {this.state.allergies.map((item, index) => (
+                    <li key={index}>
+                      {item.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <button className="button" onClick={this.allergyModal}> Add Allergy </button>
               <Modal isOpen={this.state.modal5} toggle={this.allergyModal} size="sm">
                 <div id="multiSelect">
@@ -283,14 +290,7 @@ class Userpage extends Component {
               </Modal>
             </div>
             <div id='favorites'>
-              <h5>Favorite Recipes</h5>
-              <ul>
-                {this.state.favorites.map((item) => (
-                  <li>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <FavoriteRecipeDisplay favorites={this.state.favorites} />
             </div>
           </div>
         </div>
