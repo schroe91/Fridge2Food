@@ -196,7 +196,7 @@ class Recipe(db.Model):
         else:
             data['rating'] = sum([float(r.rating) for rating in self.ratings])/self.ratings.count()
         if user != None:
-            user_rating = self.ratings.query.filter_by(user==user).first()
+            user_rating = self.ratings.filter_by(user=user.id).first()
             if user_rating != None:
                 data['user_rating'] = user_rating.rating
         return data
