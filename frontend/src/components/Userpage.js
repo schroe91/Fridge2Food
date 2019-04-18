@@ -32,6 +32,7 @@ class Userpage extends Component {
       allergies: [],
       tempAllergies: [],
       userRecipes: [],
+      profile: profilepic,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -62,7 +63,8 @@ class Userpage extends Component {
           id: data.id,
           ingredients: data.ingredients,
           allergies: data.allergies,
-          favorites: data.favorites
+          favorites: data.favorites,
+          profile: data.avatar_url
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
@@ -235,7 +237,7 @@ class Userpage extends Component {
         </div>
         <div id="userPage">
           <div id="profilePic">
-            <img src={profilepic} alt="" id="pic" />
+            <img src={this.state.profile} alt="" id="pic" />
             <button className="button style" onClick={this.pictureModal}>Edit Profile Picture</button>
             <Modal isOpen={this.state.modal4} toggle={this.pictureModal} size="sm">
               <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
