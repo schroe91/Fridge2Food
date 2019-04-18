@@ -18,7 +18,7 @@ def get_all_ingredients():
 
 @bp.route('/ingredients', methods=['POST'])
 def add_ingredient():
-    ingredient_name = request.json.get('name')
+    ingredient_name = request.json.get('name').lower()
     print(ingredient_name)
     if ingredient_name == None:
         abort(400)

@@ -33,6 +33,13 @@ class NestedLogin extends React.Component {
           }})
 	  .then(response => {
 	      if(response.ok){
+		  return response.json();
+	      }else{
+		  this.setState({isAuth : false});
+	      }
+	  })
+	  .then(data=> {
+	      if(data.id >= 0){
 		  this.setState({isAuth : true});
 	      }else{
 		  this.setState({isAuth : false});
@@ -91,7 +98,11 @@ class NestedLogin extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email: email, username: username, password: password })
-    }).then(response => response.ok).then(success => (success ? this.setState({ isAuth: success }) : alert("Email/username already taken")))
+    }).then(response => response.ok).then(success => {
+	if(!success){
+	    alert("Email/username already taken")
+	}
+    })
   }
 
   forgotPassword(email) {
