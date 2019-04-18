@@ -12,7 +12,7 @@ class Userpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //id: this.props.match.params.id,
+      id: this.props.match.params.id,
       name: '',
       email: '',
       modal: false,
@@ -31,6 +31,7 @@ class Userpage extends Component {
       ingredients: [],
       allergies: [],
       tempAllergies: [],
+      userRecipes: [],
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -46,6 +47,7 @@ class Userpage extends Component {
     this.getFavorites = this.getFavorites.bind(this);
     this.cancelAllergies = this.cancelAllergies.bind(this);
     this.submitAllergies = this.submitAllergies.bind(this);
+    this.getUserRecipes = this.getUserRecipes.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +68,9 @@ class Userpage extends Component {
         console.log(this.state.ingredients)
         console.log(data.avatar_url)
       })
+
+      this.getUserRecipes();
+      console.log("User: " + this.state.id)
   }
 
   usernameModal() {
@@ -199,6 +204,27 @@ class Userpage extends Component {
     this.allergyModal();
   }
 
+  getUserRecipes() {
+    var recipeArray = [];
+    fetch("/api/recipes", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      if(response.ok) {
+        return response.json();
+    }})
+    .then(data => {recipeArray = data});
+    
+    var newState = this.state;
+    recipeArray.map(r => {
+      if(r.id === this.state.id) {
+        newState.userRecipes.unshift(r.name);
+      }
+    });
+  }
+
   render() {
     return (
       <div id="layout" style={style}>
@@ -291,6 +317,14 @@ class Userpage extends Component {
             </div>
             <div id='favorites'>
               <FavoriteRecipeDisplay favorites={this.state.favorites} />
+            </div>
+            <div id="userRecipes" style={{display: "block"}}>
+              <h5>My Recipes</h5>
+              {(this.state.userRecipes.length !== 0) ? (
+                  this.state.userRecipes.map((recipe, index) => {
+                    return <li key={index}>{recipe.name}</li>
+                   })) : <h5 style={{paddingLeft: 40}}>No recipes yet!</h5>
+              }
             </div>
           </div>
         </div>

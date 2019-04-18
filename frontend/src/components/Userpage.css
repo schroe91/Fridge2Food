@@ -31,7 +31,7 @@
     margin-right: auto;
 }
 
-#username, #email, #ingredients, #allergies, #favorites {
+#username, #email, #ingredients, #allergies, #favorites, #userRecipes {
     padding-top: 30px;
     display: flex;
 }
