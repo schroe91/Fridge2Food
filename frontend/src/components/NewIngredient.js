@@ -24,15 +24,15 @@ class NewIngredient extends React.Component {
 		}).then(response =>{
 			console.log("database:" , response)  
 			if(response.status === 201){
-				console.log("added to database")
+        console.log("added to database")
+        return response.json()
 			}else if (response.status === 409){
-				console.log("already in database")
+        console.log("already in database")
+        return response.json()
 				//return Promise.reject(new Error("Did not add to database"));
 			}else{
 				console.log("not added to database")
 			}
-			this.setState({id:response.id})
-			console.log(this.state.id)
 		})
 
 	}
