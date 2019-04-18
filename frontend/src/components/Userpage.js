@@ -5,13 +5,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Userpage.css";
 import { NavLink } from 'react-router-dom';
 import IngredientDisplay from "./IngredientDisplay.js";
-import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js"
+import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js";
+import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
 class Userpage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //id: this.props.match.params.id,
+      id: this.props.match.params.id,
       name: '',
       email: '',
       modal: false,
@@ -29,7 +30,8 @@ class Userpage extends Component {
       avatar_url: profilepic,
       ingredients: [],
       allergies: [],
-      allergy: '',
+      tempAllergies: [],
+      userRecipes: [],
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
@@ -41,7 +43,11 @@ class Userpage extends Component {
     this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
-    
+    this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
+    this.cancelAllergies = this.cancelAllergies.bind(this);
+    this.submitAllergies = this.submitAllergies.bind(this);
+    this.getUserRecipes = this.getUserRecipes.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +68,9 @@ class Userpage extends Component {
         console.log(this.state.ingredients)
         console.log(data.avatar_url)
       })
+
+      this.getUserRecipes();
+      console.log("User: " + this.state.id)
   }
 
   usernameModal() {
@@ -79,18 +88,21 @@ class Userpage extends Component {
       oldPassword: '',
     }));
   }
+
   pictureModal() {
     this.setState(prevState => ({
       modal4: !prevState.modal4,
       newPic: '',
     }));
   }
+
   allergyModal() {
     this.setState(prevState => ({
       modal5: !prevState.modal5,
       allergies: this.state.allergies,
     }));
   }
+
   handleChange(e) {
     //console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
@@ -118,31 +130,13 @@ class Userpage extends Component {
     });
   }
 
-  handleChangePicture(ev){
+  handleChangePicture(ev) {
     ev.preventDefault();
-    const {newPic} = this.state;
+    const { newPic } = this.state;
     this.changePic(newPic);
     this.setState({
       newPic: '',
     });
-  }
-  handleSubmit5(ev){
-    ev.preventDefault();
-    const {allergy} = this.state;
-    this.addAllergy(allergy);
-    this.setState({
-      allergy: '',
-    })
-  }
-  addAllergy(allergy){
-    var link = 'api/users/' + this.state.id + '/allergies'
-    fetch(link,{
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({allergy: allergy})
-    }).then(response => response.ok).then(console.log('allergy added'))
   }
 
   changeUsername(newU, password) {
@@ -171,9 +165,66 @@ class Userpage extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: newPic,})
+      body: JSON.stringify({ username: newPic, })
     }).then(response => response.ok).then(console.log('img success'))
   }
+
+  addAllergy(allergy) {
+    this.setState({ tempAllergies: allergy });
+  }
+
+  getFavorites() {
+
+  }
+
+  getCurrentIngredients() {
+
+  }
+
+  cancelAllergies() {
+    this.setState({ allergies: [] });
+    this.allergyModal();
+  }
+
+  submitAllergies() {
+    var newState = this.state;
+    newState.allergies = this.state.tempAllergies;
+    this.setState(newState);
+
+    //Add to backend
+    /*var link = 'api/users/' + this.state.id + '/allergies'
+    fetch(link,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({allergy: allergy})
+    }).then(response => response.ok).then(console.log('allergy added'))*/
+
+    this.allergyModal();
+  }
+
+  getUserRecipes() {
+    var recipeArray = [];
+    fetch("/api/recipes", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      if(response.ok) {
+        return response.json();
+    }})
+    .then(data => {recipeArray = data});
+    
+    var newState = this.state;
+    recipeArray.map(r => {
+      if(r.id === this.state.id) {
+        newState.userRecipes.unshift(r.name);
+      }
+    });
+  }
+
   render() {
     return (
       <div id="layout" style={style}>
@@ -187,16 +238,16 @@ class Userpage extends Component {
             <img src={profilepic} alt="" id="pic" />
             <button className="button style" onClick={this.pictureModal}>Edit Profile Picture</button>
             <Modal isOpen={this.state.modal4} toggle={this.pictureModal} size="sm">
-                <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
-                <ModalBody>
-                  <input type="text" name="newPic" placeholder="New Pic" size="22"
-                    onChange={this.handleChange} value={this.state.newPic} />
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={this.handleChangePicture}>Submit</Button>
-                  <Button color="secondary" onClick={this.pictureModal}>Cancel</Button>
-                </ModalFooter>
-              </Modal>
+              <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
+              <ModalBody>
+                <input type="text" name="newPic" placeholder="New Pic" size="22"
+                  onChange={this.handleChange} value={this.state.newPic} />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.handleChangePicture}>Submit</Button>
+                <Button color="secondary" onClick={this.pictureModal}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
           </div>
           <div id="info">
             <h3 id="header">Account Info</h3>
@@ -235,42 +286,63 @@ class Userpage extends Component {
               </Modal>
             </div>
             <div id='ingredients'>
-             <IngredientDisplay ingredients = {this.state.ingredients}/>
+              <IngredientDisplay ingredients={this.state.ingredients} />
             </div>
             <div id="allergies">
-              <ul>
-              <h5>User Allergies</h5>
-                {this.state.allergies.map((item) => (
-                <li>
-                  {item.name}
-                </li>
-              ))}
+              <div style={{display: "block"}}>
+                <h5>Allergies</h5>
+                <ul>
+                  {this.state.allergies.map((item, index) => (
+                    <li key={index}>
+                      {item.label}
+                    </li>
+                  ))}
                 </ul>
-                <button className="button" onClick={this.allergyModal}> Add Allergy </button>
+              </div>
+              <button className="button" onClick={this.allergyModal}> Add Allergy </button>
               <Modal isOpen={this.state.modal5} toggle={this.allergyModal} size="sm">
-                <ModalHeader toggle={this.toggle}>Enter Allergy</ModalHeader>
-                <ModalBody>
-                  <input type="text" name="allergy" placeholder="allergy" size="22"
-                    onChange={this.handleChange} value={this.state.allergy} />
-                </ModalBody>
+                <div id="multiSelect">
+                  <ReactMultiSelectCheckboxes
+                    options={filters}
+                    isSearchable={false}
+                    onChange={this.addAllergy}
+                    placeholderButtonLabel="Allergies"
+                  />
+                </div>
                 <ModalFooter>
-                  <Button color="primary" onClick={this.handleChangeUsername5}>Submit</Button>
-                  <Button color="secondary" onClick={this.allergyModal}>Cancel</Button>
+                  <Button color="primary" onClick={this.submitAllergies}>Submit</Button>
+                  <Button color="secondary" onClick={this.cancelAllergies}>Cancel</Button>
                 </ModalFooter>
               </Modal>
             </div>
             <div id='favorites'>
-              <FavoriteRecipeDisplay favorites = {this.state.favorites}/>
+              <FavoriteRecipeDisplay favorites={this.state.favorites} />
+            </div>
+            <div id="userRecipes" style={{display: "block"}}>
+              <h5>My Recipes</h5>
+              {(this.state.userRecipes.length !== 0) ? (
+                  this.state.userRecipes.map((recipe, index) => {
+                    return <li key={index}>{recipe.name}</li>
+                   })) : <h5 style={{paddingLeft: 40}}>No recipes yet!</h5>
+              }
             </div>
           </div>
         </div>
       </div>
-      )
+    )
   }
 
 }
+export default Userpage;
+
+const filters = [
+  { value: 1, label: "Milk" },
+  { value: 2, label: "Nuts" },
+  { value: 3, label: "Soy" },
+  { value: 4, label: "Wheat" },
+];
+
 const style = {
   position: "absolute",
   width: "100%",
-}
-export default Userpage;
+};

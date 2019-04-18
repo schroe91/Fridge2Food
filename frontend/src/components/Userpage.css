@@ -31,7 +31,7 @@
     margin-right: auto;
 }
 
-#username, #email, #ingredients, #allergies, #favorites {
+#username, #email, #ingredients, #allergies, #favorites, #userRecipes {
     padding-top: 30px;
     display: flex;
 }
@@ -52,6 +52,8 @@
 }
 
 #allergies .button{
-    margin-left: auto !important;
+    margin-left: auto;
     font-size: 12px;
+    margin-bottom: auto;
+    margin-top: 0;
 }
