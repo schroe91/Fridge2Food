@@ -35,15 +35,17 @@ class IngredientList extends React.Component {
 		return response.json();
 	    }
 	}).then(data =>{
+		if(data){
 	    for(var i = 0; i<data.ingredients.length; i++){
 		this.handleSubmit(data.ingredients[i].name);
-	    }
+		}
+	}
 	})
     }
 	AddIngredienttoUser() {
 	    const first = '/api/users/';
 	    const second = 'current';
-	    console.log('current')
+	    console.log('current: ' + this.state.name)
 	    const third = '/ingredients'
 	    const link = first + second + third;
 	    //check if in database
@@ -56,8 +58,8 @@ class IngredientList extends React.Component {
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({ name: this.state.name })
 	    }).then(response =>{ 
-		console.log(this.state.ingredientId)
 		if(response.ok){
+			console.log(this.state.name + " added to user")
 		    return response.json();
 		}else{
 		    console.log("not added to user")
@@ -91,7 +93,7 @@ class IngredientList extends React.Component {
 			}
 		}).then(data => {
 			this.setState({id:data.id})
-			console.log("added: " + this.state.id)
+			//console.log("added: " + this.state.id)
 		})
 			
 	}
@@ -119,6 +121,7 @@ class IngredientList extends React.Component {
 		const second = 'current';
 		const third = '/ingredients/'
 		const link = first + second + third;
+		console.log("delete: " + this.state.name)
 		fetch(link, {
 		    method: "DELETE",
 		    headers:{
@@ -129,6 +132,7 @@ class IngredientList extends React.Component {
 	}
 
 	deleteAll() {
+		console.log("delete all")
 		const link = '/api/users/current/ingredients/all';
 		fetch(link, {
 			method: "DELETE",

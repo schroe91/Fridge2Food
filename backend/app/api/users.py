@@ -199,7 +199,7 @@ def delete_user_ingredient_by_name(id):
     else:
         user = User.query.get_or_404(id)
     
-    name = request.json.get('name')
+    name = request.json.get("name")
     print("Deleting: "+name)
     ing = Ingredient.query.filter_by(name=name).first()
     if ing not in user.ingredients:

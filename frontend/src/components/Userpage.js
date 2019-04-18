@@ -4,6 +4,8 @@ import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Userpage.css";
 import { NavLink } from 'react-router-dom';
+import IngredientDisplay from "./IngredientDisplay.js";
+import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js"
 
 class Userpage extends Component {
   constructor(props) {
@@ -21,12 +23,12 @@ class Userpage extends Component {
       password: '',
       oldPassword: '',
       newPassword: '',
-      favorites: ["none"],
+      favorites: [],
       newPic: '',
       id: '',
       avatar_url: profilepic,
       ingredients: [],
-      allergies: ["none"],
+      allergies: [],
       allergy: '',
     }
     this.handleChange = this.handleChange.bind(this);
@@ -39,6 +41,7 @@ class Userpage extends Component {
     this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
+    
   }
 
   componentDidMount() {
@@ -52,8 +55,8 @@ class Userpage extends Component {
           avatar_url: data.avatar_url,
           id: data.id,
           ingredients: data.ingredients,
-         // allergies: data.allergies,
-         // favorites: data.favorites
+          allergies: data.allergies,
+          favorites: data.favorites
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
@@ -171,7 +174,6 @@ class Userpage extends Component {
       body: JSON.stringify({ username: newPic,})
     }).then(response => response.ok).then(console.log('img success'))
   }
-  
   render() {
     return (
       <div id="layout" style={style}>
@@ -233,18 +235,11 @@ class Userpage extends Component {
               </Modal>
             </div>
             <div id='ingredients'>
-              <h5>User Ingredients</h5>
-              <ul>
-                {this.state.ingredients.map((item) => (
-                <li>
-                  {item.name}
-                </li>
-              ))}
-              </ul>
+             <IngredientDisplay ingredients = {this.state.ingredients}/>
             </div>
             <div id="allergies">
-              <h5>User Allergies</h5>
               <ul>
+              <h5>User Allergies</h5>
                 {this.state.allergies.map((item) => (
                 <li>
                   {item.name}
@@ -265,14 +260,7 @@ class Userpage extends Component {
               </Modal>
             </div>
             <div id='favorites'>
-              <h5>Favorite Recipes</h5>
-              <ul>
-                {this.state.favorites.map((item) => (
-                <li>
-                  {item}
-                </li>
-              ))}
-              </ul>
+              <FavoriteRecipeDisplay favorites = {this.state.favorites}/>
             </div>
           </div>
         </div>
