@@ -19,12 +19,19 @@ class CreateRecipe extends Component {
       prep_steps: '',
       recipeIMG_url: '',
       ingredientsid: [{id: ""}],
+      userId: 0,
+      vegan: false,
+      veg: false,
+      gluten: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.createRecipe = this.createRecipe.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.addnew = this.addnew.bind(this);
+    this.handleVegChange = this.handleVegChange.bind(this);
+    this.handleVeganChange = this.handleVeganChange.bind(this);
+    this.handleGlutenChange = this.handleGlutenChange.bind(this);
   }
   //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
@@ -35,7 +42,8 @@ class CreateRecipe extends Component {
       },
       body: JSON.stringify({
         name: recipe, ingredients: ingredients, calories: calories, carbs: carbs, date: date,
-        prep_time: prep_time, prep_steps: prep_steps
+        prep_time: prep_time, prep_steps: prep_steps, is_vegan: this.state.vegan,
+        is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: 0, protein: 0
       })
     }).then(response => response.ok).then(success => (success ? alert("Recipe Successfully created") : alert("Failed to create recipe")))
   }
@@ -78,18 +86,17 @@ class CreateRecipe extends Component {
         },
         body: JSON.stringify({name: ingredient})
     }).then( response => {
-      if(response.status === 200 || response.status===409){
+      if(response.status === 200 || response.status===409 || response.status === 201){
         return response.json();
       }
     }).then(data =>{
-      console.log("id = " + data.id);
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
     }) 
   };
   handleSubmit2 = (e) => {
     e.preventDefault();
     const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
-    const listItems = ingredients.map((name) =>
+    ingredients.map((name) =>
         //console.log(name)
         this.addnew(name.name)
     );
@@ -126,6 +133,27 @@ class CreateRecipe extends Component {
       recipeIMG_url: '',
     }));
   }
+
+  handleVeganChange(ev) {
+    if(this.state.vegan === false)
+      this.setState({ vegan: true });
+    else
+      this.setState({ vegan: false});
+  }
+  
+  handleVegChange(ev) {
+    if(this.state.veg === false)
+      this.setState({ veg: true });
+    else
+      this.setState({ veg: false});
+  }
+  
+  handleGlutenChange(ev) {
+    if(this.state.gluten === false)
+      this.setState({ gluten: true });
+    else
+      this.setState({ gluten: false});
+	}
 
   render() {
     let { recipe, calories, carbs, prep_time, prep_steps } = this.state
@@ -199,6 +227,33 @@ class CreateRecipe extends Component {
             <div>
               <input type="submit" value="Submit" />
             </div>
+            <label id="veganBox">
+							<input
+								type="checkBox"
+								value="vegan"
+								checked={this.state.vegan === true}
+								onChange={this.handleVeganChange}
+							/>
+							Vegan
+						</label>
+            <label id="VegBox">
+							<input
+								type="checkbox"
+								value="veg"
+								checked={this.state.veg === true}
+								onChange={this.handleVegChange}
+							/>
+							Vegetarian
+						</label>
+            <label id="glutenBox">
+							<input
+								type="checkbox"
+								value="gluten"
+								checked={this.state.gluten === true}
+								onChange={this.handleGlutenChange}
+							/>
+							Gluten Free
+						</label>
           </form>
           <button className="button" onClick={this.toggleModal}> Add Recipe Image</button>
           <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">

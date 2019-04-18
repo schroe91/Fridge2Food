@@ -26,6 +26,8 @@ class Recipe extends Component {
       totalRating: 0,
       nav: '',
       recipeId: 0,
+      value: '',
+      value2: '',
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -139,16 +141,17 @@ class Recipe extends Component {
 
   getUser(userId) {
     var user = "";
-
     const link = "/api/users/" + userId;
     fetch(link, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json'
       },
-    }).then(response => response.json())
-    .then(data => {user = data.username});
-
+    }).then(response => {
+      if(response.ok) {
+        return response.json()}
+      })
+    .then(data => {user = data.username})
     return user;
   }
 
@@ -209,15 +212,18 @@ class Recipe extends Component {
                 onChange={this.handleCommentChange}
               />
             </form>
-            {this.state.commentsList.map((c) => (
-              <div>
+            {this.state.commentsList.map((c, index) => (
+              <div key={index + "-" + c.comment}>
                 <div className="list-group-item" id="comment">
-                  <p>{this.getUser(c.user) + " says: " + c.comment}</p>
-                  
+                  <p>
+                    {this.getUser(c.user) + " says: " + c.comment}
+                  </p>
                 </div>
                 <div id="replyList">
-                  {c.comments.map((reply) => (
-                    <p>{this.getUser(reply.user) + " says: " + reply.comment}</p>
+                  {c.comments.map((reply, index) => (
+                    <p key={index + "-" + reply.comment}>
+                      {this.getUser(reply.user) + " says: " + reply.comment}
+                    </p>
                   ))}
                 </div>
                 <div id="reply">
