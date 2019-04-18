@@ -19,7 +19,7 @@ render(){
     return(
         <div>
             {console.log("favoriotes: " + this.props.favorites)}
-            <ul>{(this.props.favorites.length > 0) ? this.FavoriteRecipeDisplay() :<h5>No Favorite Recipes</h5>}
+            <ul>{this.props.favorite ? this.FavoriteRecipeDisplay() :<h5>No Favorite Recipes</h5>}
             </ul>
         </div>
     )
