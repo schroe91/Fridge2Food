@@ -133,6 +133,7 @@ class Comment(db.Model):
         com = {
             "comment_id": self.id,
             'user': self.creator,
+            'username': User.query.get(self.creator).username,
             'comment': self.content,
             'time': self.timestamp,
             'comments': [c.get_data() for c in self.com_comments]
@@ -221,4 +222,4 @@ class Ingredient(db.Model):
     @login.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
+    

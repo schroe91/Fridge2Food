@@ -37,7 +37,7 @@ class Recipe extends Component {
     this.handleLike = this.handleLike.bind(this);
     this.handleReplyChange = this.handleReplyChange.bind(this);
     this.submitReply = this.submitReply.bind(this);
-    this.getUser = this.getUser.bind(this);
+//    this.getUser = this.getUser.bind(this);
   }
 
   handleFavorite(ev) {
@@ -71,17 +71,28 @@ class Recipe extends Component {
     this.setState({ nav: a + this.state.id });
     console.log("nav " + this.state.nav);
 
-    const first = '/api/recipes/';
-    const second = this.state.id;
-    const link = first + second;
-    fetch(link)
-      .then(response => response.json())
-      .then(data => this.setState({
-        ingredients: data.ingredients, name: data.name, calories: data.calories, carbs: data.carbs,
-        date: data.date_added, prep_time: data.prep_time, prep_steps: data.prep_steps, 
-        commentsList: data.comments, recipeId: data.id
-      }));
+      const first = '/api/recipes/';
+      const second = this.state.id;
+      const link = first + second;
+      const request = async() => {
+	  const response = await fetch(link);
+	  const data = await response.json();
+	  this.setState({
+              ingredients: data.ingredients,
+	      name: data.name,
+	      calories: data.calories,
+	      carbs: data.carbs,
+              date: data.date_added,
+	      prep_time: data.prep_time,
+	      prep_steps: data.prep_steps, 
+              commentsList: data.comments,
+	      recipeId: data.id
+	  });
+	  console.log(data.comments);
+      };
 
+      request();
+      
     //Get current username
     fetch("/api/users/current")
       .then(data => this.setState({id: data.id, username: data.username}))
@@ -125,35 +136,38 @@ class Recipe extends Component {
     newState.commentsList[index].comments.push(this.state.value2);
 
     //Submit to backend
-    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.commentsList[index].comment_id;
-    fetch(link, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({comment: this.state.value2})
-    })
-      .then(response => response.json());
-    
-    newState.value2 = "";
-    this.setState(newState);
+      const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.commentsList[index].comment_id;
+      const request = async() =>{
+	  const response = await fetch(link, {
+	      method: "POST",
+	      headers: {
+		  'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify({comment: this.state.value2})
+	  })
+	  if(response.ok){
+	      window.location.reload();
+	  }
+      };
+      request();
+      window.location.reload();
+      newState.value2 = "";
+      this.setState(newState);
   }
 
-  getUser(userId) {
+/*  getUser(userId) {
     var user = "";
-    const link = "/api/users/" + userId;
-    fetch(link, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(response => {
-      if(response.ok) {
-        return response.json()}
-      })
-    .then(data => {user = data.username})
-    return user;
-  }
+      const link = "/api/users/" + userId;
+      const response = await fetch(link, {
+	  method: "GET",
+	  headers: {
+              'Content-Type': 'application/json'
+	  },
+      });
+
+      const data = await response.json();
+      return data.username;
+  }*/
 
   render() {
     return (
@@ -216,13 +230,13 @@ class Recipe extends Component {
               <div key={index + "-" + c.comment}>
                 <div className="list-group-item" id="comment">
                   <p>
-                    {this.getUser(c.user) + " says: " + c.comment}
+                    {c.username + " says: " + c.comment}
                   </p>
                 </div>
                 <div id="replyList">
                   {c.comments.map((reply, index) => (
                     <p key={index + "-" + reply.comment}>
-                      {this.getUser(reply.user) + " says: " + reply.comment}
+                      {reply.username + " says: " + reply.comment}
                     </p>
                   ))}
                 </div>
