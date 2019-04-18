@@ -130,15 +130,6 @@ class Userpage extends Component {
     });
   }
 
-  handleChangePicture(ev) {
-    ev.preventDefault();
-    const { newPic } = this.state;
-    this.changePic(newPic);
-    this.setState({
-      newPic: '',
-    });
-  }
-
   changeUsername(newU, password) {
     fetch('/api/users/changename', {
       method: "POST",
@@ -159,13 +150,22 @@ class Userpage extends Component {
     }).then(response => response.ok).then(console.log('password success'))
   }
 
+  handleChangePicture(ev) {
+    ev.preventDefault();
+    const { newPic } = this.state;
+    this.changePic(newPic);
+    this.setState({
+      newPic: '',
+    });
+  }
+
   changePic(newPic) {
-    fetch('/api/users/changepic', {
+    fetch('/api/users/changeavatar', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: newPic, })
+      body: JSON.stringify({ image_url: newPic, })
     }).then(response => response.ok).then(console.log('img success'))
   }
 
