@@ -84,7 +84,7 @@ class CreateRecipe extends Component {
     }).then(data =>{
       console.log("id = " + data.id);
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
-    })
+    }) 
   };
   handleSubmit2 = (e) => {
     e.preventDefault();
@@ -103,17 +103,16 @@ class CreateRecipe extends Component {
   addImage(recipeIMG_url) {
     fetch('/api/recipeIMG', {
       method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url: recipeIMG_url })
-    }).then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
+      body: JSON.stringify({ url: recipeIMG_url }),
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
   };
   getID(ingredients){
       
   }
 
-  handleSubmit3(ev) {
+  handleSubmit3 = (ev) => {
     ev.preventDefault();
     const { recipeIMG_url } = this.state;
     this.addImage(recipeIMG_url);
