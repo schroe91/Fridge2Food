@@ -35,3 +35,8 @@ button.css-1r4vtzz {
 button#mealType {
     height: 42px;
 }
+
+#submitButton {
+    font-size: 11px;
+    margin: 0;
+}
