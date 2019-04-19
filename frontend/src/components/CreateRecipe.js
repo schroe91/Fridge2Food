@@ -89,17 +89,9 @@ class CreateRecipe extends Component {
       if (response.status === 200 || response.status === 409 || response.status === 201) {
         return response.json();
       }
-<<<<<<< HEAD
-    }).then(data =>{
-	console.log(this.state.ingredientsid)
-	this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
-	console.log(this.state.ingredientsid)
-    }) 
-=======
     }).then(data => {
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
     })
->>>>>>> 445e395b1300c8839418b2018cc6cd6fbd6633a9
   };
   handleSubmit2 = (e) => {
     e.preventDefault();
