@@ -7,9 +7,9 @@ class prep_steps extends React.Component {
     }
     prep_steps() {
         return (<ul>
-                {this.state.prep_steps.split("\n").map((i,key) => {
+                {this.props.prep.split("\n").map((i,key) => 
                     <div key={key}>{i}</div>
-                })}
+                )}
                 </ul>)
     }
     render() {
