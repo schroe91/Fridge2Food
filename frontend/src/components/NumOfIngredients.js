@@ -21,7 +21,7 @@ class NumOfIngredients extends React.Component {
 		this.setState(newState);
 		//var num = list.length;
 		//this.props.setNumOfIngredients(num)
-		updated();
+		//updated();
 	}
 
 	render() {
