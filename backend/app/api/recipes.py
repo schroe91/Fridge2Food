@@ -50,6 +50,30 @@ def add_rating(id):
     db.session.commit()
     return jsonify(recipe.to_dict(user=current_user))
 
+@bp.route('/api/recipeIMG', methods=['POST'])
+def change_recipeIMG():
+    url = request.json.get('image_url')
+    
+    #url = "https://via.placeholder.com/550"
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with SpooledTemporaryFile() as f:#open(path, 'wb') as f:
+            for chunk in r:
+                f.write(chunk)
+            with Image.open(f) as img:
+                cover = resizeimage.resize_cover(img, [200,200])
+                filename = str.format("{}_{}.png",
+                                      current_user.id,
+                                      time.time())
+                filepath = os.path.join(app.config['PROFILE_IMAGE_FOLDER'],
+                                            filename)
+                print(filepath)
+                cover.save(filepath, "PNG")
+                print(url_for('static', filename="images/"+filename))
+                current_user.avatar_url = url_for('static', filename="images/"+filename)
+                db.session.commit()
+                return jsonify(current_user.to_dict())
+
 @bp.route('/recipes/<int:id>/comments/<int:comment_id>', methods=['POST'])
 def commentception(id, comment_id):
     #r = Recipe.query.filter_by(id=id).first()
