@@ -163,7 +163,6 @@ def get_all_recipes():
     for recipe in recipe_dict_list:
         missingIngredients = 0
         for ing in Recipe.query.get(recipe['id']).ingredients:
-            print(ingredients)
             if ing not in ingredients:
                 missingIngredients += 1
         recipe['missing_ingredient_count'] = missingIngredients
