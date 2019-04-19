@@ -43,13 +43,25 @@ class Recipe extends Component {
     //    this.getUser = this.getUser.bind(this);
   }
 
-  handleFavorite(ev) {
-    if (this.state.favColor === "gray") {
+    handleFavorite(ev) {
+	const request = async() => {
+	    const response = await fetch('/api/recipes/'+this.state.recipeId+'/favorite',{
+		method: "POST"
+	    })
+	    const data = await response.json();
+	    if(data.is_favorite){
+		this.setState({ favColor: "rgb(255, 115, 0)", totalFavorite: data.favorite_count });
+	    }else{
+		this.setState({ favColor: "gray", totalFavorite: data.favorite_count});
+	    }
+	}
+	request();
+	/*if (this.state.favColor === "gray") {
       this.setState({ favColor: "rgb(255, 115, 0)", totalFavorite: this.state.totalFavorite + 1 });
     }
     else {
       this.setState({ favColor: "gray", totalFavorite: this.state.totalFavorite - 1 });
-    }
+    }*/
   }
 
   handleLike(ev) {
@@ -92,7 +104,9 @@ class Recipe extends Component {
         recipeId: data.id,
         rating: data.user_rating,
         totalRating: data.rating,
-        recipeIMG_url: data.image_url,
+          recipeIMG_url: data.image_url,
+	  totalFavorite: data.favorite_count,
+	  favColor: data.is_favorite ? "rgb(255, 115, 0)" : "gray"
       });
     };
 

@@ -167,7 +167,7 @@ class Recipe(db.Model):
     #is_lunch = db.Column(db.Boolean, default=False)
     #is_dinner = db.Column(db.Boolean, default=False)
     #is_dessert = db.Column(db.Boolean, default=False)
-
+    favorite_count = db.Column(db.Integer, default=0)
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
     ratings = db.relationship('Rating', secondary=recipe_rating,
                               primaryjoin=(recipe_rating.c.recipe_id == id),
@@ -189,12 +189,14 @@ class Recipe(db.Model):
             'is_vegan': self.is_vegan,
             'is_vegetarian': self.is_vegetarian,
             'is_glutenfree': self.is_glutenfree,
+            'favorite_count': self.favorite_count,
             #'is_lunch': self.is_lunch,
             #'is_breakfast': self.is_breakfast,
             #'is_dessert': self.is_dessert,
             #'is_dinner': self.is_dinner,
             'image_url': self.image_url,
             'meal_type': self.meal_type,
+            'is_favorite': False,
             'comments': [c.get_data() for c in self.comments]
         }
         rating_count = Rating.query.filter_by(recipe=self.id).count()
@@ -207,6 +209,7 @@ class Recipe(db.Model):
             user_rating = self.ratings.filter_by(user=user.id).first()
             if user_rating != None:
                 data['user_rating'] = user_rating.rating
+            data['is_favorite'] = self in user.favorite_recipes
         return data
 
 class Ingredient(db.Model):

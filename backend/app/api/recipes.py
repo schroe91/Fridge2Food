@@ -17,7 +17,7 @@ def string_to_boolean(str):
         return True
     else:
         return False
-
+    
 @bp.route('/recipes/<int:id>', methods=['GET'])
 def get_recipe(id):
 #    searchResults = Recipe.query.get(id)
@@ -34,6 +34,27 @@ def add_comment(id):
     r.comments.append(c)
     db.session.commit()
     return ''
+
+@bp.route('/recipes/<int:id>/favorite', methods=['POST'])
+@login_required
+def favorite_recipe(id):
+    recipe = Recipe.query.get_or_404(id)
+    if recipe.favorite_count == None:
+        recipe.favorite_count = 0
+    if recipe in current_user.favorite_recipes:
+        current_user.favorite_recipes.remove(recipe)
+        recipe.favorite_count -= 1
+        if recipe.favorite_count < 0:
+            recipe.favorite_count = 0
+        db.session.commit()
+        return jsonify({'is_favorite': False, 'favorite_count': recipe.favorite_count})
+    else:
+        current_user.favorite_recipes.append(recipe)
+        recipe.favorite_count += 1
+        db.session.commit()
+        return jsonify({'is_favorite': True, 'favorite_count': recipe.favorite_count})
+    
+        
 
 @bp.route('/recipes/<int:id>/ratings', methods=['POST'])
 @login_required
