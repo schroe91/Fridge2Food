@@ -2,7 +2,7 @@ import React from "react"
 import "./RecipeList.css"
 import ListGroup from 'react-bootstrap/ListGroup'
 
-class RecipeList extends React.Component {
+export default class RecipeList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,26 +11,34 @@ class RecipeList extends React.Component {
             second: 0,
             link: '',
             ingredients: [],
+            num: '',
         };
         this.sort = this.sort.bind(this)
+        this.getRecipes = this.getRecipes.bind(this)
+        this.updated = this.updated.bind(this)
     }
 
+    /*export updated(){
+        this.getingredients();
+        this.getRecipes();
+       // this.setState({num:this.props.num})
+    }*/
+
     getingredients(){
-        console.log(this.props.userId)
         if(this.props.userId !== ''){
         fetch('/users/' + this.props.userId, {
             method: "GET"
         }).then(response=>response.json)
-        .then(data=>{this.setState({ingredients: data.ingredients})})
+        .then(data=>{this.setState({ingredients: data.ingredients})
+    console.log("recipesearch: " + this.state.ingredients)})
         .catch((error) =>{
             console.log("no valid user is logged in")
         })
     }
     }
 
-    componentDidMount() {
+    getRecipes(){
         var more = false;
-        this.getingredients();
         if(this.props.search){
             this.setState({recipes:this.props.id})
         }else{
@@ -79,9 +87,19 @@ class RecipeList extends React.Component {
             });
               
         }
+    }
+
+    componentDidMount() {
+        this.updated();
     }   
 
     componentDidUpdate(prevProps, prevState) {
+        /*console.log("update")
+        console.log("current num: " + this.props.NumofIngredients)
+        console.log("new num: " + prevProps.NumofIngredients)
+        if(this.props.NumofIngredients !== prevProps.NumofIngredients){
+            this.numUpdated();
+        }*/
         if((this.state.recipes !== prevState.recipes) || this.props.search){
             this.props.setSearch(0);
             this.setState({

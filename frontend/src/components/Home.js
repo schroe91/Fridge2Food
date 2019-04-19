@@ -21,7 +21,8 @@ class Home extends Component {
 			sort: '',
 			mealType: '',
 			recipes: [],
-			search: 0
+			search: 0,
+			ingredientsNum: 0,
 		}
 		this.setId = this.setId.bind(this) 
 		//this.getUserId = this.getUserId.bind(this)
@@ -29,6 +30,14 @@ class Home extends Component {
 
 	//Callback function to set numOfRecipes.
 	//Sets this.state and sends it to NumOfRecipes.js
+	setNumOfIngredients(num){
+		console.log("callll")
+		this.setState({
+			ingredientsNum: num
+		})
+		console.log("parent stuff: " + this.state.ingredientsNum)
+	}
+
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
 		this.setState({
@@ -77,7 +86,8 @@ class Home extends Component {
 				</div>
 				<div id="info-panel">
 					<div id="ingredients-panel">
-						<NumOfIngredients user={this.state.userId}/>
+						<NumOfIngredients user={this.state.userId} 
+						setNumOfIngredients = {this.setNumOfIngredients.bind(this)}/>
 					</div>
 					<div id="recipe-panel">
 						<div id="recipe-search">
@@ -100,6 +110,7 @@ class Home extends Component {
 							sort = {this.state.sort}
 							recipes = {this.state.recipes}
 							search = {this.state.search}
+							NumOfIngredients = {this.state.ingredientsNum}
 							/>
 						</div>
 					</div>

@@ -18,7 +18,6 @@ class FavoriteRecipeDisplay extends React.Component {
         return (
             <div>
                 <h5>Favorite Recipes</h5>
-                {console.log("favoriotes: " + this.props.favorites)}
                 <ul>{this.props.favorite ? this.FavoriteRecipeDisplay() : <h5>No Favorite Recipes</h5>}
                 </ul>
             </div>
