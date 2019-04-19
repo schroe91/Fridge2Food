@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import './RecipeFilter.css';
+import { Button } from 'reactstrap';
 
 class recipefilter extends Component {
 
@@ -37,21 +38,21 @@ class recipefilter extends Component {
 	this.props.setMeal(ev.label.toLowerCase());
   }
 
-    handleChangeFilters(ev) {
+  handleChangeFilters(ev) {
 	console.log("HandleChangeFilters ev:")
 	console.log(ev)
 	var tempFilters = []
 	for(var i = 0; i<ev.length; i++){
-	    if(ev[i].value == 1){
+	    if(ev[i].value === 1){
 		tempFilters.push('glutenfree')
 	    }
-	    if(ev[i].value == 2){
+	    if(ev[i].value === 2){
 		tempFilters.push('lactosefree')
 	    }
-	    if(ev[i].value == 3){
+	    if(ev[i].value === 3){
 		tempFilters.push('vegan')
 	    }
-	    if(ev[i].value == 4){
+	    if(ev[i].value === 4){
 		tempFilters.push('vegetarian')
 	    }
 	}
@@ -91,6 +92,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
+        <div id="submit"><Button className="button" onClick={this.submit}>Submit Filters </Button></div>
       </div>
     );
   }

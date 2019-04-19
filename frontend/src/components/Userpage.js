@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.png';
 import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import 'font-awesome/css/font-awesome.min.css';
 import "./Userpage.css";
 import { NavLink } from 'react-router-dom';
 import IngredientDisplay from "./IngredientDisplay.js";
@@ -20,6 +21,7 @@ class Userpage extends Component {
       modal3: false,
       modal4: false,
       modal5: false,
+      modal6: false,
       newUsername: '',
       password: '',
       oldPassword: '',
@@ -43,8 +45,7 @@ class Userpage extends Component {
     this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
-    this.getCurrentIngredients = this.getCurrentIngredients.bind(this);
-    this.getFavorites = this.getFavorites.bind(this);
+   // this.deleteAllergies = this.deleteAllergies.bind(this);
     this.cancelAllergies = this.cancelAllergies.bind(this);
     this.submitAllergies = this.submitAllergies.bind(this);
     this.getUserRecipes = this.getUserRecipes.bind(this);
@@ -175,14 +176,15 @@ class Userpage extends Component {
     this.setState({ tempAllergies: allergy });
   }
 
-  getFavorites() {
-
-  }
-
-  getCurrentIngredients() {
-
-  }
-
+  /*deleteAllergies(allergy){    
+    var array = [this.state.allergies]; // make a separate copy of the array
+    console.log(array);
+    if (allergy.value !== -1) {
+      array.splice(allergy.value, 1);
+      console.log(array)
+      this.setState({allergies: array});
+    }
+  }*/
   cancelAllergies() {
     this.setState({ allergies: [] });
     this.allergyModal();
@@ -348,3 +350,10 @@ const style = {
   position: "absolute",
   width: "100%",
 };
+
+const delButton = {
+	backgroundColor: 'transparent',
+	border: '0',
+	color: "#c20",
+	outline: 'none',
+}

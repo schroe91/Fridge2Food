@@ -1,9 +1,8 @@
 import React from 'react'
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import IngredientList from "./IngredientList";
-import NewIngredients from "./NewIngredient";
 import { NavLink } from 'react-router-dom';
-
+//import {updated} from './RecipeList';
 
 class NumOfIngredients extends React.Component {
 	constructor(props) {
@@ -19,6 +18,9 @@ class NumOfIngredients extends React.Component {
 		const newState = this.state;
 		newState.num = list.length;
 		this.setState(newState);
+		//var num = list.length;
+		//this.props.setNumOfIngredients(num)
+		//updated();
 	}
 
 	render() {
@@ -32,7 +34,6 @@ class NumOfIngredients extends React.Component {
 						<IngredientList setNumOfIngredients={this.updateNum} userId={this.props.user} />
 					</div>
 				</div>
-				<NewIngredients />
 				<div>
 					<div style={listStyle}>
 						<button className="button" id="tocreaterecipe"><NavLink exact to="/CreateRecipe" activeClassName="active">Create New Recipe</NavLink></button>

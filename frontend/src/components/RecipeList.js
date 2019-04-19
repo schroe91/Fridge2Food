@@ -1,10 +1,7 @@
 import React from "react"
 import "./RecipeList.css"
 import ListGroup from 'react-bootstrap/ListGroup'
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
-import Col from 'react-bootstrap/Col'
-
+import Checkbox from './Checkbox'
 class RecipeList extends React.Component {
     constructor(props) {
         super(props);
@@ -14,12 +11,25 @@ class RecipeList extends React.Component {
             second: 0,
             link: '',
             ingredients: [],
+            num: '',
+            checkboxes: OPTIONS.reduce(
+                (options, option) => ({
+                  ...options,
+                  [option]: false
+                }),
+                {}
+              )
         };
         this.sort = this.sort.bind(this)
+        this.updated = this.updated.bind(this)
+    }
+
+    updated(){
+        this.getingredients();
+        this.setState({num:this.props.num})
     }
 
     getingredients(){
-        console.log(this.props.userId)
         if(this.props.userId !== ''){
             fetch('/users/' + this.props.userId, {
 		method: "GET"
@@ -33,7 +43,6 @@ class RecipeList extends React.Component {
     
     componentWillMount() {
         var more = false;
-        this.getingredients();
         if(this.props.search){
             this.setState({recipes:this.props.id})
         }else{
@@ -84,9 +93,19 @@ class RecipeList extends React.Component {
             });
               
         }
+    }
+
+    componentDidMount() {
+        this.updated();
     }   
 
     componentDidUpdate(prevProps, prevState) {
+        /*console.log("update")
+        console.log("current num: " + this.props.NumofIngredients)
+        console.log("new num: " + prevProps.NumofIngredients)
+        if(this.props.NumofIngredients !== prevProps.NumofIngredients){
+            this.numUpdated();
+        }*/
         if((this.state.recipes !== prevState.recipes) || this.props.search){
             this.props.setSearch(0);
             this.setState({
@@ -109,10 +128,33 @@ class RecipeList extends React.Component {
         }
     }
 
+  handleCheckboxChange = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }));
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.checkboxes[option]}
+      onCheckboxChange={this.handleCheckboxChange}
+      key={option}
+    />
+  );
+
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+
     render() {
         return (
             <div id='a'>
                 <h3>Recipe List</h3>
+                {this.createCheckboxes()}
                 <ListGroup variant="flush">
                     {this.state.recipes.map((recipe) => (
                             <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
@@ -123,4 +165,6 @@ class RecipeList extends React.Component {
     }
 }
 export default RecipeList
+
+const OPTIONS = ["Show only My Recipes"];
 
