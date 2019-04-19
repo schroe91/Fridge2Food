@@ -24,6 +24,7 @@ class Recipe extends Component {
       totalFavorite: 0,
       rating: 0,
       totalRating: 0,
+      ratingCount: 0,
       nav: '',
       recipeId: 0,
       value: '',
@@ -115,7 +116,8 @@ class Recipe extends Component {
         const data = await response.json();
         this.setState({
           rating: oldRating,
-          totalRating: data.rating
+          totalRating: data.rating,
+          ratingCount: data.rating_count
         });
       }
     }
@@ -240,7 +242,11 @@ class Recipe extends Component {
               })}
             </ul>
             <h2>Steps:</h2>
-            <p>{this.state.prep_steps}</p>
+            <p>
+              {this.state.prep_steps.split("\n").map((i,key) => {
+                return <div key={key}>{i}</div>;
+              })}
+            </p>
             <p>Date created: {this.state.date}</p>
             <h2 id="commentHeader">Comments</h2>
             <form onSubmit={this.submitComment} id="commentForm">
@@ -255,14 +261,14 @@ class Recipe extends Component {
             {this.state.commentsList.map((c, index) => (
               <div key={index + "-" + c.comment}>
                 <div className="list-group-item" id="comment">
-                  <p>
+                  <p id="p">
                     {c.username + " says: " + c.comment}
                   </p>
                 </div>
                 <div id="replyList">
                   {c.comments.map((reply, index2) => (
                     <div className="list-group-item" key={index2 + "-" + reply.comment}>
-                      <p>{reply.username + " says: " + reply.comment}</p>
+                      <p id="p">{reply.username + " says: " + reply.comment}</p>
                     </div>
                   ))}
                 </div>

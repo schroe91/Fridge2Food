@@ -86,3 +86,12 @@ h2 {
 #replyList, #reply {
     margin-left: 50px;
 }
+
+#replyForm {
+    margin-bottom: 15px;
+}
+
+#p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
