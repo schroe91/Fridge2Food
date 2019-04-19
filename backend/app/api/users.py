@@ -145,6 +145,7 @@ def request_reset():
         send_reset_email(user)
     return ''
 
+
 @bp.route('/users/reset_password/<token>', methods=['POST'])
 def reset_password(token):
     user = User.verify_auth_token(token)
@@ -154,6 +155,16 @@ def reset_password(token):
     user.set_password(password)
     db.session.commit()
     return jsonify(user.to_dict())
+
+@bo.route('/users/<id>/recipes', methods=['GET'])
+def get_user_recipes(id):
+    user = None
+    if str(id).lower() == 'current':
+        user = current_user
+    else:
+        user = User.query.get_or_404(id)
+    data = {'created_recipes': [r.to_dict() for r in user.created_recipes]}
+    return jsonify(data)
 
 @bp.route('/users/current', methods=['GET'])
 def get_current_user():
