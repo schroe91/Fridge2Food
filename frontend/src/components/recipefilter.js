@@ -17,7 +17,8 @@ class recipefilter extends Component {
     }
     this.handleChangeFilters = this.handleChangeFilters.bind(this);
     this.handleChangeSort = this.handleChangeSort.bind(this);
-    this.handleChangeMeal = this.handleChangeMeal.bind(this);
+      this.handleChangeMeal = this.handleChangeMeal.bind(this);
+      this.handleSearch = this.handleSearch.bind(this)
   }
 
   filter_recipe() {
@@ -62,7 +63,10 @@ class recipefilter extends Component {
     //  isToggleOn: !state.isToggleOn
     //}));
   }
-
+    handleSearch(){
+	this.props.doSearch();
+    }
+    
   render() {
     return (
       <div id="filters">
@@ -92,7 +96,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
-        <div id="submit"><Button className="button" onClick={this.submit}>Submit Filters </Button></div>
+        <div id="submit"><Button className="button" onClick={this.handleSearch}>Search</Button></div>
       </div>
     );
   }
