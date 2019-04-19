@@ -1,10 +1,6 @@
 #createRecipe {
-    width: 50%;
+    width: 70%;
     margin-left: 10px;
-}
-
-#createRecipe * {
-    box-sizing: border-box;
 }
   
 body {
@@ -15,7 +11,7 @@ body {
   
 #newLabel {
     margin-top: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     border-bottom: 2px solid #808080;
 }
   
@@ -24,11 +20,11 @@ body {
 }
   
 .forminput5 {
-    display: inline block;
-    /*width: 50%;*/
+    display: block;
     font-size: 18px;
     padding: 5px 10px;
-    margin: 10px 0;
+    margin-bottom: 10px;
+    margin-left: auto;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
@@ -61,10 +57,12 @@ button:disabled#removeIng {
   
 button.small#removeIng {
     display: inline-block;
-    width: auto;
-    padding: 0 20px;
+    width: 30px;
     background-color: #777;
     font-size: 14px;
+    height: 30px;
+    margin: 0;
+    margin-left: 20px;
 }
   
 button.small:hover#removeIng {
@@ -79,4 +77,34 @@ button.small:hover#removeIng {
 #recipeDiv {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+#veganBox, #vegBox {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+#image {
+    display: block;
+}
+
+#inputDiv {
+    display: flex;
+}
+
+.ingredient {
+    margin-bottom: 10px;
+}
+
+#addIngButton {
+    margin-bottom: 20px;
+}
+
+#submitButton {
+    margin-left: 0;
+}
+
+#image.button {
+    margin-top: 0;
 }

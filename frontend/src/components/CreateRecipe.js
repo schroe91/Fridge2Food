@@ -18,7 +18,7 @@ class CreateRecipe extends Component {
       prep_time: '',
       prep_steps: '',
       recipeIMG_url: '',
-      ingredientsid: [{id: ""}],
+      ingredientsid: [{ id: "" }],
       userId: 0,
       vegan: false,
       veg: false,
@@ -75,48 +75,48 @@ class CreateRecipe extends Component {
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   };
-  
-  addnew(ingredient){
+
+  addnew(ingredient) {
     console.log("addnew =" + ingredient)
     fetch('/api/ingredients', {
-        method: "POST",
-        //mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: ingredient})
-    }).then( response => {
-      if(response.status === 200 || response.status===409 || response.status === 201){
+      method: "POST",
+      //mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name: ingredient })
+    }).then(response => {
+      if (response.status === 200 || response.status === 409 || response.status === 201) {
         return response.json();
       }
-    }).then(data =>{
+    }).then(data => {
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
-    }) 
+    })
   };
   handleSubmit2 = (e) => {
     e.preventDefault();
     const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
     ingredients.map((name) =>
-        //console.log(name)
-        this.addnew(name.name)
+      //console.log(name)
+      this.addnew(name.name)
     );
-    const {ingredientsid} = this.state;
- 
-    console.log("ing id = " +ingredientsid);
+    const { ingredientsid } = this.state;
+
+    console.log("ing id = " + ingredientsid);
     this.createRecipe(recipe, ingredientsid, calories, carbs, date, prep_time, prep_steps);
-    
+
   };
-  
+
   addImage(recipeIMG_url) {
     fetch('/api/recipeIMG', {
       method: "POST",
       body: JSON.stringify({ url: recipeIMG_url }),
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     })
-    .then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
+      .then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
   };
-  getID(ingredients){
-      
+  getID(ingredients) {
+
   }
 
   handleSubmit3 = (ev) => {
@@ -135,25 +135,25 @@ class CreateRecipe extends Component {
   }
 
   handleVeganChange(ev) {
-    if(this.state.vegan === false)
+    if (this.state.vegan === false)
       this.setState({ vegan: true });
     else
-      this.setState({ vegan: false});
+      this.setState({ vegan: false });
   }
-  
+
   handleVegChange(ev) {
-    if(this.state.veg === false)
+    if (this.state.veg === false)
       this.setState({ veg: true });
     else
-      this.setState({ veg: false});
+      this.setState({ veg: false });
   }
-  
+
   handleGlutenChange(ev) {
-    if(this.state.gluten === false)
+    if (this.state.gluten === false)
       this.setState({ gluten: true });
     else
-      this.setState({ gluten: false});
-	}
+      this.setState({ gluten: false });
+  }
 
   render() {
     let { recipe, calories, carbs, prep_time, prep_steps } = this.state
@@ -168,105 +168,111 @@ class CreateRecipe extends Component {
         </div>
         <div id="createRecipe">
           <h4 id="newLabel">Create New Recipe</h4>
-
-          <form onSubmit={this.handleSubmit2} onChange={this.handleChange} id="recipeForm">
-            <div id="recipeDiv">
-              <label htmlFor="recipe">Recipe Name</label>
-              <input type="text" className="forminput5" name="recipe" id="recipe" value={recipe} />
-            </div>
-            <br></br>
+          <div id="panel" style={{ display: "flex" }}>
             <div>
-              <label htmlFor="calories">Calories</label>
-              <input type="text" className="forminput5" name="calories" id="calories" value={calories} />
-            </div>
-            <br></br>
-            <div>
-              <label htmlFor="carbs">Carbs</label>
-              <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} />
-            </div>
-            <br></br>
-            <div>
-              <label htmlFor="preptime">Prep Time</label>
-              <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} />
-            </div>
-            <br></br>
-            <label htmlFor="Ingredients">List of Ingredients</label>
-            {this.state.ingredients.map((ingredient, idx) => (
-              <div className="ingredient">
-                <input
-                  type="text"
-                  className="forminput5"
-                  placeholder={`Ingredient ${idx + 1}`}
-                  value={ingredient.name}
-                  onChange={this.handleIngredientNameChange(idx)}
-                />
+              <form onSubmit={this.handleSubmit2} onChange={this.handleChange} id="recipeForm">
+                <div id="inputDiv">
+                  <label htmlFor="recipe">Recipe Name</label>
+                  <input type="text" className="forminput5" name="recipe" id="recipe" value={recipe} />
+                </div>
+                <br></br>
+                <div id="inputDiv">
+                  <label htmlFor="calories">Calories</label>
+                  <input type="text" className="forminput5" name="calories" id="calories" value={calories} />
+                </div>
+                <br></br>
+                <div id="inputDiv">
+                  <label htmlFor="carbs">Carbs</label>
+                  <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} />
+                </div>
+                <br></br>
+                <div id="inputDiv">
+                  <label htmlFor="preptime">Prep Time</label>
+                  <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} />
+                </div>
+                <br></br>
+                <label htmlFor="Ingredients" id="ingList">List of Ingredients</label>
+                {this.state.ingredients.map((ingredient, idx) => (
+                  <div className="ingredient">
+                    <input
+                      type="text"
+                      className="ingInput"
+                      placeholder={`Ingredient ${idx + 1}`}
+                      value={ingredient.name}
+                      onChange={this.handleIngredientNameChange(idx)}
+                    />
+                    <button
+                      type="button"
+                      onClick={this.handleRemoveIngredient(idx)}
+                      className="small"
+                      id="removeIng"
+                    >
+                      -
+                    </button>
+                  </div>
+                ))}
                 <button
                   type="button"
-                  onClick={this.handleRemoveIngredient(idx)}
+                  onClick={this.handleAddIngredient}
                   className="small"
-                  id="removeIng"
+                  id="addIngButton"
                 >
-                  -
-            </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={this.handleAddIngredient}
-              className="small"
-            >
-              Add Ingredient
-        </button>
-            <br></br>
-            <div>
-              <label htmlFor="prep_steps">Instructions:</label>
-            </div>
-            <div>
-              <textarea name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps} />
-            </div>
-            <div>
-              <input type="submit" value="Submit" />
-            </div>
-            <label id="veganBox">
-							<input
-								type="checkBox"
-								value="vegan"
-								checked={this.state.vegan === true}
-								onChange={this.handleVeganChange}
-							/>
-							Vegan
+                  Add Ingredient
+                </button>
+                <br></br>
+                <div>
+                  <label htmlFor="prep_steps">Instructions:</label>
+                </div>
+                <div>
+                  <textarea name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps} />
+                </div>
+                <label id="veganBox">
+                  <input
+                    type="checkBox"
+                    value="vegan"
+                    checked={this.state.vegan === true}
+                    onChange={this.handleVeganChange}
+                  />
+                  Vegan
 						</label>
-            <label id="VegBox">
-							<input
-								type="checkbox"
-								value="veg"
-								checked={this.state.veg === true}
-								onChange={this.handleVegChange}
-							/>
-							Vegetarian
+                <label id="vegBox">
+                  <input
+                    type="checkbox"
+                    value="veg"
+                    checked={this.state.veg === true}
+                    onChange={this.handleVegChange}
+                  />
+                  Vegetarian
 						</label>
-            <label id="glutenBox">
-							<input
-								type="checkbox"
-								value="gluten"
-								checked={this.state.gluten === true}
-								onChange={this.handleGlutenChange}
-							/>
-							Gluten Free
+                <label id="glutenBox">
+                  <input
+                    type="checkbox"
+                    value="gluten"
+                    checked={this.state.gluten === true}
+                    onChange={this.handleGlutenChange}
+                  />
+                  Gluten Free
 						</label>
-          </form>
-          <button className="button" onClick={this.toggleModal}> Add Recipe Image</button>
-          <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
-            <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
-            <ModalBody>
-              <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22"
-                onChange={this.handleChange} value={this.state.recipeIMG_url} />
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
-              <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
-            </ModalFooter>
-          </Modal>
+                <div>
+                  <input className="button" id="submitButton" type="submit" value="Submit" />
+                </div>
+              </form>
+            </div>
+            <div style={{ marginLeft: "auto" }}>
+              <button className="button" onClick={this.toggleModal} id="image"> Add Recipe Image</button>
+              <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
+                <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
+                <ModalBody>
+                  <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22"
+                    onChange={this.handleChange} value={this.state.recipeIMG_url} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
+                  <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+            </div>
+          </div>
         </div>
       </div>
     )
