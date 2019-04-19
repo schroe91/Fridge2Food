@@ -257,8 +257,9 @@ def add_allergy(id):
     else:
         user = User.query.get_or_404(id)
     
-    ing_id = request.json.get('ingredient')
+    ing_id = request.json.get('allergy')
     ing = Ingredient.query.get(ing_id)
+    print(ing.name)
     user.allergies.append(ing)
     db.session.commit()
     return ''

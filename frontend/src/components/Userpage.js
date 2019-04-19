@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import IngredientDisplay from "./IngredientDisplay.js";
 import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js";
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import UserRecipeDisplay from './UserRecipeDisplay';
 
 class Userpage extends Component {
   constructor(props) {
@@ -176,15 +177,6 @@ class Userpage extends Component {
     this.setState({ tempAllergies: allergy });
   }
 
-  /*deleteAllergies(allergy){    
-    var array = [this.state.allergies]; // make a separate copy of the array
-    console.log(array);
-    if (allergy.value !== -1) {
-      array.splice(allergy.value, 1);
-      console.log(array)
-      this.setState({allergies: array});
-    }
-  }*/
   cancelAllergies() {
     this.setState({ allergies: [] });
     this.allergyModal();
@@ -196,14 +188,18 @@ class Userpage extends Component {
     this.setState(newState);
 
     //Add to backend
-    /*var link = 'api/users/' + this.state.id + '/allergies'
+    var link = 'api/users/' + this.state.id + '/allergies'
+    this.state.allergies.map((item) => (
+     // console.log(item.label),
     fetch(link,{
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({allergy: allergy})
-    }).then(response => response.ok).then(console.log('allergy added'))*/
+      body: JSON.stringify({allergy: item.value})
+    }).then(response =>
+      console.log(response))
+    ))
 
     this.allergyModal();
   }
@@ -297,7 +293,8 @@ class Userpage extends Component {
                 <h5>Allergies</h5>
                 <ul>
                   {this.state.allergies.map((item, index) => (
-                    <li key={index}>
+                    console.log("allergy: " + item),
+                      <li key={index}>
                       {item.label}
                     </li>
                   ))}
@@ -322,13 +319,8 @@ class Userpage extends Component {
             <div id='favorites'>
               <FavoriteRecipeDisplay favorites={this.state.favorites} />
             </div>
-            <div id="userRecipes" style={{display: "block"}}>
-              <h5>My Recipes</h5>
-              {(this.state.userRecipes.length !== 0) ? (
-                  this.state.userRecipes.map((recipe, index) => {
-                    return <li key={index}>{recipe.name}</li>
-                   })) : <h5 style={{paddingLeft: 40}}>No recipes yet!</h5>
-              }
+            <div id="userRecipes">
+              <UserRecipeDisplay userRecipes={this.state.userRecipes} />
             </div>
           </div>
         </div>
