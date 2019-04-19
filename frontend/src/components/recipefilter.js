@@ -14,13 +14,13 @@ class recipefilter extends Component {
         }),
       ),
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChangeFilters = this.handleChangeFilters.bind(this);
     this.handleChangeSort = this.handleChangeSort.bind(this);
     this.handleChangeMeal = this.handleChangeMeal.bind(this);
   }
 
   filter_recipe() {
-    fetch('http://127.0.0.1:5000/api/recipes', {
+    fetch('/api/recipes', {
       method: "GET",
       headers: {
         'Content-Type': 'application/json'
@@ -30,17 +30,36 @@ class recipefilter extends Component {
   }
 
   handleChangeSort(ev) {
-    this.props.setSort(ev);
+      this.props.setSort(ev.label.toLowerCase());
   }
-  handleChangeMeal(ev) {
-    this.props.setMeal(ev);
+    handleChangeMeal(ev) {
+	console.log(ev)
+	this.props.setMeal(ev.label.toLowerCase());
   }
 
-  handleClick(index) {
+    handleChangeFilters(ev) {
+	console.log("HandleChangeFilters ev:")
+	console.log(ev)
+	var tempFilters = []
+	for(var i = 0; i<ev.length; i++){
+	    if(ev[i].value == 1){
+		tempFilters.push('glutenfree')
+	    }
+	    if(ev[i].value == 2){
+		tempFilters.push('lactosefree')
+	    }
+	    if(ev[i].value == 3){
+		tempFilters.push('vegan')
+	    }
+	    if(ev[i].value == 4){
+		tempFilters.push('vegetarian')
+	    }
+	}
+	this.props.setFilters(tempFilters);
     // alert(this.state.value)
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
+    //this.setState(state => ({
+    //  isToggleOn: !state.isToggleOn
+    //}));
   }
 
   render() {
@@ -50,7 +69,7 @@ class recipefilter extends Component {
           <ReactMultiSelectCheckboxes
             options={filters}
             isSearchable={false}
-            onChange={this.handleClick}
+            onChange={this.handleChangeFilters}
             placeholderButtonLabel="Restrictions"
           />
         </div>
@@ -67,7 +86,7 @@ class recipefilter extends Component {
         <ReactMultiSelectCheckboxes
           options={mealType}
           isSearchable={false}
-          onChange={this.handleChangMeal}
+          onChange={this.handleChangeMeal}
           isMulti={false}
           placeholderButtonLabel="Meal Type"
         />

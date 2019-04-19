@@ -1,6 +1,9 @@
 import React from "react"
 import "./RecipeList.css"
 import ListGroup from 'react-bootstrap/ListGroup'
+import Row from 'react-bootstrap/Row'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 
 export default class RecipeList extends React.Component {
     constructor(props) {
@@ -26,18 +29,17 @@ export default class RecipeList extends React.Component {
 
     getingredients(){
         if(this.props.userId !== ''){
-        fetch('/users/' + this.props.userId, {
-            method: "GET"
-        }).then(response=>response.json)
-        .then(data=>{this.setState({ingredients: data.ingredients})
-    console.log("recipesearch: " + this.state.ingredients)})
-        .catch((error) =>{
-            console.log("no valid user is logged in")
-        })
+            fetch('/users/' + this.props.userId, {
+		method: "GET"
+            }).then(response=>response.json)
+		.then(data=>{this.setState({ingredients: data.ingredients})})
+		.catch((error) =>{
+		    console.log("no valid user is logged in")
+		})
+		    }
     }
-    }
-
-    getRecipes(){
+    
+    componentWillMount() {
         var more = false;
         if(this.props.search){
             this.setState({recipes:this.props.id})
@@ -71,7 +73,9 @@ export default class RecipeList extends React.Component {
                 }
                 link += this.props.meal;
             }
-        fetch(link).then(response =>{ 
+	    console.log(link)
+	    
+	    fetch(link).then(response =>{ 
             if(response.ok){
                 //this.setState({isAuth : true})
                     return response.json();
@@ -105,6 +109,7 @@ export default class RecipeList extends React.Component {
             this.setState({
                 recipes: this.props.recipes
             })
+	    this.sort();
             this.props.setNumOfRecipes(this.state.recipes); //Sends recipe array to Home.js (the parent)
         }
     }
@@ -127,7 +132,7 @@ export default class RecipeList extends React.Component {
                 <h3>Recipe List</h3>
                 <ListGroup variant="flush">
                     {this.state.recipes.map((recipe) => (
-                        <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
+                            <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
                     ))}   
                 </ListGroup>
             </div>);
