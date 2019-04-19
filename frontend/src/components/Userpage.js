@@ -26,7 +26,6 @@ class Userpage extends Component {
       newPassword: '',
       favorites: [],
       newPic: '',
-      id: '',
       avatar_url: profilepic,
       ingredients: [],
       allergies: [],

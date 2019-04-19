@@ -83,6 +83,6 @@ h2 {
     outline: none;
 }
 
-#replyList {
+#replyList, #reply {
     margin-left: 50px;
 }

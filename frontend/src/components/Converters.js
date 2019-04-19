@@ -148,7 +148,9 @@ class Converters extends React.Component {
 							/>
 							<select name="select" onChange={this.handleConvertFrom}>
 								{dropdown.map(item => (
-									<option value={item} selected={this.state.convertFrom === item}>{item}</option>
+									<option value={item} selected={this.state.convertFrom === item} key={item}>
+										{item}
+									</option>
 								))}
 							</select>
 						</div>
@@ -156,7 +158,9 @@ class Converters extends React.Component {
 							To:
 							<select name="select" id="to" onChange={this.handleConvertTo}>
 								{dropdown.map(item => (
-									<option value={item} selected={this.state.convertTo === item}>{item}</option>
+									<option value={item} selected={this.state.convertTo === item} key={item}>
+										{item}
+									</option>
 								))}
 							</select>
 						</div>
