@@ -18,7 +18,8 @@ class CreateRecipe extends Component {
       prep_time: '',
       prep_steps: '',
       meal_type: '',
-      recipeIMG_url: '',
+	recipeIMG_url: '',
+	image_url: '',
       ingredientsid: [],
       userId: 0,
       vegan: false,
@@ -112,17 +113,26 @@ class CreateRecipe extends Component {
     const { ingredientsid } = this.state;
 
     console.log("ing id = " + ingredientsid);
-    this.createRecipe(recipe, this.state.ingredientsid, calories, carbs, date, prep_time, prep_steps);
-
+      this.createRecipe(recipe, this.state.ingredientsid, calories, carbs, date, prep_time, prep_steps);
+      
   };
 
-  addImage(recipeIMG_url) {
-    fetch('/api/recipeIMG', {
-      method: "POST",
-      body: JSON.stringify({ url: recipeIMG_url }),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
+    addImage(recipeIMG_url) {
+	const request = async() => {
+	    const response = await fetch('/api/recipe_image', {
+		method: "POST",
+		body: JSON.stringify({ image_url: recipeIMG_url }),
+		headers: { 'Content-Type': 'application/json' }
+	    });
+	    if(response.ok){
+		const data = await response.json();
+		this.setState({image_url: data.url})
+		alert("Image added successfully");
+	    }else{
+		alert("Failed to add image");
+	    }
+	}
+	request();
   };
 
   getID(ingredients) {
@@ -130,14 +140,17 @@ class CreateRecipe extends Component {
   }
 
   handleSubmit3 = (ev) => {
-    ev.preventDefault();
-    const { recipeIMG_url } = this.state;
-    this.addImage(recipeIMG_url);
-    this.setState({
-      recipeIMG_url: '',
-    });
-
-    this.toggleModal();
+      ev.preventDefault();
+      console.log("Submitted")
+      console.log(ev);
+      const { recipeIMG_url } = this.state;
+      console.log(recipeIMG_url);
+      this.addImage(recipeIMG_url);
+      this.setState({
+	  recipeIMG_url: '',
+      });
+      
+      this.toggleModal();
   }
   toggleModal() {
     this.setState(prevState => ({
@@ -277,11 +290,12 @@ class CreateRecipe extends Component {
             </div>
             <div style={{ marginLeft: "auto" }}>
               <img src={this.state.recipeIMG_url} alt="" id="pic" />
-              <button className="button" onClick={this.toggleModal} id="image"> Add Recipe Image</button>
+            <button className="button" onClick={this.toggleModal} id="image"> Add Recipe Image</button>
+	    <div>Image URL: {this.state.image_url}</div>
               <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
                 <ModalBody>
-                  <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22" />
+                  <input type="text" name="recipeIMG_url" onChange={this.handleChange} placeholder="Recipe Image Url" size="22" />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
