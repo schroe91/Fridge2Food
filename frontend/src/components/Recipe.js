@@ -29,6 +29,7 @@ class Recipe extends Component {
       recipeId: 0,
       value: '',
       value2: '',
+      values: [],
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -36,7 +37,6 @@ class Recipe extends Component {
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.submitComment = this.submitComment.bind(this);
     this.handleLike = this.handleLike.bind(this);
-    this.handleReplyChange = this.handleReplyChange.bind(this);
     this.submitReply = this.submitReply.bind(this);
     //    this.getUser = this.getUser.bind(this);
   }
@@ -157,8 +157,11 @@ class Recipe extends Component {
 
   }
 
-  handleReplyChange(ev) {
-    this.setState({ [ev.target.name]: ev.target.value });
+  handleReplyChange(i, ev) {
+    let values = [...this.state.values];
+    values[i] = ev.target.value;
+    this.setState({ values });
+    console.log(values[i]);
   }
 
   submitReply(ev, c) {
@@ -174,7 +177,7 @@ class Recipe extends Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ comment: c.comment })
+        body: JSON.stringify({ comment: this.state.values[index] })
       })
       if (response.ok) {
         window.location.reload();
@@ -278,7 +281,8 @@ class Recipe extends Component {
                       type="text"
                       name={c}
                       placeholder="Leave a reply"
-                      onChange={this.handleReplyChange}
+                      value={this.state.values[index]}
+                      onChange={this.handleReplyChange.bind(this, index)}
                     />
                   </form>
                 </div>

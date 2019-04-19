@@ -92,7 +92,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
-        <Button className="button" onClick={this.submit}>Submit Filters </Button>
+        <Button className="button" id="submitButton" onClick={this.submit}>Submit Filters </Button>
       </div>
     );
   }
