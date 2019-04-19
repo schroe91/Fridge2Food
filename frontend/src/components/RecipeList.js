@@ -17,15 +17,13 @@ class RecipeList extends React.Component {
             num: '',
         };
         this.sort = this.sort.bind(this)
-        this.getRecipes = this.getRecipes.bind(this)
         this.updated = this.updated.bind(this)
     }
 
-    /*export updated(){
+    updated(){
         this.getingredients();
-        this.getRecipes();
-       // this.setState({num:this.props.num})
-    }*/
+        this.setState({num:this.props.num})
+    }
 
     getingredients(){
         if(this.props.userId !== ''){

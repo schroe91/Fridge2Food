@@ -45,7 +45,7 @@ class Userpage extends Component {
     this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
-    this.deleteAllergies = this.deleteAllergies.bind(this);
+   // this.deleteAllergies = this.deleteAllergies.bind(this);
     this.cancelAllergies = this.cancelAllergies.bind(this);
     this.submitAllergies = this.submitAllergies.bind(this);
     this.getUserRecipes = this.getUserRecipes.bind(this);
