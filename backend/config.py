@@ -7,7 +7,7 @@ load_dotenv(os.path.join(basedir, '.env'))
 #APP_ROOT = os.path.abspath(os.path.abspath(__file__))
 
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'temporary_secret_key'
+    #SECRET_KEY = os.environ.get('SECRET_KEY') or 'temporary_secret_key'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = True

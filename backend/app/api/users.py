@@ -141,6 +141,7 @@ def change_password():
 def request_reset():
     email = request.json.get('email')
     user = User.query.filter_by(email=email).first()
+    print(user.to_dict())
     if user:
         send_reset_email(user)
     return ''

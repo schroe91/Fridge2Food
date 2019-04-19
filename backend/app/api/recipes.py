@@ -103,17 +103,20 @@ def get_recipe_image():
 
 @bp.route('/recipes/<int:id>/comments/<int:comment_id>', methods=['POST'])
 def commentception(id, comment_id):
-    #r = Recipe.query.filter_by(id=id).first()
     c = Comment.query.get({"id": comment_id})
-    print(c.get_data())
     comment_content = request.json.get('comment')
-    print(comment_content)
     com = Comment(creator=current_user.id, content=comment_content)
-    print(com.get_data())
     c.com_comments.append(com)
     db.session.commit()
-    
-    #r.query.get(comments)
+    return ''
+
+@bp.route('/recipes/comments/<int:comment_id>', methods=['POST'])
+def setlikes(comment_id):
+    c = Comment.query.get({"id": comment_id})
+    liker_id = current_user
+    print(liker_id)
+    c.likes.append(liker_id)
+    db.session.commit()
     return ''
 
 @bp.route('/recipes', methods=['POST'])
