@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import './RecipeFilter.css';
+import { Button } from 'reactstrap';
 
 class recipefilter extends Component {
 
@@ -91,6 +92,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
+        <Button className="button" onClick={this.submit}>Submit Filters </Button>
       </div>
     );
   }
