@@ -39,13 +39,17 @@ class Home extends Component {
 		this.setState({userId : id})
 	}
 	setFilters = (filters) =>{
-		this.setState({filters: filters})
+	    this.setState({filters: filters})
+	    console.log("Filters:")
+	    console.log(filters)
 	}
 	setSort = (sortby) =>{
 		this.setState({sort: sortby})
 	}
-	setMealType = (mealtype) =>{
-		this.setState({mealType:mealtype})
+	setMealType = (meal) =>{
+	    this.setState({mealType:meal})
+	    console.log("Setting meal type:")
+	    console.log(meal)
 	}
 	setRecipes = (recipes, search) => {
 		this.setState({recipes: recipes, search:search})
@@ -91,15 +95,17 @@ class Home extends Component {
 								/>
 							</div>
 						</div>
-						<div id="recipe-list">
-							<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} 
-							setSearch = {this.setSearch.bind(this)}
-							userId = {this.state.userId}
-							filters = {this.state.filters}
-							meal = {this.state.mealType}
-							sort = {this.state.sort}
-							recipes = {this.state.recipes}
-							search = {this.state.search}
+			<div id="recipe-list">
+			<RecipeList setNumOfRecipes={this.setNumOfRecipes.bind(this)} 
+		    setSearch = {this.setSearch.bind(this)}
+		    
+		    userId = {this.state.userId}
+		    filters = {this.state.filters}
+		    meal = {this.state.mealType}
+		    sort = {this.state.sort}
+		    recipes = {this.state.recipes}
+		    search = {this.state.search}
+		    
 							/>
 						</div>
 					</div>
