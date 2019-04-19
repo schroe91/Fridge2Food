@@ -114,7 +114,7 @@ def add_recipe():
         for i in request.json.get('ingredients'):
             recipe.ingredients.append(Ingredient.query.get(i))
     if request.json.get('image_url') != None:
-        image_url = request.json.get('image_url')
+        recipe.image_url = request.json.get('image_url')
     db.session.add(recipe)
     db.session.commit()
     return jsonify(recipe.to_dict())

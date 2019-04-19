@@ -36,7 +36,7 @@ class CreateRecipe extends Component {
   }
 
   //need to add recipeurl to fetch
-  createRecipe(recipe, ingredients, calories, date, prep_time, prep_steps) {
+    createRecipe(recipe, ingredients, calories, date, prep_time, prep_steps, image_url) {
     fetch('/api/recipes', {
       method: "POST",
       headers: {
@@ -45,7 +45,8 @@ class CreateRecipe extends Component {
       body: JSON.stringify({
         name: recipe, ingredients: ingredients, calories: calories, carbs: '0', date: date,
         prep_time: prep_time, prep_steps: prep_steps, is_vegan: this.state.vegan,
-        is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: '0', protein: '0'
+          is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: '0', protein: '0',
+	  image_url: image_url
       })
     }).then(response => response.ok).then(success => (success ? alert("Recipe Successfully created") : alert("Failed to create recipe")))
   }
@@ -104,7 +105,7 @@ class CreateRecipe extends Component {
 
   handleSubmit2 = (e) => {
     e.preventDefault();
-    const { recipe, ingredients, calories, date, prep_time, prep_steps } = this.state;
+      const { recipe, ingredients, calories, date, prep_time, prep_steps, image_url } = this.state;
     ingredients.map((name) =>
       //console.log(name)
       this.addnew(name.name)
@@ -112,7 +113,7 @@ class CreateRecipe extends Component {
     const { ingredientsid } = this.state;
 
     console.log("ing id = " + ingredientsid);
-    this.createRecipe(recipe, this.state.ingredientsid, calories, date, prep_time, prep_steps);
+      this.createRecipe(recipe, this.state.ingredientsid, calories, date, prep_time, prep_steps, image_url);
 
   };
 
