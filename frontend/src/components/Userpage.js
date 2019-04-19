@@ -293,7 +293,6 @@ class Userpage extends Component {
                 <h5>Allergies</h5>
                 <ul>
                   {this.state.allergies.map((item, index) => (
-                    console.log("allergy: " + item),
                       <li key={index}>
                       {item.label}
                     </li>
@@ -343,9 +342,9 @@ const style = {
   width: "100%",
 };
 
-const delButton = {
+/*const delButton = {
 	backgroundColor: 'transparent',
 	border: '0',
 	color: "#c20",
 	outline: 'none',
-}
+}*/

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Recipe.css";
 import StarRatings from 'react-star-ratings';
+import prep_steps from './prep_steps';
 
 class Recipe extends Component {
   constructor(props) {
@@ -246,9 +247,7 @@ class Recipe extends Component {
             </ul>
             <h2>Steps:</h2>
             <p>
-              {this.state.prep_steps.split("\n").map((i,key) => {
-                return <div key={key}>{i}</div>;
-              })}
+              <prep_steps prep = {this.state.prep_steps}></prep_steps>
             </p>
             <p>Date created: {this.state.date}</p>
             <h2 id="commentHeader">Comments</h2>
