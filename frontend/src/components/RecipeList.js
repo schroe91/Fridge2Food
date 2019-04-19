@@ -1,10 +1,7 @@
 import React from "react"
 import "./RecipeList.css"
 import ListGroup from 'react-bootstrap/ListGroup'
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
-import Col from 'react-bootstrap/Col'
-
+import Checkbox from './Checkbox'
 class RecipeList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +12,13 @@ class RecipeList extends React.Component {
             link: '',
             ingredients: [],
             num: '',
+            checkboxes: OPTIONS.reduce(
+                (options, option) => ({
+                  ...options,
+                  [option]: false
+                }),
+                {}
+              )
         };
         this.sort = this.sort.bind(this)
         this.updated = this.updated.bind(this)
@@ -124,10 +128,33 @@ class RecipeList extends React.Component {
         }
     }
 
+  handleCheckboxChange = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }));
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.checkboxes[option]}
+      onCheckboxChange={this.handleCheckboxChange}
+      key={option}
+    />
+  );
+
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+
     render() {
         return (
             <div id='a'>
                 <h3>Recipe List</h3>
+                {this.createCheckboxes()}
                 <ListGroup variant="flush">
                     {this.state.recipes.map((recipe) => (
                             <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
@@ -138,4 +165,6 @@ class RecipeList extends React.Component {
     }
 }
 export default RecipeList
+
+const OPTIONS = ["Show only My Recipes"];
 
