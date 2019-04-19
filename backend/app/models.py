@@ -45,6 +45,12 @@ recipe_rating = db.Table(
     db.Column('rating', db.Integer, db.ForeignKey('rating.id'))
 )
 
+comment_likes = db.Table(
+    'comment_likes',
+    db.Column('like_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('com_id', db.Integer, db.ForeignKey('comment.id'))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -102,6 +108,7 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def verify_auth_token(token):
+        print(token)
         s = Serializer(app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
@@ -130,6 +137,12 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     content = db.Column(db.String(140))
     com_comments = db.relationship('Comment', secondary=comment_comment, primaryjoin=id == comment_comment.c.comcom_id, backref='comcom')
+    #likes = db.relationship('User', secondary=comment_likes, primaryjoin=id == comment_likes.c.com_id, backref='like')
+
+    def get_likes(self):
+        likes = {
+            'user id': self.id
+        }
 
     def get_data(self):
         com = {
@@ -139,8 +152,10 @@ class Comment(db.Model):
             'comment': self.content,
             'time': self.timestamp,
             'comments': [c.get_data() for c in self.com_comments]
+            #'likes': self.likes
         }
         return com
+    
     
 
 class Recipe(db.Model):

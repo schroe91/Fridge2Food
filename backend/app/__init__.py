@@ -20,6 +20,15 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
+
+    app.config.update(
+        MAIL_SERVER='smtp.gmail.com',
+        MAIL_PORT=465,
+        MAIL_USE_SSL=True,
+        MAIL_USERNAME = 'fridge2food@gmail.com',
+        MAIL_PASSWORD = 'teamnumber18'
+    )
+
     mail = Mail(app)
 
     app.config['SECRET_KEY'] = 'just a random string'
