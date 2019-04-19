@@ -33,6 +33,7 @@ class Userpage extends Component {
       allergies: [],
       tempAllergies: [],
       userRecipes: [],
+      ingredientsid: [],
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -55,7 +56,6 @@ class Userpage extends Component {
     fetch('/api/users/current')
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         this.setState({
           name: data.username,
           email: data.email,
@@ -67,13 +67,8 @@ class Userpage extends Component {
           profile: data.avatar_url,
           userRecipes: data.created_recipes
         })
-        console.log(this.state.id)
-        console.log(this.state.ingredients)
-        console.log(data.avatar_url)
       })
-
     this.getUserRecipes();
-    console.log("User: " + this.state.id)
   }
 
   usernameModal() {
@@ -107,7 +102,6 @@ class Userpage extends Component {
   }
 
   handleChange(e) {
-    //console.log(this.state.id);
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -157,9 +151,8 @@ class Userpage extends Component {
     ev.preventDefault();
     const { newPic } = this.state;
     this.changePic(newPic);
-    this.setState({
-      newPic: '',
-    });
+
+    this.pictureModal();
   }
 
   changePic(newPic) {
@@ -169,7 +162,8 @@ class Userpage extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ image_url: newPic, })
-    }).then(response => response.ok).then(console.log('img success'))
+    }).then(response => response.json())
+      .then(data => this.setState({ avatar_url: data.avatar_url }))
   }
 
   addAllergy(allergy) {
@@ -185,12 +179,13 @@ class Userpage extends Component {
     var newState = this.state;
     newState.allergies = this.state.tempAllergies;
     this.setState(newState);
-
+    var link, index;
     //Add to backend
-    var link = 'api/users/' + this.state.id + '/allergies'
     this.state.allergies.map((item) => (
-      
-      // console.log(item.label),
+      this.addnew(item.value),
+      index = this.state.ingredientsid.findIndex(obj => obj.name === item.value),
+      console.log(index),
+      link = 'api/users/' + this.state.ingredientsid[index].id + '/allergies',
       fetch(link, {
         method: "POST",
         headers: {
@@ -227,11 +222,8 @@ class Userpage extends Component {
   }
 
   addnew(ingredient) {
-    console.log("addnew =" + ingredient)
-
     fetch('/api/ingredients', {
       method: "POST",
-      //mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -241,7 +233,9 @@ class Userpage extends Component {
         return response.json();
       }
     }).then(data => {
-      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] })
+      const newState = this.state;
+      newState.ingredientsid.unshift({ id: data.id, name: data.name });
+      this.setState(newState);
     })
   }
 

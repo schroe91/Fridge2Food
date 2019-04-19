@@ -17,8 +17,8 @@ class recipefilter extends Component {
     }
     this.handleChangeFilters = this.handleChangeFilters.bind(this);
     this.handleChangeSort = this.handleChangeSort.bind(this);
-      this.handleChangeMeal = this.handleChangeMeal.bind(this);
-      this.handleSearch = this.handleSearch.bind(this)
+    this.handleChangeMeal = this.handleChangeMeal.bind(this);
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   filter_recipe() {
@@ -32,41 +32,41 @@ class recipefilter extends Component {
   }
 
   handleChangeSort(ev) {
-      this.props.setSort(ev.label.toLowerCase());
+    this.props.setSort(ev.label.toLowerCase());
   }
-    handleChangeMeal(ev) {
-	console.log(ev)
-	this.props.setMeal(ev.label.toLowerCase());
+  handleChangeMeal(ev) {
+    console.log(ev)
+    this.props.setMeal(ev.label.toLowerCase());
   }
 
   handleChangeFilters(ev) {
-	console.log("HandleChangeFilters ev:")
-	console.log(ev)
-	var tempFilters = []
-	for(var i = 0; i<ev.length; i++){
-	    if(ev[i].value === 1){
-		tempFilters.push('glutenfree')
-	    }
-	    if(ev[i].value === 2){
-		tempFilters.push('lactosefree')
-	    }
-	    if(ev[i].value === 3){
-		tempFilters.push('vegan')
-	    }
-	    if(ev[i].value === 4){
-		tempFilters.push('vegetarian')
-	    }
-	}
-	this.props.setFilters(tempFilters);
+    console.log("HandleChangeFilters ev:")
+    console.log(ev)
+    var tempFilters = []
+    for (var i = 0; i < ev.length; i++) {
+      if (ev[i].value === 1) {
+        tempFilters.push('glutenfree')
+      }
+      if (ev[i].value === 2) {
+        tempFilters.push('lactosefree')
+      }
+      if (ev[i].value === 3) {
+        tempFilters.push('vegan')
+      }
+      if (ev[i].value === 4) {
+        tempFilters.push('vegetarian')
+      }
+    }
+    this.props.setFilters(tempFilters);
     // alert(this.state.value)
     //this.setState(state => ({
     //  isToggleOn: !state.isToggleOn
     //}));
   }
-    handleSearch(){
-	this.props.doSearch();
-    }
-    
+  handleSearch() {
+    this.props.doSearch();
+  }
+
   render() {
     return (
       <div id="filters">
@@ -88,13 +88,13 @@ class recipefilter extends Component {
           />
         </div>
         <div id="MealType">
-        <ReactMultiSelectCheckboxes
-          options={mealType}
-          isSearchable={false}
-          onChange={this.handleChangeMeal}
-          isMulti={false}
-          placeholderButtonLabel="Meal Type"
-        />
+          <ReactMultiSelectCheckboxes
+            options={mealType}
+            isSearchable={false}
+            onChange={this.handleChangeMeal}
+            isMulti={false}
+            placeholderButtonLabel="Meal Type"
+          />
         </div>
         <div id="submit"><Button id="submitButton" className="button" onClick={this.handleSearch}>Search</Button></div>
       </div>
@@ -130,8 +130,8 @@ const mealType = [
                 <Dropdown.Item as="button" eventKey='Cooking Time'>Cooking Time </Dropdown.Item>
                 <Dropdown.Item as="button" >Rating</Dropdown.Item>
                 <Dropdown.Item as="button" >Calories</Dropdown.Item>
-                </DropdownButton> 
-                
+                </DropdownButton>
+
                 </div>
         <DropdownButton id="mealType" title="Meal Type">
           <Dropdown.Item as="button" id="Breakfast">Breakfast</Dropdown.Item>
