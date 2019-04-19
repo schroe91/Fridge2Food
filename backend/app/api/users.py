@@ -156,7 +156,7 @@ def reset_password(token):
     db.session.commit()
     return jsonify(user.to_dict())
 
-@bo.route('/users/<id>/recipes', methods=['GET'])
+@bp.route('/users/<id>/recipes', methods=['GET'])
 def get_user_recipes(id):
     user = None
     if str(id).lower() == 'current':
