@@ -17,6 +17,7 @@ class CreateRecipe extends Component {
       date: '',
       prep_time: '',
       prep_steps: '',
+      meal_type: '',
       recipeIMG_url: '',
       ingredientsid: [],
       userId: 0,
@@ -93,17 +94,9 @@ class CreateRecipe extends Component {
       if (response.status === 200 || response.status === 409 || response.status === 201) {
         return response.json();
       }
-<<<<<<< HEAD
-    }).then(data =>{
-	console.log(this.state.ingredientsid)
-	this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
-	console.log(this.state.ingredientsid)
-    }) 
-=======
     }).then(data => {
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
     })
->>>>>>> 445e395b1300c8839418b2018cc6cd6fbd6633a9
   };
 
   handleSubmit2 = (e) => {
@@ -172,7 +165,7 @@ class CreateRecipe extends Component {
   }
 
   render() {
-    let { recipe, calories, carbs, prep_time, prep_steps } = this.state
+    let { recipe, calories, carbs, prep_time, prep_steps, meal_type } = this.state
     return (
       <div id="layout" style={style}>
         <div id="top-border">
@@ -205,6 +198,11 @@ class CreateRecipe extends Component {
                 <div id="inputDiv">
                   <label htmlFor="preptime">Prep Time</label>
                   <input type="text" className="forminput5" name="prep_time" id="prep_time" value={prep_time} />
+                </div>
+                <br></br>
+                <div id="inputDiv">
+                  <label htmlFor="mealtype">Meal Type</label>
+                  <input type="text" className="forminput5" name="meal_type" id="meal_type" value={meal_type} />
                 </div>
                 <br></br>
                 <label htmlFor="Ingredients" id="ingList">List of Ingredients</label>
