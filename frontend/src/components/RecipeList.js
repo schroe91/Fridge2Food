@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 
-export default class RecipeList extends React.Component {
+class RecipeList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
