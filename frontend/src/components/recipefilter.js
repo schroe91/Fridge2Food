@@ -17,7 +17,8 @@ class recipefilter extends Component {
     }
     this.handleChangeFilters = this.handleChangeFilters.bind(this);
     this.handleChangeSort = this.handleChangeSort.bind(this);
-    this.handleChangeMeal = this.handleChangeMeal.bind(this);
+      this.handleChangeMeal = this.handleChangeMeal.bind(this);
+      this.handleSearch = this.handleSearch.bind(this)
   }
 
   filter_recipe() {
@@ -38,21 +39,21 @@ class recipefilter extends Component {
 	this.props.setMeal(ev.label.toLowerCase());
   }
 
-    handleChangeFilters(ev) {
+  handleChangeFilters(ev) {
 	console.log("HandleChangeFilters ev:")
 	console.log(ev)
 	var tempFilters = []
 	for(var i = 0; i<ev.length; i++){
-	    if(ev[i].value == 1){
+	    if(ev[i].value === 1){
 		tempFilters.push('glutenfree')
 	    }
-	    if(ev[i].value == 2){
+	    if(ev[i].value === 2){
 		tempFilters.push('lactosefree')
 	    }
-	    if(ev[i].value == 3){
+	    if(ev[i].value === 3){
 		tempFilters.push('vegan')
 	    }
-	    if(ev[i].value == 4){
+	    if(ev[i].value === 4){
 		tempFilters.push('vegetarian')
 	    }
 	}
@@ -62,7 +63,10 @@ class recipefilter extends Component {
     //  isToggleOn: !state.isToggleOn
     //}));
   }
-
+    handleSearch(){
+	this.props.doSearch();
+    }
+    
   render() {
     return (
       <div id="filters">
@@ -92,7 +96,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
-        <Button className="button" id="submitButton" onClick={this.submit}>Submit Filters </Button>
+        <div id="submit"><Button className="button" onClick={this.handleSearch}>Search</Button></div>
       </div>
     );
   }

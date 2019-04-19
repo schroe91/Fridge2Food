@@ -12,21 +12,25 @@ import NumOfRecipes from './NumOfRecipes'
 import RecipeFilter from './recipefilter'
 
 class Home extends Component {
-	constructor() {
-		super();
-		this.state = {
-			numOfRecipes: 0,
-			userId: '',
-			filters: [],
-			sort: '',
-			mealType: '',
-			recipes: [],
-			search: 0,
-			ingredientsNum: 0,
-		}
-		this.setId = this.setId.bind(this)
-		//this.getUserId = this.getUserId.bind(this)
+    constructor() {
+	super();
+	this.state = {
+	    numOfRecipes: 0,
+	    userId: '',
+	    filters: [],
+	    sort: '',
+	    mealType: '',
+	    recipes: [],
+	    search: 0,
+	    ingredientsNum: 0,
+	    searchStr: '',
+	    excludeUnmakeable: false
 	}
+	this.setId = this.setId.bind(this);
+	this.doSearch = this.doSearch.bind(this);
+	this.doSearch();
+	//this.getUserId = this.getUserId.bind(this)
+    }
 
 	//Callback function to set numOfRecipes.
 	//Sets this.state and sends it to NumOfRecipes.js
@@ -37,7 +41,11 @@ class Home extends Component {
 		})
 		console.log("parent stuff: " + this.state.ingredientsNum)
 	}*/
-
+    setExcludeUnmakeable(val){
+	this.setState({excludeUnmakeable: val});
+	this.doSearch();
+    }
+    
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
 		this.setState({
@@ -60,23 +68,89 @@ class Home extends Component {
 		console.log("Setting meal type:")
 		console.log(meal)
 	}
-	setRecipes = (recipes, search) => {
-		this.setState({ recipes: recipes, search: search })
-		console.log(this.state.recipes);
-		console.log(this.state.search)
+    setRecipes = (recipes) => {
+	console.log("Home - setting recipes");
+	this.setState({ recipes: recipes})
+	//console.log(this.state.recipes);
+	//console.log(this.state.search)
 	}
-
+    
+    setSearchString = (searchStr) => {
+	this.setState({searchStr: searchStr});
+    }
 	setSearch = (search) => {
 		this.setState({ search: search })
 	}
 
+    	doSearch() {
+	    this.state.searchStr.replace(/ /g, "_")
+	    //console.log(this.state.value)
+	    //console.log('/api/recipes?name=' + this.state.value)
+	    var paramCount = 0;
+	    var link = '/api/recipes'
+	    if(this.state.searchStr.length > 0){
+		link += "?name=" + this.state.searchStr;
+		paramCount++;
+	    }
+	    var prefix;
+	    if(this.state.filters && this.state.filters.length > 0){
+		prefix = (paramCount > 0) ? '&' : '?';
+		link += prefix + "type=";
+		link += this.state.filters[0];
+		for(var i = 1; i<this.state.filters.length; i++){
+		    link += "," + this.state.filters[i];
+		}
+		paramCount++;
+	    }
+	    console.log("This.props.meal under RecipeSearch");
+	    console.log(this.state.meal);
+	    if(this.state.meal){
+		prefix = (paramCount > 0) ? '&' : '?';
+		link += prefix + 'meal=' + this.props.meal;
+	    }
+
+	    if(this.state.excludeUnmakeable){
+		prefix = (paramCount > 0) ? '&' : '?';
+		link += prefix + 'excludeunmakeable=true';
+	    }
+	    
+	    const request = async() => {
+		const response = await fetch(link);
+		if(response.ok){
+		    console.log("Got a response");
+		    this.setState({search: 1});
+		    const data = await response.json();
+		    this.setRecipes(data);
+
+		}
+	    }
+	    request();
+		    /*.then(response =>{ 
+		    if(response.ok){
+			console.log("Got a response")
+			this.setState({search: 1})
+			return response.json();
+		    }else{
+			return Promise.reject(new Error(""));
+		    }
+		}).then(data => {
+		    //console.log(data)
+		    this.setState({id: data})
+		    this.props.getRecipes(this.state.id, this.state.search)
+		    //console.log(this.state.id);
+		}, error=> alert(error.toString()))	*/
+		
+	}
+
+    
 	componentDidMount() {
 		//Get current username
 		fetch("/api/users/current")
 			.then(data => this.setState({ userId: data.id }))
 	}
 
-	render() {
+
+    render() {
 		return (
 			<div id="layout" style={style}>
 				<div id="top-border">
@@ -96,11 +170,15 @@ class Home extends Component {
 						<div id="recipe-search">
 							<RecipeSearch getRecipes={this.setRecipes.bind(this)}
 								filters={this.state.filters}
-								meal={this.state.mealType} />
+		    meal={this.state.mealType}
+		    setSearchString = {this.setSearchString.bind(this)}
+		    doSearch = {this.doSearch.bind(this)}
+			/>
 							<div id="filter">
 								<RecipeFilter setFilters={this.setFilters.bind(this)}
 									setSort={this.setSort.bind(this)}
-									setMeal={this.setMealType.bind(this)}
+		                                                        setMeal={this.setMealType.bind(this)}
+		    doSearch={this.doSearch.bind(this)}
 								/>
 							</div>
 						</div>
@@ -112,7 +190,8 @@ class Home extends Component {
 								meal={this.state.mealType}
 								sort={this.state.sort}
 								recipes={this.state.recipes}
-								search={this.state.search}
+		    search={this.state.search}
+		    setExcludeUnmakeable = {this.setExcludeUnmakeable.bind(this)}
 							/>
 						</div>
 					</div>

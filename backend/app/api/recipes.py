@@ -50,29 +50,26 @@ def add_rating(id):
     db.session.commit()
     return jsonify(recipe.to_dict(user=current_user))
 
-@bp.route('/api/recipeIMG', methods=['POST'])
-def change_recipeIMG():
-    url = request.json.get('image_url')
-    
-    #url = "https://via.placeholder.com/550"
+#@bp.route('/api/recipe', methods=['POST'])
+def get_recipe_image(recipe_id, image_url):
+    url = request.json.get('image_url')    
     r = requests.get(url, stream=True)
     if r.status_code == 200:
-        with SpooledTemporaryFile() as f:#open(path, 'wb') as f:
+        with SpooledTemporaryFile() as f:
             for chunk in r:
                 f.write(chunk)
             with Image.open(f) as img:
                 cover = resizeimage.resize_cover(img, [200,200])
-                filename = str.format("{}_{}.png",
-                                      current_user.id,
+                filename = str.format("recipe_{}.png",
                                       time.time())
                 filepath = os.path.join(app.config['PROFILE_IMAGE_FOLDER'],
-                                            filename)
+                                        filename)
                 print(filepath)
                 cover.save(filepath, "PNG")
                 print(url_for('static', filename="images/"+filename))
-                current_user.avatar_url = url_for('static', filename="images/"+filename)
-                db.session.commit()
-                return jsonify(current_user.to_dict())
+                return url_for('static', filename="images/"+filename)
+                #db.session.commit()
+                #return jsonify(current_user.to_dict())
 
 @bp.route('/recipes/<int:id>/comments/<int:comment_id>', methods=['POST'])
 def commentception(id, comment_id):
@@ -102,10 +99,13 @@ def add_recipe():
                     protein = request.json.get('protein'),
                     is_vegan = request.json.get('is_vegan'),
                     is_vegetarian = request.json.get('is_vegetarian'),
+                    
                     is_glutenfree = request.json.get('is_glutenfree'))
     if request.json.get('ingredients') != None:
         for i in request.json.get('ingredients'):
             recipe.ingredients.append(Ingredient.query.get(i))
+    if request.json.get('image_url') != None:
+        image_url = get_recipe_image(request.json.get('image_url')),
     db.session.add(recipe)
     db.session.commit()
     return jsonify(recipe.to_dict())
@@ -146,7 +146,7 @@ def get_all_recipes():
     if request.args.get('rating') != None:
         rating_arr = request.args.get('rating').split(',')
     """ 
-    if True or request.args.get('filterByUserIngredients') == True:
+    if request.args.get('excludeunmakeable') == "true":
         ingredients = None
         ingredient_count = 0
         if current_user.is_authenticated:
@@ -158,24 +158,24 @@ def get_all_recipes():
         
         #ing_arr = request.args.get('ingredients').split(",")
         #ingredients = [Ingredient.query.get(id) for id in ing_arr]
-        if ingredient_count > 0:
-            new_recipes = []
-            for recipe in recipes:
-                containsAllIngredients = True
-                for ing in recipe.ingredients:
-                    if ing not in ingredients:
-                        containsAllIngredients = False
-                if containsAllIngredients:
-                    new_recipes.append(recipe)
+        new_recipes = []
+        for recipe in recipes:
+            containsAllIngredients = True
+            for ing in recipe.ingredients:
+                if ing not in ingredients:
+                    containsAllIngredients = False
+            if containsAllIngredients:
+                new_recipes.append(recipe)
                     
-            for recipe in recipes:
-                missingIngredients = 0
-                for ing in recipe.ingredients:
-                    if ing not in ingredients:
-                        missingIngredients += 1
-                if missingIngredients == 1:
-                    new_recipes.append(recipe)
-            recipes = new_recipes
+        for recipe in recipes:
+            missingIngredients = 0
+            for ing in recipe.ingredients:
+                if ing not in ingredients:
+                    missingIngredients += 1
+            if missingIngredients == 1:
+                new_recipes.append(recipe)
+        recipes = new_recipes
+        
     return jsonify([r.to_dict(current_user) for r in recipes])
     
 

@@ -1,10 +1,10 @@
 import React from "react"
 import "./RecipeList.css"
 import ListGroup from 'react-bootstrap/ListGroup'
-import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
+import Checkbox from './Checkbox'
 class RecipeList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +15,13 @@ class RecipeList extends React.Component {
             link: '',
             ingredients: [],
             num: '',
+            checkboxes: OPTIONS.reduce(
+                (options, option) => ({
+                  ...options,
+                  [option]: false
+                }),
+                {}
+              )
         };
         this.sort = this.sort.bind(this)
         this.updated = this.updated.bind(this)
@@ -37,7 +44,7 @@ class RecipeList extends React.Component {
 		    }
     }
     
-    componentWillMount() {
+    /*componentWillMount() {
         var more = false;
         if(this.props.search){
             this.setState({recipes:this.props.id})
@@ -89,7 +96,7 @@ class RecipeList extends React.Component {
             });
               
         }
-    }
+    }*/
 
     componentDidMount() {
         this.updated();
@@ -102,40 +109,78 @@ class RecipeList extends React.Component {
         if(this.props.NumofIngredients !== prevProps.NumofIngredients){
             this.numUpdated();
         }*/
-        if((this.state.recipes !== prevState.recipes) || this.props.search){
+       /* if((this.state.recipes !== prevState.recipes) || this.props.search){
             this.props.setSearch(0);
             this.setState({
                 recipes: this.props.recipes
             })
 	    this.sort();
             this.props.setNumOfRecipes(this.state.recipes); //Sends recipe array to Home.js (the parent)
-        }
+        }*/
     }
 
-    sort(){
+    sort(recipes){
         if(this.props.sort === 'calories'){
-            this.state.recipes.sort(function(a,b){return a.calories -b.calories})
+            recipes.sort(function(a,b){return a.calories -b.calories})
         }else if(this.props.sort === 'cooking time'){
-            this.state.recipes.sort(function(a,b){return a.prep_time -b.prep_time})
+            recipes.sort(function(a,b){return a.prep_time -b.prep_time})
         }else if(this.props.sort === 'rating'){
-            this.state.recipes.sort(function(a,b){return b.rating - a.rating})
+            recipes.sort(function(a,b){return b.rating - a.rating})
         }else{
-            this.state.recipes.sort();
+            recipes.sort();
         }
+	return recipes;
     }
+
+  handleCheckboxChange = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }));
+      this.props.setExcludeUnmakeable(changeEvent.target.value);
+      console.log("Checkbox - Hit!");
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.checkboxes[option]}
+      onCheckboxChange={this.handleCheckboxChange}
+      key={option}
+    />
+  );
+
+  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
 
     render() {
         return (
             <div id='a'>
                 <h3>Recipe List</h3>
-                <ListGroup variant="flush">
-                    {this.state.recipes.map((recipe) => (
-                            <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} className="list-group-item">{recipe.name}</a>
-                    ))}   
+                {this.createCheckboxes()}
+		<ListGroup variant="flush">
+		
+                {this.sort(this.props.recipes).map((recipe) => (
+			<div className="list-group-item">
+			<Container>
+			<Row>
+                        <Col> <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} >{recipe.name}</a></Col>
+			<Col>Calories: {recipe.calories}</Col>
+			<Col>Rating: {recipe.rating}</Col>
+			<Col>{recipe.prep_time} minutes</Col>
+			</Row>
+			</Container>
+			</div>
+                    ))}
                 </ListGroup>
             </div>);
 
     }
 }
 export default RecipeList
+
+const OPTIONS = ["Show only recipes I can make"];
 

@@ -74,6 +74,8 @@ class User(UserMixin, db.Model):
             'ingredients': [i.to_dict() for i in self.ingredients],
             'avatar_url': self.avatar_url,
             'favorite_recipes': [i.id for i in self.favorite_recipes],
+            'created_recipes': [{'id': r.id,
+                                 'name': r.name} for r in self.created_recipes],
             'allergies': [i.to_dict() for i in self.allergies]
         }
         return data
@@ -159,6 +161,8 @@ class Recipe(db.Model):
     is_vegan = db.Column(db.Boolean, default=False)
     is_vegetarian = db.Column(db.Boolean, default=False)
     is_glutenfree = db.Column(db.Boolean, default=False)
+    meal_type = db.Column(db.String(140))
+    image_url = db.Column(db.String(140), default = "/static/images/recipe_default.png")
     #is_breakfast = db.Column(db.Boolean, default=False)
     #is_lunch = db.Column(db.Boolean, default=False)
     #is_dinner = db.Column(db.Boolean, default=False)
@@ -189,7 +193,8 @@ class Recipe(db.Model):
             #'is_breakfast': self.is_breakfast,
             #'is_dessert': self.is_dessert,
             #'is_dinner': self.is_dinner,
-            
+            'image_url': self.image_url,
+            'meal_type': self.meal_type,
             'comments': [c.get_data() for c in self.comments]
         }
         rating_count = Rating.query.filter_by(recipe=self.id).count()

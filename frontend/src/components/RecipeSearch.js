@@ -11,20 +11,21 @@ class SearchBar extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.Search = this.Search.bind(this);
+	    //this.Search = this.Search.bind(this);
 	}
 
 	handleChange(event) {
-		this.setState({ value: event.target.value });
+	    this.setState({ value: event.target.value });
+	    this.props.setSearchString(event.target.value);
 	}
 
 	handleSubmit(event) {
-		event.preventDefault();
-		this.Search();
-		this.setState({ value: "" });
+	    event.preventDefault();
+	    this.props.doSearch();
+	    //this.setState({ value: "" });
 	}
 
-	Search() {
+    /*Search() {
 	    this.state.value.replace(/ /g, "_")
 	    //console.log(this.state.value)
 	    //console.log('/api/recipes?name=' + this.state.value)
@@ -66,7 +67,7 @@ class SearchBar extends React.Component {
 		    //console.log(this.state.id);
 		}, error=> alert(error.toString()))	
 		
-	}
+	}*/
 
 	render() {
 		return (
