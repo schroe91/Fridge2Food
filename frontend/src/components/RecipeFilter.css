@@ -37,6 +37,13 @@ button#mealType {
 }
 
 #submitButton {
-    font-size: 11px;
+    font-size: 13px;
     margin: 0;
+}
+
+#submit {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 42;
+    margin-left: 25px;
 }

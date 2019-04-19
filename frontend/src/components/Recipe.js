@@ -31,6 +31,7 @@ class Recipe extends Component {
       value: '',
       value2: '',
       values: [],
+      recipeIMG_url: ''
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -90,7 +91,8 @@ class Recipe extends Component {
         commentsList: data.comments,
         recipeId: data.id,
         rating: data.user_rating,
-        totalRating: data.rating
+        totalRating: data.rating,
+        recipeIMG_url: data.image_url,
       });
     };
 
@@ -236,6 +238,7 @@ class Recipe extends Component {
               />
               <label>{"(" + this.state.totalRating + ")"}</label>
             </div>
+            <img src={this.state.recipeIMG_url} alt="" id="pic" />
             <p>Prep time: {this.state.prep_time} hours</p>
             <p>{this.state.calories} calories</p>
             <p>{this.state.carbs} carbs</p>
