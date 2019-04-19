@@ -18,7 +18,7 @@ class CreateRecipe extends Component {
       prep_time: '',
       prep_steps: '',
       recipeIMG_url: '',
-      ingredientsid: [{id: ""}],
+      ingredientsid: [],
       userId: 0,
       vegan: false,
       veg: false,
@@ -90,7 +90,9 @@ class CreateRecipe extends Component {
         return response.json();
       }
     }).then(data =>{
-      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
+	console.log(this.state.ingredientsid)
+	this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
+	console.log(this.state.ingredientsid)
     }) 
   };
   handleSubmit2 = (e) => {
@@ -163,7 +165,7 @@ class CreateRecipe extends Component {
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
           <div id="login">
-            <button className="button" id="login"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
+            <button className="button" id="login"><NavLink exact to="../../" activeClassName="active">Home</NavLink></button>
           </div>
         </div>
         <div id="createRecipe">
