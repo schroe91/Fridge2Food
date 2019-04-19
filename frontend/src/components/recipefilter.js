@@ -96,7 +96,7 @@ class recipefilter extends Component {
           placeholderButtonLabel="Meal Type"
         />
         </div>
-        <div id="submit"><Button className="button" onClick={this.handleSearch}>Search</Button></div>
+        <div id="submit"><Button id="submitButton" className="button" onClick={this.handleSearch}>Search</Button></div>
       </div>
     );
   }

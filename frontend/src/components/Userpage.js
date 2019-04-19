@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
-import profilepic from '../profilepic.png';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Userpage.css";
@@ -29,13 +28,13 @@ class Userpage extends Component {
       newPassword: '',
       favorites: [],
       newPic: '',
-      avatar_url: profilepic,
+      avatar_url: '',
       ingredients: [],
       allergies: [],
       tempAllergies: [],
       userRecipes: [],
-      profile: profilepic,
     }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.usernameModal = this.usernameModal.bind(this);
@@ -46,7 +45,7 @@ class Userpage extends Component {
     this.handleChangePicture = this.handleChangePicture.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.addAllergy = this.addAllergy.bind(this);
-   // this.deleteAllergies = this.deleteAllergies.bind(this);
+    // this.deleteAllergies = this.deleteAllergies.bind(this);
     this.cancelAllergies = this.cancelAllergies.bind(this);
     this.submitAllergies = this.submitAllergies.bind(this);
     this.getUserRecipes = this.getUserRecipes.bind(this);
@@ -65,16 +64,16 @@ class Userpage extends Component {
           ingredients: data.ingredients,
           allergies: data.allergies,
           favorites: data.favorites,
-            profile: data.avatar_url,
-	    userRecipes: data.created_recipes
+          profile: data.avatar_url,
+          userRecipes: data.created_recipes
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
         console.log(data.avatar_url)
       })
 
-      this.getUserRecipes();
-      console.log("User: " + this.state.id)
+    this.getUserRecipes();
+    console.log("User: " + this.state.id)
   }
 
   usernameModal() {
@@ -190,15 +189,16 @@ class Userpage extends Component {
     //Add to backend
     var link = 'api/users/' + this.state.id + '/allergies'
     this.state.allergies.map((item) => (
-     // console.log(item.label),
-    fetch(link,{
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({allergy: item.value})
-    }).then(response =>
-      console.log(response))
+      
+      // console.log(item.label),
+      fetch(link, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ allergy: item.value })
+      }).then(response =>
+        console.log(response))
     ))
 
     this.allergyModal();
@@ -212,17 +212,37 @@ class Userpage extends Component {
         'Content-Type': 'application/json'
       },
     }).then(response => {
-      if(response.ok) {
+      if (response.ok) {
         return response.json();
-    }})
-    .then(data => {recipeArray = data});
-    
+      }
+    })
+      .then(data => { recipeArray = data });
+
     var newState = this.state;
     recipeArray.map(r => {
-      if(r.id === this.state.id) {
+      if (r.id === this.state.id) {
         newState.userRecipes.unshift(r.name);
       }
     });
+  }
+
+  addnew(ingredient) {
+    console.log("addnew =" + ingredient)
+
+    fetch('/api/ingredients', {
+      method: "POST",
+      //mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name: ingredient })
+    }).then(response => {
+      if (response.status === 200 || response.status === 409 || response.status === 201) {
+        return response.json();
+      }
+    }).then(data => {
+      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] })
+    })
   }
 
   render() {
@@ -235,7 +255,7 @@ class Userpage extends Component {
         </div>
         <div id="userPage">
           <div id="profilePic">
-            <img src={this.state.profile} alt="" id="pic" />
+            <img src={this.state.avatar_url} alt="" id="pic" />
             <button className="button style" onClick={this.pictureModal}>Edit Profile Picture</button>
             <Modal isOpen={this.state.modal4} toggle={this.pictureModal} size="sm">
               <ModalHeader toggle={this.toggle}>Enter New Pic</ModalHeader>
@@ -289,12 +309,12 @@ class Userpage extends Component {
               <IngredientDisplay ingredients={this.state.ingredients} />
             </div>
             <div id="allergies">
-              <div style={{display: "block"}}>
+              <div style={{ display: "block" }}>
                 <h5>Allergies</h5>
                 <ul>
                   {this.state.allergies.map((item, index) => (
-                    console.log("allergy: " + item),
-                      <li key={index}>
+                    console.log("allergy: " + item.name),
+                    <li key={index}>
                       {item.label}
                     </li>
                   ))}
@@ -343,9 +363,9 @@ const style = {
   width: "100%",
 };
 
-const delButton = {
+/*const delButton = {
 	backgroundColor: 'transparent',
 	border: '0',
 	color: "#c20",
 	outline: 'none',
-}
+}*/

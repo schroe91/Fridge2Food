@@ -13,7 +13,6 @@ class CreateRecipe extends Component {
       modal: false,
       ingredients: [{ name: "" }],
       calories: '',
-      carbs: '',
       date: '',
       prep_time: '',
       prep_steps: '',
@@ -37,16 +36,16 @@ class CreateRecipe extends Component {
   }
 
   //need to add recipeurl to fetch
-  createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
+  createRecipe(recipe, ingredients, calories, date, prep_time, prep_steps) {
     fetch('/api/recipes', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: recipe, ingredients: ingredients, calories: calories, carbs: carbs, date: date,
+        name: recipe, ingredients: ingredients, calories: calories, carbs: '0', date: date,
         prep_time: prep_time, prep_steps: prep_steps, is_vegan: this.state.vegan,
-        is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: 0, protein: 0
+        is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: '0', protein: '0'
       })
     }).then(response => response.ok).then(success => (success ? alert("Recipe Successfully created") : alert("Failed to create recipe")))
   }
@@ -105,7 +104,7 @@ class CreateRecipe extends Component {
 
   handleSubmit2 = (e) => {
     e.preventDefault();
-    const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
+    const { recipe, ingredients, calories, date, prep_time, prep_steps } = this.state;
     ingredients.map((name) =>
       //console.log(name)
       this.addnew(name.name)
@@ -113,8 +112,8 @@ class CreateRecipe extends Component {
     const { ingredientsid } = this.state;
 
     console.log("ing id = " + ingredientsid);
-      this.createRecipe(recipe, this.state.ingredientsid, calories, carbs, date, prep_time, prep_steps);
-      
+    this.createRecipe(recipe, this.state.ingredientsid, calories, date, prep_time, prep_steps);
+
   };
 
     addImage(recipeIMG_url) {
@@ -181,7 +180,7 @@ class CreateRecipe extends Component {
   }
 
   render() {
-    let { recipe, calories, carbs, prep_time, prep_steps, meal_type } = this.state
+    let { recipe, calories, prep_time, prep_steps, meal_type } = this.state
     return (
       <div id="layout" style={style}>
         <div id="top-border">
@@ -204,11 +203,6 @@ class CreateRecipe extends Component {
                 <div id="inputDiv">
                   <label htmlFor="calories">Calories</label>
                   <input type="text" className="forminput5" name="calories" id="calories" value={calories} />
-                </div>
-                <br></br>
-                <div id="inputDiv">
-                  <label htmlFor="carbs">Carbs</label>
-                  <input type="text" className="forminput5" name="carbs" id="carbs" value={carbs} />
                 </div>
                 <br></br>
                 <div id="inputDiv">

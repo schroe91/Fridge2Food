@@ -15,10 +15,14 @@ class UserRecipeDisplay extends React.Component {
         </ul>);
     }
     render() {
+        let display = false;
+        if(this.props.userRecipes.length !== 0)
+            display = true;
+
         return (
             <div>
                 <h5>User Recipes</h5>
-                <ul>{this.props.userRecipes ? this.UserRecipeDisplay() : <h5>No User Recipes</h5>}
+                <ul>{display ? this.UserRecipeDisplay() : (<h5>No User Recipes</h5>)}
                 </ul>
             </div>
         )

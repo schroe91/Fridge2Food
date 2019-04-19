@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Recipe.css";
 import StarRatings from 'react-star-ratings';
+import prep_steps from './prep_steps';
 
 class Recipe extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Recipe extends Component {
       value: '',
       value2: '',
       values: [],
+      recipeIMG_url: ''
     }
 
     this.handleFavorite = this.handleFavorite.bind(this);
@@ -89,7 +91,8 @@ class Recipe extends Component {
         commentsList: data.comments,
         recipeId: data.id,
         rating: data.user_rating,
-        totalRating: data.rating
+        totalRating: data.rating,
+        recipeIMG_url: data.image_url,
       });
     };
 
@@ -235,6 +238,7 @@ class Recipe extends Component {
               />
               <label>{"(" + this.state.totalRating + ")"}</label>
             </div>
+            <img src={this.state.recipeIMG_url} alt="" id="pic" />
             <p>Prep time: {this.state.prep_time} hours</p>
             <p>{this.state.calories} calories</p>
             <p>{this.state.carbs} carbs</p>
@@ -246,9 +250,7 @@ class Recipe extends Component {
             </ul>
             <h2>Steps:</h2>
             <p>
-              {this.state.prep_steps.split("\n").map((i,key) => {
-                return <div key={key}>{i}</div>;
-              })}
+              <prep_steps prep = {this.state.prep_steps}></prep_steps>
             </p>
             <p>Date created: {this.state.date}</p>
             <h2 id="commentHeader">Comments</h2>
