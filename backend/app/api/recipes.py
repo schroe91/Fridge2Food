@@ -110,7 +110,6 @@ def add_recipe():
     db.session.commit()
     return jsonify(recipe.to_dict())
                     
-
 @bp.route('/recipes', methods=['GET'])
 def get_all_recipes():
     recipes = Recipe.query
@@ -129,33 +128,17 @@ def get_all_recipes():
         if 'glutenfree' in type_arr:
             recipe_query = Recipe.query.filter(Recipe.is_glutenfree==True)
             recipes = recipes.intersect(recipe_query)
-    """
-    if request.args.get('calories') != None:
-        cal_arr = request.args.get('calories').split(',')
-        calorie = [Recipe.query.get(calories) for cals in cal_arr]
-        for recipe in recipes:
-            if calorie < recipe.calories:
-                recipes = recipes.intersect(recipe_query)     
-    
-    if request.args.get('prep_time') != None:
-        prep_arr = request.args.get('prep_time').split(',')
-        time = [Recipe.query.get(prep_time) for prep in prep_arr]
-        for recipe in recipes:
-            if time < recipe.prep_time:
-                recipes = recipes.intersect(recipe_query) 
-    if request.args.get('rating') != None:
-        rating_arr = request.args.get('rating').split(',')
-    """ 
+
+    ingredients = None
+    ingredient_count = 0
+    if current_user.is_authenticated:
+        ingredients = current_user.ingredients
+        ingredient_count = ingredients.count()
+    else:
+        ingredients = get_guest_ingredients()
+        ingredient_count = len(ingredients)
+
     if request.args.get('excludeunmakeable') == "true":
-        ingredients = None
-        ingredient_count = 0
-        if current_user.is_authenticated:
-            ingredients = current_user.ingredients
-            ingredient_count = ingredients.count()
-        else:
-            ingredients = get_guest_ingredients()
-            ingredient_count = len(ingredients)
-        
         #ing_arr = request.args.get('ingredients').split(",")
         #ingredients = [Ingredient.query.get(id) for id in ing_arr]
         new_recipes = []
@@ -175,8 +158,16 @@ def get_all_recipes():
             if missingIngredients == 1:
                 new_recipes.append(recipe)
         recipes = new_recipes
-        
-    return jsonify([r.to_dict(current_user) for r in recipes])
+
+    recipe_dict_list = [r.to_dict(current_user) for r in recipes]
+    for recipe in recipe_dict_list:
+        missingIngredients = 0
+        for ing in Recipe.query.get(recipe['id']).ingredients:
+            if ing not in ingredients:
+                missingIngredients += 1
+        recipe['missing_ingredient_count'] = missingIngredients
+    
+    return jsonify(recipe_dict_list)
     
 
 

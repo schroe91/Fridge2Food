@@ -132,24 +132,27 @@ class RecipeList extends React.Component {
 	return recipes;
     }
 
-  handleCheckboxChange = changeEvent => {
+    handleCheckboxChange(changeEvent){
     const { name } = changeEvent.target;
-
-    this.setState(prevState => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
+      
+      this.setState(prevState => ({
+	checkboxes: {
+		...prevState.checkboxes,
+          [name]: !prevState.checkboxes[name]
       }
     }));
-      this.props.setExcludeUnmakeable(changeEvent.target.value);
+      
+      this.props.setExcludeUnmakeable(changeEvent.target.checked);
+	//this.props.doSearch();
       console.log("Checkbox - Hit!");
+      console.log(changeEvent.target.checked);
   };
 
   createCheckbox = option => (
     <Checkbox
       label={option}
       isSelected={this.state.checkboxes[option]}
-      onCheckboxChange={this.handleCheckboxChange}
+      onCheckboxChange={this.handleCheckboxChange.bind(this)}
       key={option}
     />
   );
@@ -162,18 +165,38 @@ class RecipeList extends React.Component {
                 <h3>Recipe List</h3>
                 {this.createCheckboxes()}
 		<ListGroup variant="flush">
-		
-                {this.sort(this.props.recipes).map((recipe) => (
-			<div className="list-group-item">
+		<ListGroup.Item>
+		<Container>
+		<Row>
+		<Col>Recipe Name</Col>
+		<Col>Calories</Col>
+		<Col>Rating</Col>
+		<Col>Prep Time</Col>
+		<Col># of Missing Ingredients</Col>
+		</Row>
+		</Container>
+		</ListGroup.Item>
+            {this.sort(this.props.recipes).map((recipe) => (
+		        
+		    <ListGroup.Item variant={
+			(recipe.missing_ingredient_count == 0)?
+			    "success"
+			    :
+			    (recipe.missing_ingredient_count == 1)?
+			    "warning":
+			    "danger"
+		    }
+		    >
 			<Container>
 			<Row>
                         <Col> <a href={'recipe/' + recipe.id} key={'recipe/' + recipe.id} >{recipe.name}</a></Col>
 			<Col>Calories: {recipe.calories}</Col>
 			<Col>Rating: {recipe.rating}</Col>
-			<Col>{recipe.prep_time} minutes</Col>
+		    <Col>{recipe.prep_time} minutes</Col>
+		    <Col>{recipe.missing_ingredient_count}</Col>
 			</Row>
 			</Container>
-			</div>
+			</ListGroup.Item>
                     ))}
                 </ListGroup>
             </div>);

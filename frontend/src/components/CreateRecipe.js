@@ -111,7 +111,7 @@ class CreateRecipe extends Component {
     const { ingredientsid } = this.state;
 
     console.log("ing id = " + ingredientsid);
-    this.createRecipe(recipe, this.state.ingredients, calories, date, prep_time, prep_steps);
+    this.createRecipe(recipe, this.state.ingredientsid, calories, date, prep_time, prep_steps);
 
   };
 
