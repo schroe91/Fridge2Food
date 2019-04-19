@@ -39,11 +39,13 @@ class NestedLogin extends React.Component {
 	      }
 	  })
 	  .then(data=> {
+      if(data){
 	      if(data.id >= 0){
 		  this.setState({isAuth : true});
 	      }else{
 		  this.setState({isAuth : false});
-	      }
+        }
+      }
 	  });
   }
 
@@ -61,7 +63,7 @@ class NestedLogin extends React.Component {
         this.setState({ isAuth: true });
         return response.json();
       } else {
-        return Promise.reject(new Error("Not a valid username"));
+        return Promise.reject(new Error("Not a valid username/password"));
       }
     }).then(data => {
 	this.setState({id: data.id});

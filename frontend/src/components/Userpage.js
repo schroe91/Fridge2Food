@@ -356,3 +356,10 @@ const style = {
   position: "absolute",
   width: "100%",
 };
+
+/*const delButton = {
+	backgroundColor: 'transparent',
+	border: '0',
+	color: "#c20",
+	outline: 'none',
+}*/

@@ -179,10 +179,10 @@ class RecipeList extends React.Component {
             {this.sort(this.props.recipes).map((recipe) => (
 		        
 		    <ListGroup.Item variant={
-			(recipe.missing_ingredient_count == 0)?
+			(recipe.missing_ingredient_count === 0)?
 			    "success"
 			    :
-			    (recipe.missing_ingredient_count == 1)?
+			    (recipe.missing_ingredient_count === 1)?
 			    "warning":
 			    "danger"
 		    }

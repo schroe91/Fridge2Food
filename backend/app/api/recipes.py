@@ -5,6 +5,13 @@ from app.api import bp
 from flask_login import current_user
 from app.functions import login_required
 from app.api.users import get_guest_ingredients
+from tempfile import SpooledTemporaryFile
+from PIL import Image
+from resizeimage import resizeimage
+import time
+import os
+
+import requests
 def string_to_boolean(str):
     if str.lower() == "true":
         return True
@@ -51,13 +58,15 @@ def add_rating(id):
     return jsonify(recipe.to_dict(user=current_user))
 
 #@bp.route('/api/recipe', methods=['POST'])
-def get_recipe_image(recipe_id, image_url):
+@bp.route('/recipe_image', methods=['POST'])
+def get_recipe_image():
     url = request.json.get('image_url')    
     r = requests.get(url, stream=True)
     if r.status_code == 200:
         with SpooledTemporaryFile() as f:
             for chunk in r:
                 f.write(chunk)
+
             with Image.open(f) as img:
                 cover = resizeimage.resize_cover(img, [200,200])
                 filename = str.format("recipe_{}.png",
@@ -66,8 +75,8 @@ def get_recipe_image(recipe_id, image_url):
                                         filename)
                 print(filepath)
                 cover.save(filepath, "PNG")
-                print(url_for('static', filename="images/"+filename))
-                return url_for('static', filename="images/"+filename)
+                
+                return jsonify({'url': url_for('static', filename="images/"+filename)})
                 #db.session.commit()
                 #return jsonify(current_user.to_dict())
 
@@ -105,7 +114,7 @@ def add_recipe():
         for i in request.json.get('ingredients'):
             recipe.ingredients.append(Ingredient.query.get(i))
     if request.json.get('image_url') != None:
-        image_url = get_recipe_image(request.json.get('image_url')),
+        recipe.image_url = request.json.get('image_url')
     db.session.add(recipe)
     db.session.commit()
     return jsonify(recipe.to_dict())
