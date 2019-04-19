@@ -27,7 +27,7 @@ class Home extends Component {
 	    excludeUnmakeable: false
 	}
 	this.setId = this.setId.bind(this);
-	this.doSearch = this.doSearch.bind(this);
+	//this.doSearch = this.doSearch.bind(this);
 	this.doSearch();
 	//this.getUserId = this.getUserId.bind(this)
     }
@@ -43,7 +43,6 @@ class Home extends Component {
 	}*/
     setExcludeUnmakeable(val){
 	this.setState({excludeUnmakeable: val});
-	this.doSearch();
     }
     
 	setNumOfRecipes(recipes) {
@@ -82,7 +81,8 @@ class Home extends Component {
 		this.setState({ search: search })
 	}
 
-    	doSearch() {
+    doSearch() {
+	console.log("Searching.")
 	    this.state.searchStr.replace(/ /g, "_")
 	    //console.log(this.state.value)
 	    //console.log('/api/recipes?name=' + this.state.value)
@@ -192,6 +192,7 @@ class Home extends Component {
 								recipes={this.state.recipes}
 		    search={this.state.search}
 		    setExcludeUnmakeable = {this.setExcludeUnmakeable.bind(this)}
+		    doSearch = {this.doSearch.bind(this)}
 							/>
 						</div>
 					</div>
