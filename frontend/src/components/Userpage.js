@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import IngredientDisplay from "./IngredientDisplay.js";
 import FavoriteRecipeDisplay from "./FavoriteRecipeDisplay.js";
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import UserRecipeDisplay from './UserRecipeDisplay';
 
 class Userpage extends Component {
   constructor(props) {
@@ -318,13 +319,8 @@ class Userpage extends Component {
             <div id='favorites'>
               <FavoriteRecipeDisplay favorites={this.state.favorites} />
             </div>
-            <div id="userRecipes" style={{display: "block"}}>
-              <h5>My Recipes</h5>
-              {(this.state.userRecipes.length !== 0) ? (
-                  this.state.userRecipes.map((recipe, index) => {
-                    return <li key={index}>{recipe.name}</li>
-                   })) : <h5 style={{paddingLeft: 40}}>No recipes yet!</h5>
-              }
+            <div id="userRecipes">
+              <UserRecipeDisplay userRecipes={this.state.userRecipes} />
             </div>
           </div>
         </div>
