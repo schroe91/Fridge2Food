@@ -175,7 +175,7 @@ class Userpage extends Component {
     this.setState({ tempAllergies: allergy });
   }
 
-  deleteAllergies(allergy){    
+  /*deleteAllergies(allergy){    
     var array = [this.state.allergies]; // make a separate copy of the array
     console.log(array);
     if (allergy.value !== -1) {
@@ -183,7 +183,7 @@ class Userpage extends Component {
       console.log(array)
       this.setState({allergies: array});
     }
-  }
+  }*/
   cancelAllergies() {
     this.setState({ allergies: [] });
     this.allergyModal();
@@ -298,11 +298,6 @@ class Userpage extends Component {
                   {this.state.allergies.map((item, index) => (
                     <li key={index}>
                       {item.label}
-                      <button 
-                        style={delButton}
-                        onClick={() => {this.deleteAllergies(item) }}>
-                        <i className="fa fa-times"></i>
-                      </button>
                     </li>
                   ))}
                 </ul>

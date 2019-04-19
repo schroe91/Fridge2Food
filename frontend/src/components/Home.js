@@ -30,13 +30,13 @@ class Home extends Component {
 
 	//Callback function to set numOfRecipes.
 	//Sets this.state and sends it to NumOfRecipes.js
-	setNumOfIngredients(num){
+	/*setNumOfIngredients(num){
 		console.log("callll")
 		this.setState({
 			ingredientsNum: num
 		})
 		console.log("parent stuff: " + this.state.ingredientsNum)
-	}
+	}*/
 
 	setNumOfRecipes(recipes) {
 		const num = recipes.length;
