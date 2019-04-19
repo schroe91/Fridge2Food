@@ -64,7 +64,8 @@ class Userpage extends Component {
           ingredients: data.ingredients,
           allergies: data.allergies,
           favorites: data.favorites,
-          profile: data.avatar_url
+            profile: data.avatar_url,
+	    userRecipes: data.created_recipes
         })
         console.log(this.state.id)
         console.log(this.state.ingredients)
