@@ -82,7 +82,8 @@ class CreateRecipe extends Component {
 
   addnew(ingredient) {
     console.log("addnew =" + ingredient)
-    fetch('/api/ingredients', {
+      
+      fetch('/api/ingredients', {
       method: "POST",
       //mode: 'no-cors',
       headers: {
@@ -94,7 +95,9 @@ class CreateRecipe extends Component {
         return response.json();
       }
     }).then(data => {
-      this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
+	this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
+	console.log(this.state.ingredientsid);
+	console.log("Adding ingredients");
     })
   };
 
@@ -108,7 +111,7 @@ class CreateRecipe extends Component {
     const { ingredientsid } = this.state;
 
     console.log("ing id = " + ingredientsid);
-    this.createRecipe(recipe, ingredientsid, calories, carbs, date, prep_time, prep_steps);
+    this.createRecipe(recipe, this.state.ingredients, calories, carbs, date, prep_time, prep_steps);
 
   };
 
