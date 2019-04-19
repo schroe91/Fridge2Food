@@ -33,6 +33,7 @@ class CreateRecipe extends Component {
     this.handleVeganChange = this.handleVeganChange.bind(this);
     this.handleGlutenChange = this.handleGlutenChange.bind(this);
   }
+
   //need to add recipeurl to fetch
   createRecipe(recipe, ingredients, calories, carbs, date, prep_time, prep_steps) {
     fetch('/api/recipes', {
@@ -57,10 +58,12 @@ class CreateRecipe extends Component {
 
     this.setState({ ingredients: newIngredient });
   };
+
   handleSubmit = evt => {
     const { name, ingredients } = this.state;
     alert(`Incorporated: ${name} with ${ingredients.length} shareholders`);
   };
+
   handleAddIngredient = () => {
     this.setState({
       ingredients: this.state.ingredients.concat([{ name: "" }])
@@ -72,6 +75,7 @@ class CreateRecipe extends Component {
       ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx)
     });
   };
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   };
@@ -93,6 +97,7 @@ class CreateRecipe extends Component {
       this.setState({ ingredientsid: [...this.state.ingredientsid, data.id] }) //simple value
     })
   };
+
   handleSubmit2 = (e) => {
     e.preventDefault();
     const { recipe, ingredients, calories, carbs, date, prep_time, prep_steps } = this.state;
@@ -115,6 +120,7 @@ class CreateRecipe extends Component {
     })
       .then(response => response.ok).then(success => (success ? alert("img successfully added") : alert("Failed to add image")))
   };
+
   getID(ingredients) {
 
   }
@@ -126,6 +132,8 @@ class CreateRecipe extends Component {
     this.setState({
       recipeIMG_url: '',
     });
+
+    this.toggleModal();
   }
   toggleModal() {
     this.setState(prevState => ({
@@ -259,12 +267,12 @@ class CreateRecipe extends Component {
               </form>
             </div>
             <div style={{ marginLeft: "auto" }}>
+              <img src={this.state.recipeIMG_url} alt="" id="pic" />
               <button className="button" onClick={this.toggleModal} id="image"> Add Recipe Image</button>
               <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
                 <ModalHeader toggle={this.toggle}>Enter recipe image url</ModalHeader>
                 <ModalBody>
-                  <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22"
-                    onChange={this.handleChange} value={this.state.recipeIMG_url} />
+                  <input type="text" name="recipeIMG_url" placeholder="Recipe Image Url" size="22" />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.handleSubmit3}>Submit</Button>
