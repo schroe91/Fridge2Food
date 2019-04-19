@@ -182,8 +182,8 @@ class Userpage extends Component {
     var link, index;
     //Add to backend
     this.state.allergies.map((item) => (
-      this.addnew(item.value),
-      index = this.state.ingredientsid.findIndex(obj => obj.name === item.value),
+      this.addnew(item.label),
+      index = this.state.ingredientsid.findIndex(obj => obj.name === item.label),
       console.log(index),
       link = 'api/users/' + this.state.ingredientsid[index].id + '/allergies',
       fetch(link, {
@@ -222,7 +222,7 @@ class Userpage extends Component {
   }
 
   addnew(ingredient) {
-    fetch('/api/ingredients', {
+      fetch('/api/ingredients', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -307,7 +307,6 @@ class Userpage extends Component {
                 <h5>Allergies</h5>
                 <ul>
                   {this.state.allergies.map((item, index) => (
-                    console.log("allergy: " + item.name),
                     <li key={index}>
                       {item.label}
                     </li>
