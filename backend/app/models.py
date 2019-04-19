@@ -63,9 +63,9 @@ class User(UserMixin, db.Model):
                                        backref = db.backref('user_favorite_recipe', lazy='dynamic'),
                                        lazy='dynamic')
     allergies = db.relationship('Ingredient', secondary=user_ingredient_allergy,
-                                  primaryjoin=(user_ingredient_allergy.c.user_id == id),
-                                  backref = db.backref('user_ingredient_allergy', lazy='dynamic'),
-                                  lazy='dynamic')
+                                primaryjoin=(user_ingredient_allergy.c.user_id == id),
+                                backref = db.backref('user_ingredient_allergy', lazy='dynamic'),
+                                lazy='dynamic')
     def to_dict(self):
         data = {
             'id': self.id,

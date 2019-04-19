@@ -24,6 +24,7 @@ class Recipe extends Component {
       totalFavorite: 0,
       rating: 0,
       totalRating: 0,
+      ratingCount: 0,
       nav: '',
       recipeId: 0,
       value: '',
@@ -37,7 +38,7 @@ class Recipe extends Component {
     this.handleLike = this.handleLike.bind(this);
     this.handleReplyChange = this.handleReplyChange.bind(this);
     this.submitReply = this.submitReply.bind(this);
-//    this.getUser = this.getUser.bind(this);
+    //    this.getUser = this.getUser.bind(this);
   }
 
   handleFavorite(ev) {
@@ -71,57 +72,57 @@ class Recipe extends Component {
     this.setState({ nav: a + this.state.id });
     console.log("nav " + this.state.nav);
 
-      const first = '/api/recipes/';
-      const second = this.state.id;
-      const link = first + second;
-      const request = async() => {
-	  const response = await fetch(link);
-	  const data = await response.json();
-	  this.setState({
-              ingredients: data.ingredients,
-	      name: data.name,
-	      calories: data.calories,
-	      carbs: data.carbs,
-              date: data.date_added,
-	      prep_time: data.prep_time,
-	      prep_steps: data.prep_steps, 
-              commentsList: data.comments,
-	      recipeId: data.id,
-	      rating: data.user_rating,
-	      totalRating: data.rating
-	  });
-	  console.log(data.comments);
-      };
+    const first = '/api/recipes/';
+    const second = this.state.id;
+    const link = first + second;
+    const request = async () => {
+      const response = await fetch(link);
+      const data = await response.json();
+      this.setState({
+        ingredients: data.ingredients,
+        name: data.name,
+        calories: data.calories,
+        carbs: data.carbs,
+        date: data.date_added,
+        prep_time: data.prep_time,
+        prep_steps: data.prep_steps,
+        commentsList: data.comments,
+        recipeId: data.id,
+        rating: data.user_rating,
+        totalRating: data.rating
+      });
+    };
 
-      request();
-      
+    request();
+
     //Get current username
     fetch("/api/users/current")
-      .then(data => this.setState({id: data.id, username: data.username}))
+      .then(data => this.setState({ id: data.id, username: data.username }))
   }
 
-    handleRating(newRating) {
-	const oldRating = this.state.rating;
-      this.setState({ rating: newRating });
-      const request = async() => {
-	  const response = await fetch("/api/recipes/"+this.state.recipeId+"/ratings",{
-	      method: "POST",
-	      headers: {
-		  'Content-Type': 'application/json'
-	      },
-	      body: JSON.stringify({rating: newRating})
-	  });
-	  //console.log(this.state.rating)
-	  if(!response.ok){
-	      const data = await response.json();
-	      this.setState({
-		  rating: oldRating,
-		  totalRating: data.rating
-	      });
-	  }
+  handleRating(newRating) {
+    const oldRating = this.state.rating;
+    this.setState({ rating: newRating });
+    const request = async () => {
+      const response = await fetch("/api/recipes/" + this.state.recipeId + "/ratings", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ rating: newRating })
+      });
+      //console.log(this.state.rating)
+      if (!response.ok) {
+        const data = await response.json();
+        this.setState({
+          rating: oldRating,
+          totalRating: data.rating,
+          ratingCount: data.rating_count
+        });
       }
-	request()
     }
+    request();
+  }
 
   handleCommentChange(ev) {
     this.setState({ value: ev.target.value });
@@ -129,9 +130,7 @@ class Recipe extends Component {
 
   submitComment(ev) {
     ev.preventDefault();
-    var newState = this.state;
-    newState.commentsList.unshift({ comment: this.state.value, replies: []});
-    
+
     //Submit to backend
     const link = "/api/recipes/" + this.state.recipeId + "/comments";
     fetch(link, {
@@ -139,56 +138,64 @@ class Recipe extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({comment: this.state.value})
+      body: JSON.stringify({ comment: this.state.value })
     })
 
-    newState.value = "";
-    this.setState(newState);
+    //Get new list from backend
+    const first = '/api/recipes/';
+    const second = this.state.recipeId;
+    const link2 = first + second;
+    const request = async () => {
+      const response = await fetch(link2);
+      const data = await response.json();
+      this.setState({
+        commentsList: data.comments,
+        value: "",
+      });
+    };
+    request();
+
   }
 
   handleReplyChange(ev) {
-    this.setState({ value2: ev.target.value });
+    this.setState({ [ev.target.name]: ev.target.value });
   }
 
   submitReply(ev, c) {
     ev.preventDefault();
     var newState = this.state;
     const index = newState.commentsList.findIndex(obj => obj.comment === c.comment);
-    newState.commentsList[index].comments.push(this.state.value2);
 
     //Submit to backend
-      const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.commentsList[index].comment_id;
-      const request = async() =>{
-	  const response = await fetch(link, {
-	      method: "POST",
-	      headers: {
-		  'Content-Type': 'application/json'
-	      },
-	      body: JSON.stringify({comment: this.state.value2})
-	  })
-	  if(response.ok){
-	      window.location.reload();
-	  }
-      };
-      request();
-      window.location.reload();
-      newState.value2 = "";
-      this.setState(newState);
-  }
-
-/*  getUser(userId) {
-    var user = "";
-      const link = "/api/users/" + userId;
+    const link = "/api/recipes/" + this.state.recipeId + "/comments/" + this.state.commentsList[index].comment_id;
+    const request = async () => {
       const response = await fetch(link, {
-	  method: "GET",
-	  headers: {
-              'Content-Type': 'application/json'
-	  },
-      });
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ comment: c.comment })
+      })
+      if (response.ok) {
+        window.location.reload();
+      }
+    };
+    request();
+    window.location.reload();
 
+    //Get new list from backend
+    const first = '/api/recipes/';
+    const second = this.state.recipeId;
+    const link2 = first + second;
+    const request2 = async () => {
+      const response = await fetch(link2);
       const data = await response.json();
-      return data.username;
-  }*/
+      this.setState({
+        commentsList: data.comments,
+      });
+    };
+    request2();
+  }
 
   render() {
     return (
@@ -235,7 +242,11 @@ class Recipe extends Component {
               })}
             </ul>
             <h2>Steps:</h2>
-            <p>{this.state.prep_steps}</p>
+            <p>
+              {this.state.prep_steps.split("\n").map((i,key) => {
+                return <div key={key}>{i}</div>;
+              })}
+            </p>
             <p>Date created: {this.state.date}</p>
             <h2 id="commentHeader">Comments</h2>
             <form onSubmit={this.submitComment} id="commentForm">
@@ -250,24 +261,23 @@ class Recipe extends Component {
             {this.state.commentsList.map((c, index) => (
               <div key={index + "-" + c.comment}>
                 <div className="list-group-item" id="comment">
-                  <p>
+                  <p id="p">
                     {c.username + " says: " + c.comment}
                   </p>
                 </div>
                 <div id="replyList">
-                  {c.comments.map((reply, index) => (
-                    <p key={index + "-" + reply.comment}>
-                      {reply.username + " says: " + reply.comment}
-                    </p>
+                  {c.comments.map((reply, index2) => (
+                    <div className="list-group-item" key={index2 + "-" + reply.comment}>
+                      <p id="p">{reply.username + " says: " + reply.comment}</p>
+                    </div>
                   ))}
                 </div>
                 <div id="reply">
                   <form onSubmit={(e) => this.submitReply(e, c)} id="replyForm">
                     <input
                       type="text"
-                      name="replyInput"
+                      name={c}
                       placeholder="Leave a reply"
-                      value={this.state.value2}
                       onChange={this.handleReplyChange}
                     />
                   </form>
