@@ -144,7 +144,14 @@ class Userpage extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ newPassword: newP, oldPassword: oldP })
-    }).then(response => response.ok).then(console.log('password success'))
+    }).then(response => {
+	if(response.ok){
+	    alert("Password change succeeded.")
+	    this.passwordModal();
+	}else{
+	    alert("Password incorrect or invalid new password")
+	}
+    })
   }
 
   handleChangePicture(ev) {

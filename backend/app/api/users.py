@@ -129,8 +129,14 @@ def change_password():
     newPass = request.json.get('newPassword')
     oldPass = request.json.get('oldPassword')
     if newPass is None or oldPass is None:
+        print("NewPass: "+newPass)
+        print("OldPass: "+oldPass)
         abort(400)
     if current_user.check_password(oldPass) is False:
+        print("Pass check failed")
+        print("NewPass: "+newPass)
+        print("OldPass: "+oldPass)
+
         abort(400)
     #current_user.password = newPass
     current_user.set_password(newPass)
@@ -178,9 +184,12 @@ def add_current_user_ingredients():
     else:
         print("Ingredient name not found")
         
+            
     if ing == None:
         print("Ingredient not found")
-        abort(400)
+        ing = Ingredient(name=ingredient_name)
+        db.session.add(ing)
+        
     if user.is_authenticated:
         if ing not in user.ingredients:
             user.ingredients.append(ing)

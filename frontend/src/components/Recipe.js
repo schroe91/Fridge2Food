@@ -264,6 +264,9 @@ class Recipe extends Component {
             </ul>
             <h2>Steps:</h2>
             <p>
+	    {this.state.prep_steps.split("\n").map((i,key) => {
+		return <div key={key}>{i}</div>;
+	    })}
               <prep_steps prep = {this.state.prep_steps}></prep_steps>
             </p>
             <p>Date created: {this.state.date}</p>

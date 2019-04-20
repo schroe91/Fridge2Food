@@ -11,7 +11,7 @@ class CreateRecipe extends Component {
       recipe: '',
       name: '',
       modal: false,
-      ingredients: [{ name: "" }],
+	ingredients: '',//[{ name: "" }],
       calories: '',
       date: '',
       prep_time: '',
@@ -43,7 +43,7 @@ class CreateRecipe extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: recipe, ingredients: ingredients, calories: calories, carbs: '0', date: date,
+        name: recipe, ingredient_names: ingredients, calories: calories, carbs: '0', date: date,
         prep_time: prep_time, prep_steps: prep_steps, is_vegan: this.state.vegan,
           is_vegetarian: this.state.veg, is_glutenfree: this.state.gluten, fat: '0', protein: '0',
 	  image_url: image_url
@@ -79,7 +79,8 @@ class CreateRecipe extends Component {
   };
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+      this.setState({ [e.target.name]: e.target.value })
+      console.log("Name: " + e.target.name + ", value: "+e.target.value)
   };
 
   addnew(ingredient) {
@@ -106,14 +107,15 @@ class CreateRecipe extends Component {
   handleSubmit2 = (e) => {
     e.preventDefault();
       const { recipe, ingredients, calories, date, prep_time, prep_steps, image_url } = this.state;
-    ingredients.map((name) =>
+      
+    /*ingredients.map((name) =>
       //console.log(name)
       this.addnew(name.name)
-    );
-    const { ingredientsid } = this.state;
+    );*/
+    //const { ingredientsid } = this.state;
 
-    console.log("ing id = " + ingredientsid);
-      this.createRecipe(recipe, this.state.ingredientsid, calories, date, prep_time, prep_steps, image_url);
+      //console.log("ing id = " + ingredientsid);
+      this.createRecipe(recipe, ingredients, calories, date, prep_time, prep_steps, image_url);
 
   };
 
@@ -214,40 +216,19 @@ class CreateRecipe extends Component {
                 <div id="inputDiv">
                   <label htmlFor="mealtype">Meal Type</label>
                   <input type="text" className="forminput5" name="meal_type" id="meal_type" value={meal_type} />
-                </div>
-                <br></br>
-                <label htmlFor="Ingredients" id="ingList">List of Ingredients</label>
-                {this.state.ingredients.map((ingredient, idx) => (
-                  <div className="ingredient">
-                    <input
-                      type="text"
-                      className="ingInput"
-                      placeholder={`Ingredient ${idx + 1}`}
-                      value={ingredient.name}
-                      onChange={this.handleIngredientNameChange(idx)}
-                    />
-                    <button
-                      type="button"
-                      onClick={this.handleRemoveIngredient(idx)}
-                      className="small"
-                      id="removeIng"
-                    >
-                      -
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={this.handleAddIngredient}
-                  className="small"
-                  id="addIngButton"
-                >
-                  Add Ingredient
-                </button>
-                <br></br>
-                <div>
-                  <label htmlFor="prep_steps">Instructions:</label>
-                </div>
+            </div>
+	    <br></br>
+	    <div>
+	    <label htmlFor="ingredients">Ingredients</label>
+	    </div>
+	    <div>
+            
+            <textarea name="ingredients" cols="60" rows="4" id="ingredient_names"/>
+            </div>
+            <br></br>
+            <div>
+            <label htmlFor="prep_steps">Instructions:</label>
+            </div>
                 <div>
                   <textarea name="prep_steps" cols="60" rows="8" id="prep_steps" value={prep_steps} />
                 </div>
