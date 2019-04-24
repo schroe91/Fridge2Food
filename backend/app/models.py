@@ -79,7 +79,7 @@ class User(UserMixin, db.Model):
             'email': self.email,
             'ingredients': [i.to_dict() for i in self.ingredients],
             'avatar_url': self.avatar_url,
-            'favorite_recipes': [i.id for i in self.favorite_recipes],
+            'favorite_recipes': [i.to_dict() for i in self.favorite_recipes],
             'created_recipes': [{'id': r.id,
                                  'name': r.name} for r in self.created_recipes],
             'allergies': [i.to_dict() for i in self.allergies]

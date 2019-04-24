@@ -63,11 +63,12 @@ class Userpage extends Component {
           id: data.id,
           ingredients: data.ingredients,
           allergies: data.allergies,
-          favorites: data.favorites,
+          favorites: data.favorite_recipes,
           profile: data.avatar_url,
           userRecipes: data.created_recipes
         })
       })
+      console.log(this.state.favorites)
     this.getUserRecipes();
   }
 
