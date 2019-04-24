@@ -108,3 +108,10 @@ button.small:hover#removeIng {
 #image.button {
     margin-top: 0;
 }
+
+#backButton {
+    margin-left: auto;
+    font-size: 14px !important;
+    height: 34px !important;
+    top: 5px !important;
+}

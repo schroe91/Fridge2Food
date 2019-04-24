@@ -19,7 +19,7 @@ class Substitution extends Component {
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
           <div id="login">
-						<button className="button" id="login"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
+						<button className="button" id="backB"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
 					</div>
         </div>
         <div id="subs">
@@ -54,8 +54,8 @@ class Substitution extends Component {
           <p>1 cup Sour cream or plain yogurt</p>
           <h2>Shortening</h2>
           <p>1 cup Butter or margarine</p>
+          <Converters />
         </div>
-        <Converters />
       </div>
     )
   }

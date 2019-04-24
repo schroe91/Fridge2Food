@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 
 import logo from '../logo.png';
+import background from '../dynamic-style.png';
 
 import RecipeList from "./RecipeList"
 import NestedLogin from './nested.js'

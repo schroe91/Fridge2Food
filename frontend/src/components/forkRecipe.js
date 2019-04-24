@@ -129,7 +129,7 @@ toggleModal() {
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
           <div id="login">
-						<button className="button" id="login"><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
+						<button className="button" style={backButton}><NavLink exact to="/" activeClassName="active">Home</NavLink></button>
 		  </div>
         </div>
         <h2>Create New Recipe</h2>
@@ -207,4 +207,11 @@ export default forkRecipe;
 const style = {
   position: "absolute",
   width: "100%",
+}
+
+const backButton = {
+  marginLeft: "auto",
+  fontSize: "14px",
+  height: "34px",
+  top: "5px",
 }

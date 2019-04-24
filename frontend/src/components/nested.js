@@ -163,20 +163,21 @@ class NestedLogin extends React.Component {
         <Popup
           trigger={<button className="button" id="login">{this.state.isAuth ?<NavLink to ="/user" activeClassName="active">Manage Account</NavLink>: "Login"}</button>}
           position="bottom right"
+          id="popup"
           closeOnDocumentClick
         >
           <div>
             Enter login information
-          <input type="text" name="username" placeholder="Username" size="22"
+          <input type="text" name="username" placeholder="Username" id="userInput"
               onChange={this.handleChange} value={this.state.username} />
           </div>
           <div>
-            <input type="password" name="password" placeholder="Password" size="22"
+            <input type="password" name="password" placeholder="Password" id="passInput"
               onChange={this.handleChange} value={this.state.password} />
           </div>
           <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
           <Popup
-            trigger={<button type="submit" className="button" id="bStyle"> Forgot Password </button>}
+            trigger={<button type="submit" className="button" id="forgotPass"> Forgot Password </button>}
             position="bottom right"
             closeOnDocumentClick
           >
@@ -184,10 +185,10 @@ class NestedLogin extends React.Component {
               Enter your email
             <input type="text" name="email3" placeholder="Email" size="22"
                 onChange={this.handleChange} value={this.state.email3} />
-              <Button className="button" type="submit" onClick={this.handleSubmit3}>Forgot Password</Button>
+              <Button className="button" type="submit" id="forgotPass" onClick={this.handleSubmit3}>Forgot Password</Button>
             </div>
           </Popup>
-          <button className="button" id="bStyle" onClick={this.toggleModal}> Create new user </button>
+          <button className="button" id="newUserB" onClick={this.toggleModal}> Create new user </button>
           <Modal isOpen={this.state.modal} toggle={this.toggleModal} size="sm">
             <ModalHeader toggle={this.toggle}>Enter New User Info</ModalHeader>
             <ModalBody>

@@ -30,6 +30,7 @@
   padding-top: 15px;
   align-items: stretch;
   align-items: flex-start;
+  background-image: url("./dynamic-style.png");
 }
 
 h2 {

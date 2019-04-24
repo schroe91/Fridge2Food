@@ -188,7 +188,7 @@ class CreateRecipe extends Component {
           <img src={logo} alt="" id="logo" />
           <h2 id="title">Fridge2Food</h2>
           <div id="login">
-            <button className="button" id="login"><NavLink exact to="../../" activeClassName="active">Home</NavLink></button>
+            <button className="button" id="backButton"><NavLink exact to="../../" activeClassName="active">Home</NavLink></button>
           </div>
         </div>
         <div id="createRecipe">

@@ -19,3 +19,29 @@
     height: 80%;
     top: 2px;
 }
+
+#forgotPass.button {
+    font-size: 12px;
+}
+
+#newUserB.button {
+    font-size: 12px;
+}
+
+#newUserB {
+    margin-left: 19px;
+    margin-top: 0;
+}
+
+#userInput, #passInput {
+    width: 100%;
+    margin-top: 5px;
+}
+
+#passInput {
+    margin-bottom: 5px;
+}
+
+div.popup-content {
+    width: 215px !important;
+}

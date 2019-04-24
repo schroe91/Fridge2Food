@@ -162,7 +162,7 @@ class RecipeList extends React.Component {
     render() {
         return (
             <div id='a'>
-                <h3>Recipe List</h3>
+                <h3 style={{paddingTop: "10px"}}>Recipe List</h3>
                 {this.createCheckboxes()}
 		<ListGroup variant="flush">
 		<ListGroup.Item>
