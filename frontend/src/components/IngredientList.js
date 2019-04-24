@@ -51,7 +51,7 @@ class IngredientList extends React.Component {
 	    //check if in database
 	    //if(!this.inDatabase()){
 	    //	console.log("not in database");
-	    this.AddIngredienttoDatabase(this.state.name);//add to database
+	    //this.AddIngredienttoDatabase(this.state.name);//add to database
 	    //}
 	    fetch(link, {
 		method: "POST",
@@ -144,7 +144,8 @@ class IngredientList extends React.Component {
 	}
 
 	handleSubmit(ingredient) {
-		//Only update list if ingredient is not already in there
+	    //Only update list if ingredient is not already in there
+	    ingredient = ingredient.toLowerCase();
 		if (this.state.list.indexOf(ingredient) === -1) {
 			const newState = this.state;
 			newState.list.unshift(ingredient);

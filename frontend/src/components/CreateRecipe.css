@@ -94,11 +94,11 @@ button.small:hover#removeIng {
 }
 
 .ingredient {
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
 
 #addIngButton {
-    margin-bottom: 20px;
+   /* margin-bottom: 20px;*/
 }
 
 #submitButton {

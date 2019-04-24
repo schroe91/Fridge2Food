@@ -137,6 +137,16 @@ def add_recipe():
     if request.json.get('ingredients') != None:
         for i in request.json.get('ingredients'):
             recipe.ingredients.append(Ingredient.query.get(i))
+            
+    if request.json.get('ingredient_names') != None:
+        for i in request.json.get('ingredient_names').split(','):
+            i_name = i.lstrip()
+            ingredient = Ingredient.query.filter_by(name=i_name).first()
+            if ingredient == None:
+                ingredient = Ingredient(name=i_name)
+                db.session.add(ingredient)
+            recipe.ingredients.append(ingredient)
+            
     if request.json.get('image_url') != None:
         recipe.image_url = request.json.get('image_url')
     db.session.add(recipe)

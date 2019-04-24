@@ -18,6 +18,7 @@ def get_all_ingredients():
 
 @bp.route('/ingredients', methods=['POST'])
 def add_ingredient():
+    print("PING!")
     ingredient_name = request.json.get('name').lower()
     print(ingredient_name)
     if ingredient_name == None:
